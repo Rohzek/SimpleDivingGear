@@ -19,6 +19,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -43,10 +44,12 @@ public class SDiveGear extends ItemArmor
 	{	
 		if(!player.capabilities.isCreativeMode) 
 		{
-			ItemStack head = player.inventory.armorItemInSlot(3),
-					  chest = player.inventory.armorItemInSlot(2),
-					  legs = player.inventory.armorItemInSlot(1),
-					  feet = player.inventory.armorItemInSlot(0);
+			NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
+			
+			ItemStack head = armorSlots.get(3),
+					  chest = armorSlots.get(2),
+					  legs = armorSlots.get(1),
+					  feet = armorSlots.get(0);
 			
 			if(player.isInWater()) 
 			{
@@ -145,7 +148,11 @@ public class SDiveGear extends ItemArmor
 							oldFlySpeed = player.capabilities.getFlySpeed();
 						}
 						
-						player.capabilities.setFlySpeed(newFlySpeed);
+						if(world.isRemote) 
+						{
+							player.capabilities.setFlySpeed(newFlySpeed);
+						}
+						
 						player.capabilities.isFlying = true;
 					}
 				}
@@ -181,7 +188,11 @@ public class SDiveGear extends ItemArmor
 					
 					if(!player.capabilities.isCreativeMode && player.capabilities.isFlying) 
 					{
-						player.capabilities.setFlySpeed(oldFlySpeed);
+						if(world.isRemote) 
+						{
+							player.capabilities.setFlySpeed(oldFlySpeed);
+						}
+						
 						player.capabilities.isFlying = false;
 					}
 				}
