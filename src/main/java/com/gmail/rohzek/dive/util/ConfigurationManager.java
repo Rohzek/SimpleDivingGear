@@ -1,8 +1,8 @@
-package com.gmail.rohzek.util;
+package com.gmail.rohzek.dive.util;
 
 import java.io.File;
 
-import com.gmail.rohzek.lib.Reference;
+import com.gmail.rohzek.dive.lib.Reference;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

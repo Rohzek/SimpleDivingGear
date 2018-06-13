@@ -1,10 +1,10 @@
-package com.gmail.rohzek.armor;
+package com.gmail.rohzek.dive.armor;
 
 import java.util.Map;
 
-import com.gmail.rohzek.main.Main;
-import com.gmail.rohzek.util.ConfigurationManager;
-import com.gmail.rohzek.util.LogHelper;
+import com.gmail.rohzek.dive.main.Main;
+import com.gmail.rohzek.dive.util.ConfigurationManager;
+import com.gmail.rohzek.dive.util.LogHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;

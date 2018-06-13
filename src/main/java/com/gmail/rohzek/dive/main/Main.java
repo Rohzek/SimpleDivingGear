@@ -1,14 +1,14 @@
-package com.gmail.rohzek.main;
+package com.gmail.rohzek.dive.main;
 
 import java.io.File;
 
-import com.gmail.rohzek.creativetabs.STab;
-import com.gmail.rohzek.lib.Reference;
-import com.gmail.rohzek.proxy.CommonProxy;
-import com.gmail.rohzek.util.ConfigurationManager;
-import com.gmail.rohzek.util.LoadModData;
-import com.gmail.rohzek.util.LogHelper;
-import com.gmail.rohzek.util.TimeOutput;
+import com.gmail.rohzek.dive.creativetabs.STab;
+import com.gmail.rohzek.dive.lib.Reference;
+import com.gmail.rohzek.dive.proxy.CommonProxy;
+import com.gmail.rohzek.dive.util.ConfigurationManager;
+import com.gmail.rohzek.dive.util.LoadModData;
+import com.gmail.rohzek.dive.util.LogHelper;
+import com.gmail.rohzek.dive.util.TimeOutput;
 
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.Mod;

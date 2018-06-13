@@ -1,4 +1,4 @@
-package com.gmail.rohzek.util;
+package com.gmail.rohzek.dive.util;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

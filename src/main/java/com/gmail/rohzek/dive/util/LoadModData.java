@@ -1,6 +1,6 @@
-package com.gmail.rohzek.util;
+package com.gmail.rohzek.dive.util;
 
-import com.gmail.rohzek.lib.Reference;
+import com.gmail.rohzek.dive.lib.Reference;
 
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

@@ -1,6 +1,6 @@
-package com.gmail.rohzek.armor;
+package com.gmail.rohzek.dive.armor;
 
-import com.gmail.rohzek.lib.Reference;
+import com.gmail.rohzek.dive.lib.Reference;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.SoundEvents;

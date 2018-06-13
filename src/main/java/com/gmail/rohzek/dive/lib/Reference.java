@@ -1,4 +1,4 @@
-package com.gmail.rohzek.lib;
+package com.gmail.rohzek.dive.lib;
 
 import java.io.File;
 
@@ -28,10 +28,10 @@ public class Reference
 	public static File LOCATION; 
 	
 	// We only have to change it here... MCMOD.info is gone and the ModData is hardcoded to check here
-	public static final String VERSION = "1.0.2";
+	public static final String VERSION = "1.0.3";
 	
 	static String address = "com.gmail.rohzek.proxy";
 	
-	public static final String CLIENTSIDEPROXY = "com.gmail.rohzek.proxy.ClientProxy";
-	public static final String SERVERSIDEPROXY = "com.gmail.rohzek.proxy.CommonProxy";
+	public static final String CLIENTSIDEPROXY = "com.gmail.rohzek.dive.proxy.ClientProxy";
+	public static final String SERVERSIDEPROXY = "com.gmail.rohzek.dive.proxy.CommonProxy";
 }

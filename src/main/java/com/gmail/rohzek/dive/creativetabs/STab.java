@@ -1,4 +1,4 @@
-package com.gmail.rohzek.creativetabs;
+package com.gmail.rohzek.dive.creativetabs;
 
 import java.util.Collections;
 import java.util.Comparator;
