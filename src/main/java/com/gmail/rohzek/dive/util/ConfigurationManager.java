@@ -23,7 +23,7 @@ public class ConfigurationManager
 	
 	public ConfigurationManager(FMLPreInitializationEvent event)
 	{
-		optionsLoc = new File(Reference.LOCATION + "/options.cfg");
+		optionsLoc = new File(Reference.LOCATION + "/" + Reference.MODID + ".cfg");
 		
 		Configuration optionsConfig = new Configuration(optionsLoc);
 		options(optionsConfig);
@@ -37,7 +37,8 @@ public class ConfigurationManager
 		this.isDebug = config.get(debugCategory, "debugMode", false, "Enables more printouts to the chat. WARNING: Will spam the log file. Good for bug reports. Not recommended for regular play.").getBoolean(false);
 		
 		this.consumeAir = config.get(genCategory, "consumeAir", true, "If true, your air tank will drain while in use.").getBoolean(true);
-		this.timeToBreathe = config.getInt(genCategory, "minutesOfAir", 5, 1, 20, "Minutes of air in each tank");
+		// Default minutes of air is 5, minimum is 1, maximum is 60
+		this.timeToBreathe = config.getInt(genCategory, "minutesOfAir", 1, 1, 10, "Minutes of air in each tank");
 		
 		config.save();
 	}
