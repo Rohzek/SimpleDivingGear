@@ -42,8 +42,10 @@ public class SDiveGear extends ItemArmor
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) 
 	{	
-		if(!player.capabilities.isCreativeMode) 
+		if(!player.isCreative() && !player.isSpectator()) 
 		{
+			Block above = world.getBlockState(new BlockPos(player.getPosition().getX(), player.getPosition().getY() + 1, player.getPosition().getZ())).getBlock();
+			
 			NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
 			
 			ItemStack head = armorSlots.get(3),
@@ -53,157 +55,212 @@ public class SDiveGear extends ItemArmor
 			
 			if(player.isInWater()) 
 			{
-				Block above = world.getBlockState(new BlockPos(player.getPosition().getX(), player.getPosition().getY() + 1, player.getPosition().getZ())).getBlock();
+				addChanges(world, player, head, chest, legs, feet, above);
 				
-				// If just headlamp helmet, add night vision
-				if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER) 
+				if(above == Blocks.WATER) // Just standing in water shouldn't use air, only being underwater
 				{
-					player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 2, 0, false, false));
+					damageTank(chest, player);
 				}
-				
-				// If either helmet is on, grant respiration
-				if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET) || head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)))
+				else // If your head is above water, then you should still get air back
 				{
-					if(EnchantmentHelper.getEnchantments(head).get(Enchantments.RESPIRATION) == null)
-					{
-						head.addEnchantment(Enchantments.RESPIRATION, 1);
-					}
-				}
-				
-				// If the chest is on, grant aqua affinity
-				if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST)) 
-				{
-					if(EnchantmentHelper.getEnchantments(chest).get(Enchantments.AQUA_AFFINITY) == null)
-					{
-						chest.addEnchantment(Enchantments.AQUA_AFFINITY, 1);
-					}
-				}
-				
-				// If either helmet, and the chest is on, and you're underwater, grant water breathing
-				if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET) || 
-				   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) && chest != null && chest.getItem().equals(SArmor.DIVE_CHEST) && above == Blocks.WATER) 
-				{
-					player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 2, 0, false, false));
-					
-					/*
-					// Damage tank
-					if(ConfigurationManager.consumeAir) 
-					{
-						long current = loadCurrent(chest);
-						
-						// If has never been used, initialize it.
-						if(loadLastCheck(chest) == 0)
-						{
-							// Convert minutes to ms
-							long time = ((ConfigurationManager.timeToBreathe * 60) * 1000);
-							saveLastCheck(chest, time);
-						}
-						
-						if(current < 60000) 
-						{
-							current++;
-							saveCurrent(chest, current);
-						}
-						else
-						{
-							saveCurrent(chest, 0);
-							
-							long timer = loadLastCheck(chest) - 59999;
-							
-							LogHelper.log("Time left minute: " + timer / 1000 + " seconds: " + (timer / 1000) / 60);
-							
-							if(timer < 1000) 
-							{
-								chest.damageItem(chest.getMaxDamage(), player); // Break it
-							}
-							
-							else
-							{
-								// Remove 1 minute from time
-								saveLastCheck(chest, timer);
-								chest.damageItem(1, player);
-							}
-						}
-					}
-					*/
-				}
-				
-				// If boots are on, grant depth strider
-				if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS)) 
-				{
-					if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
-					{
-						feet.addEnchantment(Enchantments.DEPTH_STRIDER, 1);
-					}
-				}
-				
-				// If the boots and pants are on, grant easy movement through flying
-				if(legs != null && legs.getItem().equals(SArmor.DIVE_LEGS) && 
-				   feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS))
-				{
-					if(!player.capabilities.isCreativeMode && !player.capabilities.isFlying) 
-					{
-						if(oldFlySpeed == -1f)
-						{
-							oldFlySpeed = player.capabilities.getFlySpeed();
-						}
-						
-						if(world.isRemote) 
-						{
-							player.capabilities.setFlySpeed(newFlySpeed);
-						}
-						
-						player.capabilities.isFlying = true;
-					}
+					repairTank(chest, player);
 				}
 			}
 			
-			// If the player isn't in water, and is wearing any of the armor, remove all benefits and apply slow and mining fatigue
 			else 
 			{
-				if(head != null && head.getItem().equals(SArmor.DIVE_HELMET)||
-				   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) 
-				{
-					removeEnchantments(head);
-				}
+				removeChanges(world, player, head, chest, legs, feet);
 				
-				if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST)) 
-				{
-					removeEnchantments(chest);
-				}
+				repairTank(chest, player);
+			}
+		}
+	}
+	
+	private void addChanges(World world, EntityPlayer player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
+	{
+		
+		
+		// If just headlamp helmet, add night vision
+		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER) 
+		{
+			player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 2, 0, false, false));
+		}
+		
+		// If either helmet is on, grant respiration
+		if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET) || head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)))
+		{
+			if(EnchantmentHelper.getEnchantments(head).get(Enchantments.RESPIRATION) == null)
+			{
+				head.addEnchantment(Enchantments.RESPIRATION, 1);
+			}
+		}
+		
+		// If the chest is on, grant aqua affinity
+		if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST)) 
+		{
+			if(EnchantmentHelper.getEnchantments(chest).get(Enchantments.AQUA_AFFINITY) == null)
+			{
+				chest.addEnchantment(Enchantments.AQUA_AFFINITY, 1);
+			}
+		}
+		
+		// If either helmet, and the chest is on, and you're underwater, grant water breathing
+		if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET) || 
+		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) && 
+		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST) && above == Blocks.WATER &&
+		   (chest.getItemDamage() < (chest.getMaxDamage() - 40))) 
+		{
+			player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 2, 0, false, false));
+		}
+		
+		// If boots are on, grant depth strider
+		if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS)) 
+		{
+			if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
+			{
+				feet.addEnchantment(Enchantments.DEPTH_STRIDER, 1);
+			}
+		}
+		
+		// If the boots and pants are on, grant easy movement through flying
+		if(legs != null && legs.getItem().equals(SArmor.DIVE_LEGS) && 
+		   feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS))
+		{
+			if(oldFlySpeed == -1f)
+			{
+				oldFlySpeed = player.capabilities.getFlySpeed();
+			}
+			
+			if(world.isRemote) 
+			{
+				player.capabilities.setFlySpeed(newFlySpeed);
+			}
+			
+			player.capabilities.isFlying = true;
+		}
+	}
+	
+	private void removeChanges(World world, EntityPlayer player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
+	{
+		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET)||
+		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) 
+		{
+			removeEnchantments(head);
+		}
 				
-				if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS)) 
-				{
-					removeEnchantments(feet);
-				}
-				
-				if(head != null && head.getItem().equals(SArmor.DIVE_HELMET) ||
-				   head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) ||
-				   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST) ||
-				   legs != null && legs.getItem().equals(SArmor.DIVE_LEGS) || 
-				   feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS))
-				{
-					player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 0, false, false));
-					player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 2, 0, false, false));
-					
-					if(!player.capabilities.isCreativeMode && player.capabilities.isFlying) 
-					{
-						if(world.isRemote) 
-						{
-							player.capabilities.setFlySpeed(oldFlySpeed);
-						}
-						
-						player.capabilities.isFlying = false;
-					}
-				}
+		if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST)) 
+		{
+			removeEnchantments(chest);
+		}
+		
+		if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS)) 
+		{
+			removeEnchantments(feet);
+		}
+		
+		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET) ||
+		   head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) ||
+		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST) ||
+		   legs != null && legs.getItem().equals(SArmor.DIVE_LEGS) || 
+		   feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS))
+		{
+			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 0, false, false));
+			player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 2, 0, false, false));
+			
+			if(world.isRemote) 
+			{
+				player.capabilities.setFlySpeed(oldFlySpeed);
+			}
+			
+			if(!player.isSpectator() && !player.isCreative()) 
+			{
+				player.capabilities.isFlying = false;
+			}
+		}
+	}
+	
+	private void repairTank(ItemStack chest, EntityPlayer player) 
+	{
+		if(ConfigurationManager.consumeAir && chest.getItem().equals(SArmor.DIVE_CHEST)) 
+		{
+			// Convert minutes to seconds, and seconds to ms, since the world ticks in ms
+			int airDuration = ((ConfigurationManager.timeToBreathe * 60) * 1000);
+			
+			// If the current duration isn't set correctly, then set it
+			if(chest.getItem().getMaxDamage(chest) != airDuration) 
+			{
+				chest.getItem().setMaxDamage(airDuration);
+			}
+			
+			// Refill with air twice as fast as it loses it (E.G. If you get 1 full minute of air, it takes 30 full seconds to refill)
+			if(chest.getItemDamage() < chest.getMaxDamage()) 
+			{
+				chest.damageItem(-40, player);
+			}
+		}
+	}
+	
+	private void damageTank(ItemStack chest, EntityPlayer player) 
+	{
+		if(ConfigurationManager.consumeAir && chest.getItem().equals(SArmor.DIVE_CHEST)) 
+		{
+			// Convert minutes to seconds, and seconds to ms, since the world ticks in ms
+			int airDuration = ((ConfigurationManager.timeToBreathe * 60) * 1000);
+			
+			// If the current duration isn't set correctly, then set it
+			if(chest.getItem().getMaxDamage(chest) != airDuration) 
+			{
+				chest.getItem().setMaxDamage(airDuration);
+			}
+			
+			// Don't damage below '1', so we don't break the item
+			if(chest.getItemDamage() < (chest.getMaxDamage() - 21)) 
+			{
+				chest.damageItem(20, player);
 			}
 		}
 	}
 	
 	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) 
+	public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) 
 	{
+		EntityPlayer player = (EntityPlayer) entity;
+		Block above = world.getBlockState(new BlockPos(player.getPosition().getX(), player.getPosition().getY() + 1, player.getPosition().getZ())).getBlock();
 		removeEnchantments(stack);
+		
+		if(!player.isInWater()) // If you're not in water, then get air back
+		{
+			repairTank(stack, player);
+		}
+		else if(player.isInWater() && above != Blocks.WATER) // If you're in water but not not underwater, get air back
+		{
+			repairTank(stack, player);
+		}
+		
+		// Remove the ability to still fly, if the armor is removed underwater
+		if(!player.isCreative() && !player.isSpectator() && player.capabilities.isFlying) 
+		{
+			NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
+			
+			ItemStack head = armorSlots.get(3),
+					  chest = armorSlots.get(2),
+					  legs = armorSlots.get(1),
+					  feet = armorSlots.get(0);
+			
+			if(legs != null && !legs.getItem().equals(SArmor.DIVE_LEGS) ||
+			   feet != null && !feet.getItem().equals(SArmor.DIVE_BOOTS)) 
+			{
+				if(world.isRemote) 
+				{
+					player.capabilities.setFlySpeed(oldFlySpeed);
+				}
+				
+				if(!player.isSpectator() && !player.isCreative()) 
+				{
+					player.capabilities.isFlying = false;
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -237,56 +294,6 @@ public class SDiveGear extends ItemArmor
 				EnchantmentHelper.setEnchantments(enchants, stack);
 			}
 		}
-	}
-	
-	public long loadLastCheck(ItemStack stack)
-	{
-		NBTTagCompound data = stack.getTagCompound();
-		long time = 0;
-		
-		if(data.hasKey("lastTime"))
-		{
-			time = data.getLong("lastTime");
-		}
-		
-		return time;
-	}
-	
-	public void saveLastCheck(ItemStack stack, long time) 
-	{
-		NBTTagCompound data = stack.getTagCompound();
-		
-		if(data == null)
-		{
-			data = new NBTTagCompound();
-		}
-		
-		data.setLong("lastTime", time);
-	}
-	
-	public long loadCurrent(ItemStack stack)
-	{
-		NBTTagCompound data = stack.getTagCompound();
-		long time = 0;
-		
-		if(data.hasKey("currentCheck"))
-		{
-			time = data.getLong("currentCheck");
-		}
-		
-		return time;
-	}
-	
-	public void saveCurrent(ItemStack stack, long time) 
-	{
-		NBTTagCompound data = stack.getTagCompound();
-		
-		if(data == null)
-		{
-			data = new NBTTagCompound();
-		}
-		
-		data.setLong("currentCheck", time);
 	}
 	
 	@Override

@@ -36,13 +36,13 @@ public class Main
 		LogHelper.log("Hello Minecraft, how are you? Did you know that Tony loves Amy? " + TimeOutput.getTimeTogether());
 		
 		LogHelper.debug("Beginning Pre-Initialization");
-		Reference.LOCATION = new File(preEvent.getModConfigurationDirectory().getAbsolutePath() + "/" + Reference.MODID);
+		Reference.LOCATION = new File(preEvent.getModConfigurationDirectory().getAbsolutePath() + "/");
 		
 		LogHelper.debug("Loading MCMOD replacement info");
 		LoadModData.load(preEvent);
 		
 		// Configuration file loader
-		//ConfigurationManager manager = new ConfigurationManager(preEvent);
+		ConfigurationManager manager = new ConfigurationManager(preEvent);
 		
 		LogHelper.debug("Pre-Initialization Complete");
 	}
