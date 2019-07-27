@@ -97,8 +97,6 @@ public class SDiveGear extends ItemArmor
 	
 	private void addChanges(World world, EntityPlayer player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
 	{
-		
-		
 		// If just headlamp helmet, add night vision
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER) 
 		{
@@ -305,7 +303,7 @@ public class SDiveGear extends ItemArmor
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean isRepairable() 
 	{

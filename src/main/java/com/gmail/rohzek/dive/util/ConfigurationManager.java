@@ -4,7 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ConfigurationManager
 {
-	private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+	  private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final General GENERAL = new General(BUILDER);
     public static final ForgeConfigSpec spec = BUILDER.build();
 
