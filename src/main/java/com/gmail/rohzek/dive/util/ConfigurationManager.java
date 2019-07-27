@@ -1,45 +1,45 @@
 package com.gmail.rohzek.dive.util;
 
-import java.io.File;
-
-import com.gmail.rohzek.dive.lib.Reference;
-
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ConfigurationManager
 {
-	public static File optionsLoc;
-	
-	public static boolean isDebug;
-	
-	public static boolean consumeAir;
-	public static int timeToBreathe;
-	
-	public static String genCategory = "general";
-	public static String debugCategory = "debug";
-	public static String modCategory = "compatibility";
-	public static String ovrCategory = "overrides";
-	
-	public ConfigurationManager(FMLPreInitializationEvent event)
-	{
-		optionsLoc = new File(Reference.LOCATION + "/" + Reference.MODID + ".cfg");
-		
-		Configuration optionsConfig = new Configuration(optionsLoc);
-		options(optionsConfig);
-	}
-	
+	  private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    public static final General GENERAL = new General(BUILDER);
+    public static final ForgeConfigSpec spec = BUILDER.build();
 
-	private void options(Configuration config)
-	{
-		config.load();
-		
-		this.isDebug = config.get(debugCategory, "debugMode", false, "Enables more printouts to the chat. WARNING: Will spam the log file. Good for bug reports. Not recommended for regular play.").getBoolean(false);
-		
-		this.consumeAir = config.get(genCategory, "consumeAir", true, "If true, your air tank will drain while in use.").getBoolean(true);
-		// Default minutes of air is 5, minimum is 1, maximum is 60
-		this.timeToBreathe = config.getInt(genCategory, "minutesOfAir", 1, 1, 10, "Minutes of air in each tank");
-		
-		config.save();
-	}
+    public static class General 
+    {
+    	public final ForgeConfigSpec.ConfigValue<Boolean> isDebug;
+        public final ForgeConfigSpec.ConfigValue<Boolean> consumeAir;
+        public final ForgeConfigSpec.ConfigValue<Integer> minutesOfAir;
+        public final ForgeConfigSpec.ConfigValue<Integer> regainAirSpeed;
+
+        public General(ForgeConfigSpec.Builder builder) 
+        {
+            builder.push("General");
+            
+            isDebug = builder
+                    .comment("Enables/Disables debug mode (SPAMS LOGS! Is for detailed bug reports; You probably don't want this for normal play) [false/true|default:false]")
+                    .translation("debugmode.simpledivegear.config")
+                    .define("isDebug", false);
+            
+            consumeAir = builder
+                    .comment("Enables/Disables the limited air system [false/true|default:true]")
+                    .translation("shouldconsumeair.simpledivegear.config")
+                    .define("consumeAir", true);
+            
+            minutesOfAir = builder
+                    .comment("How many minutes of air do you have on one tank [1..10|default:2]")
+                    .translation("minutespertank.simpledivegear.config")
+                    .defineInRange("minutesOfAir", 2, 1, 10);
+            
+            regainAirSpeed = builder
+                    .comment("How quickly should the air return 1x the speed it takes to lose it, 2x the speed, etc. [1..4|default:2]")
+                    .translation("minutespertank.simpledivegear.config")
+                    .defineInRange("regainAirSpeed", 2, 1, 4);
+            
+            builder.pop();
+        }
+    }
 }

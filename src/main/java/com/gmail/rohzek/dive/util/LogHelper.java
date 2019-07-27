@@ -1,11 +1,8 @@
 package com.gmail.rohzek.dive.util;
 
-import java.util.logging.Logger;
 import org.apache.logging.log4j.Level;
-
-import com.gmail.rohzek.dive.lib.Reference;
-
-import net.minecraftforge.fml.common.FMLLog;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Allows easy logging to console by calling "Logger.log("string"); or Logger.debug("string"); anywhere
@@ -14,25 +11,25 @@ import net.minecraftforge.fml.common.FMLLog;
  */
 public class LogHelper
 {
-	private static Logger logger = Logger.getLogger(Reference.LOG); // Not used anymore, ignore it
+	private static final Logger LOGGER = LogManager.getLogger();
 	
 	// General logging, allows you to choose log level to control displaying
     public static void log(Level logLevel, String string)
     {
-        FMLLog.log(Reference.LOG, logLevel, string);
+    	LOGGER.log(logLevel, string);
     }
  // General logging, will show up in the console regardless
     public static void log(String string)
     {
-        FMLLog.log(Reference.LOG, Level.INFO, string);
+    	LOGGER.log(Level.INFO, string);
     }
 
     // This is a normal printout but only if my debug config is true.. Allows us to check something, and forget about it for the release
     public static void debug(String string)
     {
-    	if(ConfigurationManager.isDebug)
+    	if(ConfigurationManager.GENERAL.isDebug.get())
     	{
-    		FMLLog.log(Reference.LOG, Level.INFO, string);
+    		LOGGER.log(Level.INFO, string);
     	}
     }
     
@@ -64,7 +61,7 @@ public class LogHelper
 
     public static void trace(String string)
     {
-        if (ConfigurationManager.isDebug)
+        if (ConfigurationManager.GENERAL.isDebug.get())
         {
             log(Level.TRACE, string);
         }
