@@ -11,33 +11,32 @@ import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Enchantments;
-import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class SDiveGear extends ItemArmor
+public class SDiveGear extends ArmorItem
 {
 	float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
-	public SDiveGear(String name, IArmorMaterial mat, EntityEquipmentSlot equipSlot) 
+	public SDiveGear(String name, IArmorMaterial mat, EquipmentSlotType equipSlot) 
 	{
 		super(mat, equipSlot, new Item.Properties().group(Main.DIVE_GEAR_TAB).maxStackSize(1));
 		setNames(name);
@@ -55,7 +54,7 @@ public class SDiveGear extends ItemArmor
 	}
 	
 	@Override
-	public void onArmorTick(ItemStack stack, World world, EntityPlayer player) 
+	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) 
 	{
 		if(!player.isCreative() && !player.isSpectator()) 
 		{
@@ -95,12 +94,14 @@ public class SDiveGear extends ItemArmor
 		}
 	}
 	
-	private void addChanges(World world, EntityPlayer player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
+	private void addChanges(World world, PlayerEntity player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
 	{
+		
+		
 		// If just headlamp helmet, add night vision
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER) 
 		{
-			player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 2, 0, false, false));
+			player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
 		}
 		
 		// If either helmet is on, grant respiration
@@ -127,7 +128,7 @@ public class SDiveGear extends ItemArmor
 		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST) && above == Blocks.WATER &&
 		   (chest.getDamage() < (chest.getMaxDamage() - 40))) 
 		{
-			player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 2, 0, false, false));
+			player.addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, 2, 0, false, false));
 		}
 		
 		// If boots are on, grant depth strider
@@ -157,7 +158,7 @@ public class SDiveGear extends ItemArmor
 		}
 	}
 	
-	private void removeChanges(World world, EntityPlayer player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
+	private void removeChanges(World world, PlayerEntity player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
 	{
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET)||
 		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) 
@@ -181,8 +182,8 @@ public class SDiveGear extends ItemArmor
 		   legs != null && legs.getItem().equals(SArmor.DIVE_LEGS) || 
 		   feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS))
 		{
-			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 0, false, false));
-			player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 2, 0, false, false));
+			player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2, 0, false, false));
+			player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 2, 0, false, false));
 			
 			if(world.isRemote) 
 			{
@@ -196,7 +197,7 @@ public class SDiveGear extends ItemArmor
 		}
 	}
 	
-	private void repairTank(ItemStack chest, EntityPlayer player) 
+	private void repairTank(ItemStack chest, PlayerEntity player) 
 	{
 		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST)) 
 		{
@@ -205,19 +206,19 @@ public class SDiveGear extends ItemArmor
 			// But we allow up to 4 times faster
 			if(chest.getDamage() < chest.getMaxDamage()) 
 			{
-				chest.damageItem(-(20 * ConfigurationManager.GENERAL.regainAirSpeed.get()), player);
+				chest.damageItem(-(20 * ConfigurationManager.GENERAL.regainAirSpeed.get()), player, null);
 			}
 		}
 	}
 	
-	private void damageTank(ItemStack chest, EntityPlayer player) 
+	private void damageTank(ItemStack chest, PlayerEntity player) 
 	{
 		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST)) 
 		{	
 			// We don't want to break the item, so only lower if we still have room to lower
 			if(chest.getDamage() < (chest.getMaxDamage() - 21)) 
 			{
-				chest.damageItem(20, player);
+				chest.damageItem(20, player, null);
 				// If air tank is equipped underwater, after they've been breathing for awhile, refill the air instantly.
 				player.setAir(player.getMaxAir());
 			}
@@ -229,7 +230,7 @@ public class SDiveGear extends ItemArmor
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) 
 	{
-		EntityPlayer player = (EntityPlayer) entity;
+		PlayerEntity player = (PlayerEntity) entity;
 		Block above = world.getBlockState(new BlockPos(player.getPosition().getX(), player.getPosition().getY() + 1, player.getPosition().getZ())).getBlock();
 		removeEnchantments(stack);
 		
@@ -271,7 +272,7 @@ public class SDiveGear extends ItemArmor
 	}
 	
 	@Override
-	public boolean onEntityItemUpdate(ItemStack stack, EntityItem entity) 
+	public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) 
 	{
 		removeEnchantments(entity.getItem());
 		return false;
@@ -303,9 +304,9 @@ public class SDiveGear extends ItemArmor
 			}
 		}
 	}
-
+	
 	@Override
-	public boolean isRepairable() 
+	public boolean isRepairable(ItemStack stack) 
 	{
 		return false;
 	}
@@ -324,21 +325,22 @@ public class SDiveGear extends ItemArmor
 	}
 	
 	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) 
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) 
 	{
 		// Have to return the exact path to the armor, just passing standard resource location won't work
-		return Reference.RESOURCEID + "textures/models/armor/divegear" + (slot == EntityEquipmentSlot.LEGS ? "_layer_2" : "_layer_1") + ".png";
+		return Reference.RESOURCEID + "textures/models/armor/divegear" + (slot == EquipmentSlotType.LEGS ? "_layer_2" : "_layer_1") + ".png";
 	}
 	
 	@Override
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        //super.addInformation(stack, worldIn, tooltip, flagIn);
-        
         if(stack.getItem() == SArmor.DIVE_CHEST) 
         {
-        	if(ConfigurationManager.GENERAL.consumeAir.get()) 
+        	// Apparently accessing the configuration file here crashes the game
+        	// Even though it worked perfectly fine in 1.13
+        	/*
+        	if(ConfigurationManager.GENERAL.consumeAir.get())
             {
             	long miliseconds = stack.getMaxDamage() - stack.getDamage();
             	long minutes = (miliseconds / 1000) / 60;
@@ -346,13 +348,14 @@ public class SDiveGear extends ItemArmor
                 
             	if(minutes == 0 && seconds == 0 && stack.getDamage() == stack.getMaxDamage() - 20) 
             	{
-            		tooltip.add(new TextComponentString("Air Tank Empty"));
+            		tooltip.add(new StringTextComponent("Air Tank Empty"));
             	}
             	else
             	{
-            		tooltip.add(new TextComponentString("Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
+            		tooltip.add(new StringTextComponent("Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
             	}
             }
+            */
         }
     }
 }

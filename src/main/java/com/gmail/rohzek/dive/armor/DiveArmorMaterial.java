@@ -1,11 +1,11 @@
 package com.gmail.rohzek.dive.armor;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.block.Blocks;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -38,13 +38,13 @@ public enum DiveArmorMaterial implements IArmorMaterial
 	}
 	
 	@Override
-	public int getDurability(EntityEquipmentSlot slotIn) 
+	public int getDurability(EquipmentSlotType slotIn) 
 	{
 		return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
 	}
 
 	@Override
-	public int getDamageReductionAmount(EntityEquipmentSlot slotIn) 
+	public int getDamageReductionAmount(EquipmentSlotType slotIn) 
 	{
 		return this.damageReductionAmountArray[slotIn.getIndex()];
 	}
