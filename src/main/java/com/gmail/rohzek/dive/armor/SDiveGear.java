@@ -76,8 +76,12 @@ public class SDiveGear extends ItemArmor
 				// Just standing in water shouldn't use air, only being underwater
 				if(above == Blocks.WATER || above == Blocks.SEAGRASS) // Check if we're in seagrass, too
 				{
-					LogHelper.debug("I'm underwater, damage the air tank!");
-					damageTank(chest, player);
+					// Only damage the tank if we're consuming air, which we can only do with a helmet and the chest piece
+					if((head.getItem() == SArmor.DIVE_HELMET || head.getItem() == SArmor.DIVE_HELMET_LIGHTS) && chest.getItem() == SArmor.DIVE_CHEST) 
+					{
+						LogHelper.debug("I'm underwater, damage the air tank!");
+						damageTank(chest, player);
+					}
 				}
 				else // If your head is above water, then you should still get air back
 				{
@@ -97,6 +101,8 @@ public class SDiveGear extends ItemArmor
 	
 	private void addChanges(World world, EntityPlayer player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
 	{
+		
+		
 		// If just headlamp helmet, add night vision
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER) 
 		{
@@ -303,7 +309,7 @@ public class SDiveGear extends ItemArmor
 			}
 		}
 	}
-
+	
 	@Override
 	public boolean isRepairable() 
 	{

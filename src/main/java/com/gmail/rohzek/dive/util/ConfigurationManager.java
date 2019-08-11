@@ -4,7 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ConfigurationManager
 {
-	  private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+	private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final General GENERAL = new General(BUILDER);
     public static final ForgeConfigSpec spec = BUILDER.build();
 
@@ -12,6 +12,7 @@ public class ConfigurationManager
     {
     	public final ForgeConfigSpec.ConfigValue<Boolean> isDebug;
         public final ForgeConfigSpec.ConfigValue<Boolean> consumeAir;
+        public final ForgeConfigSpec.ConfigValue<Boolean> displayAirRemaining;
         public final ForgeConfigSpec.ConfigValue<Integer> minutesOfAir;
         public final ForgeConfigSpec.ConfigValue<Integer> regainAirSpeed;
 
@@ -38,6 +39,11 @@ public class ConfigurationManager
                     .comment("How quickly should the air return 1x the speed it takes to lose it, 2x the speed, etc. [1..4|default:2]")
                     .translation("minutespertank.simpledivegear.config")
                     .defineInRange("regainAirSpeed", 2, 1, 4);
+            
+            displayAirRemaining = builder
+                    .comment("Enables/Disables the rendering of air time left in tank [false/true|default:true]")
+                    .translation("displayAirRemaining.simpledivegear.config")
+                    .define("displayAirRemaining", true);
             
             builder.pop();
         }
