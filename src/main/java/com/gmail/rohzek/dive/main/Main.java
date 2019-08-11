@@ -5,12 +5,15 @@ import java.io.File;
 import com.gmail.rohzek.dive.creativetabs.STab;
 import com.gmail.rohzek.dive.lib.Reference;
 import com.gmail.rohzek.dive.proxy.CommonProxy;
+import com.gmail.rohzek.dive.render.AirCounter;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LoadModData;
 import com.gmail.rohzek.dive.util.LogHelper;
 import com.gmail.rohzek.dive.util.TimeOutput;
 
 import net.minecraft.init.Blocks;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -40,8 +43,8 @@ public class Main
 		
 		LogHelper.debug("Loading MCMOD replacement info");
 		LoadModData.load(preEvent);
-		
-		// Configuration file loader
+
+		LogHelper.debug("Loading config files");
 		ConfigurationManager manager = new ConfigurationManager(preEvent);
 		
 		LogHelper.debug("Pre-Initialization Complete");

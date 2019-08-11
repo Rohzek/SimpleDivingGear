@@ -1,5 +1,6 @@
 package com.gmail.rohzek.dive.armor;
 
+import java.util.List;
 import java.util.Map;
 
 import com.gmail.rohzek.dive.main.Main;
@@ -7,6 +8,9 @@ import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -59,7 +63,11 @@ public class SDiveGear extends ItemArmor
 				
 				if(above == Blocks.WATER) // Just standing in water shouldn't use air, only being underwater
 				{
-					damageTank(chest, player);
+					// Only damage the tank if we're consuming air, which we can only do with a helmet and the chest piece
+					if((head.getItem() == SArmor.DIVE_HELMET || head.getItem() == SArmor.DIVE_HELMET_LIGHTS) && chest.getItem() == SArmor.DIVE_CHEST) 
+					{
+						damageTank(chest, player);
+					}
 				}
 				else // If your head is above water, then you should still get air back
 				{
@@ -294,6 +302,29 @@ public class SDiveGear extends ItemArmor
 				EnchantmentHelper.setEnchantments(enchants, stack);
 			}
 		}
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) 
+	{
+		if(stack.getItem() == SArmor.DIVE_CHEST) 
+        {
+        	if(ConfigurationManager.consumeAir) 
+            {
+            	long miliseconds = stack.getMaxDamage() - stack.getItemDamage();
+            	long minutes = (miliseconds / 1000) / 60;
+            	long seconds = (miliseconds / 1000) % 60;
+                
+            	if(minutes == 0 && seconds == 0 && stack.getItemDamage() == stack.getMaxDamage() - 20) 
+            	{
+            		tooltip.add("Air Tank Empty");
+            	}
+            	else
+            	{
+            		tooltip.add("Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds));
+            	}
+            }
+        }
 	}
 	
 	@Override
