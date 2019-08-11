@@ -75,8 +75,12 @@ public class SDiveGear extends ArmorItem
 				// Just standing in water shouldn't use air, only being underwater
 				if(above == Blocks.WATER || above == Blocks.SEAGRASS) // Check if we're in seagrass, too
 				{
-					LogHelper.debug("I'm underwater, damage the air tank!");
-					damageTank(chest, player);
+					// Only damage the tank if we're consuming air, which we can only do with a helmet and the chest piece
+					if((head.getItem() == SArmor.DIVE_HELMET || head.getItem() == SArmor.DIVE_HELMET_LIGHTS) && chest.getItem() == SArmor.DIVE_CHEST) 
+					{
+						LogHelper.debug("I'm underwater, damage the air tank!");
+						damageTank(chest, player);
+					}
 				}
 				else // If your head is above water, then you should still get air back
 				{
