@@ -4,6 +4,7 @@ import com.gmail.rohzek.dive.armor.SArmor;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,7 +18,7 @@ public class AirCounter
 {
 	private static Minecraft mc = Minecraft.getInstance();
 	private static float x = 0f, y = 0f;
-	private static float topOfGUI = 69f;
+	//private static float topOfGUI = 69f;
 	private static String display = "";
 	
 	@SubscribeEvent
@@ -37,12 +38,14 @@ public class AirCounter
 	                
 	            	if(minutes == 0 && seconds == 0 && chest.getDamage() == chest.getMaxDamage() - 20) 
 	            	{
-	            		display = "Air Tank Empty";
+	            		//display = "Air Tank Empty";
+	            		display = I18n.format("display.simpledivegear.airempty");
 	            		mc.fontRenderer.drawStringWithShadow(display, getXCenter(display), getYCenter(display), 0xFFFFFFFF);
 	            	}
 	            	else
 	            	{
-	            		display = "Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds);
+	            		//display = "Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds);
+	            		display = I18n.format("display.simpledivegear.airleft") + ": " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds);
 	            		mc.fontRenderer.drawStringWithShadow(display, getXCenter(display), getYCenter(display), 0xFFFFFFFF);
 	            	}
 				}
@@ -52,13 +55,24 @@ public class AirCounter
 	
 	public static float getXCenter(String text)
 	{
+		if(ConfigurationManager.GENERAL.airRemainingCustomLocation.get()) 
+		{
+			return ConfigurationManager.GENERAL.airDisplayCustomX.get();
+		}
+		
 		x = mc.mainWindow.getScaledWidth();
 		return ((x - mc.fontRenderer.getStringWidth(text)) / 2);
 	}
 	
 	public static float getYCenter(String text) 
 	{
+		if(ConfigurationManager.GENERAL.airRemainingCustomLocation.get()) 
+		{
+			return ConfigurationManager.GENERAL.airDisplayCustomY.get();
+		}
+		
 		y = mc.mainWindow.getScaledHeight();
-		return (y - topOfGUI);
+		return (y - ((Float) ConfigurationManager.GENERAL.airDisplayVerticalAlignment.get()));
+		//return (y - topOfGUI);
 	}
 }

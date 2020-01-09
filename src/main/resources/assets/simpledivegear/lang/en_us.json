@@ -1,8 +1,11 @@
 {
 	"itemGroup.diveGearTab": "Simple Dive Gear",
+	"item.simpledivegear.divehelmetcore": "Diving Helmet Core",
 	"item.simpledivegear.divehelmet": "Diving Helmet",
 	"item.simpledivegear.divehelmetlighted": "Diving Helmet (Headlamp)",
 	"item.simpledivegear.divechest": "Air Tank",
 	"item.simpledivegear.divelegs": "Diving Pants",
-	"item.simpledivegear.diveboots": "Flippers"
+	"item.simpledivegear.diveboots": "Flippers",
+	"display.simpledivegear.airleft": "Air Left",
+	"display.simpledivegear.airempty": "Air Tank Empty"
 }
