@@ -24,7 +24,7 @@ public class AirCounter
 	@SubscribeEvent
 	public static void render(RenderGameOverlayEvent.Post event)
 	{
-		if(ConfigurationManager.GENERAL.displayAirRemaining.get() && ConfigurationManager.GENERAL.consumeAir.get()) 
+		if(ConfigurationManager.GENERAL.displayAirRemaining.get() && ConfigurationManager.GENERAL.consumeAir.get() && !mc.player.isCreative()) 
 		{
 			if (event.getType() == ElementType.TEXT) 
 			{	
@@ -60,7 +60,8 @@ public class AirCounter
 			return ConfigurationManager.GENERAL.airDisplayCustomX.get();
 		}
 		
-		x = mc.mainWindow.getScaledWidth();
+		//x = mc.mainWindow.getScaledWidth();
+		x = mc.func_228018_at_().getScaledWidth();
 		return ((x - mc.fontRenderer.getStringWidth(text)) / 2);
 	}
 	
@@ -71,7 +72,8 @@ public class AirCounter
 			return ConfigurationManager.GENERAL.airDisplayCustomY.get();
 		}
 		
-		y = mc.mainWindow.getScaledHeight();
+		//y = mc.mainWindow.getScaledHeight();
+		y = mc.func_228018_at_().getScaledHeight();
 		return (y - ((Float) ConfigurationManager.GENERAL.airDisplayVerticalAlignment.get()));
 		//return (y - topOfGUI);
 	}
