@@ -13,6 +13,10 @@ public class ConfigurationManager
     	public final ForgeConfigSpec.ConfigValue<Boolean> isDebug;
         public final ForgeConfigSpec.ConfigValue<Boolean> consumeAir;
         public final ForgeConfigSpec.ConfigValue<Boolean> displayAirRemaining;
+        public final ForgeConfigSpec.ConfigValue<Float> airDisplayVerticalAlignment;
+        public final ForgeConfigSpec.ConfigValue<Boolean> airRemainingCustomLocation;
+        public final ForgeConfigSpec.ConfigValue<Integer> airDisplayCustomX;
+        public final ForgeConfigSpec.ConfigValue<Integer> airDisplayCustomY;
         public final ForgeConfigSpec.ConfigValue<Integer> minutesOfAir;
         public final ForgeConfigSpec.ConfigValue<Integer> regainAirSpeed;
 
@@ -42,8 +46,28 @@ public class ConfigurationManager
             
             displayAirRemaining = builder
                     .comment("Enables/Disables the rendering of air time left in tank [false/true|default:true]")
-                    .translation("displayAirRemaining.simpledivegear.config")
+                    .translation("displayairremaining.simpledivegear.config")
                     .define("displayAirRemaining", true);
+            
+            airDisplayVerticalAlignment = builder
+                    .comment("Vertical alignment of the air display text. Is a float, so a number + f is required. Ignored when custom location is enabled [default:69f]")
+                    .translation("displaycustomx.simpledivegear.config")
+                    .define("airDisplayVerticalAlignment", 69f);
+            
+            airRemainingCustomLocation = builder
+                    .comment("Enables/Disables a custom location for the air display [false/true|default:false]")
+                    .translation("airremainingcustomlocation.simpledivegear.config")
+                    .define("airRemainingCustomLocation", false);
+            
+            airDisplayCustomX = builder
+                    .comment("Allows for a completely custom X value for the location of the air counter. Is resolution dependant! [default:0]")
+                    .translation("displaycustomx.simpledivegear.config")
+                    .define("airDisplayCustomX", 0);
+            
+            airDisplayCustomY = builder
+                    .comment("Allows for a completely custom Y value for the location of the air counter. Is resolution dependant! [default:0]")
+                    .translation("displaycustomy.simpledivegear.config")
+                    .define("airDisplayCustomY", 0);
             
             builder.pop();
         }
