@@ -1,11 +1,11 @@
 {
-	"itemGroup.diveGearTab": "Simple Dive Gear",
-	"item.simpledivegear.divehelmetcore": "هسته کلاه غواصی",
+	"itemGroup.diveGearTab": "تجهیزات اولیه‌ی غواصی",
+	"item.simpledivegear.divehelmetcore": "مواد اولیه‌ی کلاه غواصی",
 	"item.simpledivegear.divehelmet": "کلاه غواصی",
-	"item.simpledivegear.divehelmetlighted": "ککلاه غواصی (چراغهای جلو)",
-	"item.simpledivegear.divechest": "مخزن اکسیژن غواصی",
-	"item.simpledivegear.divelegs": "کت و شلوار اسکوب",
-	"item.simpledivegear.diveboots": "باله های غواصی",
-	"display.simpledivegear.airleft": "باقیمانده هوا",
-	"display.simpledivegear.airempty": "مخزن غواصی خالی است"
+	"item.simpledivegear.divehelmetlighted": "کلاه غواصی (چراغدار)",
+	"item.simpledivegear.divechest": "مخزن هوا",
+	"item.simpledivegear.divelegs": "لباس غواصی",
+	"item.simpledivegear.diveboots": "باله‌های غواصی",
+	"display.simpledivegear.airleft": "هوای باقیمانده",
+	"display.simpledivegear.airempty": "مخزن هوا خالی است"
 }

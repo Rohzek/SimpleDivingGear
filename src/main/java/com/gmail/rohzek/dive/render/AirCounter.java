@@ -18,7 +18,6 @@ public class AirCounter
 {
 	private static Minecraft mc = Minecraft.getInstance();
 	private static float x = 0f, y = 0f;
-	//private static float topOfGUI = 69f;
 	private static String display = "";
 	
 	@SubscribeEvent
@@ -38,13 +37,11 @@ public class AirCounter
 	                
 	            	if(minutes == 0 && seconds == 0 && chest.getDamage() == chest.getMaxDamage() - 20) 
 	            	{
-	            		//display = "Air Tank Empty";
 	            		display = I18n.format("display.simpledivegear.airempty");
 	            		mc.fontRenderer.drawStringWithShadow(display, getXCenter(display), getYCenter(display), 0xFFFFFFFF);
 	            	}
 	            	else
 	            	{
-	            		//display = "Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds);
 	            		display = I18n.format("display.simpledivegear.airleft") + ": " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds);
 	            		mc.fontRenderer.drawStringWithShadow(display, getXCenter(display), getYCenter(display), 0xFFFFFFFF);
 	            	}
@@ -59,8 +56,6 @@ public class AirCounter
 		{
 			return ConfigurationManager.GENERAL.airDisplayCustomX.get();
 		}
-		
-		//x = mc.mainWindow.getScaledWidth();
 		x = mc.func_228018_at_().getScaledWidth();
 		return ((x - mc.fontRenderer.getStringWidth(text)) / 2);
 	}
@@ -71,10 +66,7 @@ public class AirCounter
 		{
 			return ConfigurationManager.GENERAL.airDisplayCustomY.get();
 		}
-		
-		//y = mc.mainWindow.getScaledHeight();
 		y = mc.func_228018_at_().getScaledHeight();
 		return (y - ((Float) ConfigurationManager.GENERAL.airDisplayVerticalAlignment.get()));
-		//return (y - topOfGUI);
 	}
 }

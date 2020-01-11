@@ -19,6 +19,7 @@ public class ConfigurationManager
         public final ForgeConfigSpec.ConfigValue<Integer> airDisplayCustomY;
         public final ForgeConfigSpec.ConfigValue<Integer> minutesOfAir;
         public final ForgeConfigSpec.ConfigValue<Integer> regainAirSpeed;
+        public final ForgeConfigSpec.ConfigValue<Boolean> invincibleArmor;
 
         public General(ForgeConfigSpec.Builder builder) 
         {
@@ -68,6 +69,11 @@ public class ConfigurationManager
                     .comment("Allows for a completely custom Y value for the location of the air counter. Is resolution dependant! [default:0]")
                     .translation("displaycustomy.simpledivegear.config")
                     .define("airDisplayCustomY", 0);
+            
+            invincibleArmor = builder
+                    .comment("If the head, legs, and feet should repair themselves if damage is recieved [false/true|default:true]")
+                    .translation("invincibleArmor.simpledivegear.config")
+                    .define("invincibleArmor", true);
             
             builder.pop();
         }

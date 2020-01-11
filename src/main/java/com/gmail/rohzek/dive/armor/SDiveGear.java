@@ -56,6 +56,8 @@ public class SDiveGear extends ArmorItem
 	@Override
 	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) 
 	{
+		repairArmor(player.inventory.armorInventory);
+		
 		if(!player.isCreative() && !player.isSpectator()) 
 		{
 			Block above = world.getBlockState(new BlockPos(player.getPosition().getX(), player.getPosition().getY() + 1, player.getPosition().getZ())).getBlock();
@@ -100,8 +102,6 @@ public class SDiveGear extends ArmorItem
 	
 	private void addChanges(World world, PlayerEntity player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
 	{
-		
-		
 		// If just headlamp helmet, add night vision
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER) 
 		{
@@ -229,6 +229,41 @@ public class SDiveGear extends ArmorItem
 		}
 	}
 	
+	private void repairArmor(NonNullList<ItemStack> armorSlots) 
+	{
+		if(ConfigurationManager.GENERAL.invincibleArmor.get()) 
+		{
+			ItemStack head = armorSlots.get(3),
+					  legs = armorSlots.get(1),
+					  feet = armorSlots.get(0);
+			
+			if(head != null && head.getItem().equals(SArmor.DIVE_HELMET) || 
+			   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) 
+			{
+				if(head.isDamaged()) 
+				{
+					head.setDamage(0);
+				}
+			}
+			
+			if(legs != null && legs.getItem().equals(SArmor.DIVE_LEGS)) 
+			{
+				if(legs.isDamaged()) 
+				{
+					legs.setDamage(0);
+				}
+			}
+			
+			if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS)) 
+			{
+				if(feet.isDamaged()) 
+				{
+					feet.setDamage(0);
+				}
+			}
+		}
+	}
+	
 	// Was named onUpdate in previous versions, is now inventoryTick
 	@SuppressWarnings("unused")
 	@Override
@@ -237,6 +272,8 @@ public class SDiveGear extends ArmorItem
 		PlayerEntity player = (PlayerEntity) entity;
 		Block above = world.getBlockState(new BlockPos(player.getPosition().getX(), player.getPosition().getY() + 1, player.getPosition().getZ())).getBlock();
 		removeEnchantments(stack);
+		
+		repairArmor(player.inventory.armorInventory);
 		
 		// If you're not in water, then get air back
 		if(!player.isInWater()) 
