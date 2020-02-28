@@ -18,6 +18,12 @@ public class SArmor
 	public static SDiveGear DIVE_LEGS = new SDiveGear("divelegs", DiveArmorMaterial.divegear, EquipmentSlotType.LEGS);
 	public static SDiveGear DIVE_BOOTS = new SDiveGear("diveboots", DiveArmorMaterial.divegear, EquipmentSlotType.FEET);
 	
+	public static SNetherDiveGear NETHER_DIVE_HELMET = new SNetherDiveGear("netherdivehelmet", DiveArmorMaterial.divegear, EquipmentSlotType.HEAD);
+	public static SNetherDiveGear NETHER_DIVE_HELMET_LIGHTS = new SNetherDiveGear("netherdivehelmetlighted", DiveArmorMaterial.divegear, EquipmentSlotType.HEAD);
+	public static SNetherDiveGear NETHER_DIVE_CHEST = new SNetherDiveGear("netherdivechest", DiveArmorMaterial.divegear, EquipmentSlotType.CHEST);
+	public static SNetherDiveGear NETHER_DIVE_LEGS = new SNetherDiveGear("netherdivelegs", DiveArmorMaterial.divegear, EquipmentSlotType.LEGS);
+	public static SNetherDiveGear NETHER_DIVE_BOOTS = new SNetherDiveGear("netherdiveboots", DiveArmorMaterial.divegear, EquipmentSlotType.FEET);
+	
 	
 	@Mod.EventBusSubscriber(modid = Reference.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 	public static class RegistrationHandler 
@@ -31,7 +37,12 @@ public class SArmor
 					DIVE_HELMET,
 					DIVE_CHEST,
 					DIVE_LEGS,
-					DIVE_BOOTS
+					DIVE_BOOTS,
+					NETHER_DIVE_HELMET_LIGHTS,
+					NETHER_DIVE_HELMET,
+					NETHER_DIVE_CHEST,
+					NETHER_DIVE_LEGS,
+					NETHER_DIVE_BOOTS
 			);
 		}
 	}
