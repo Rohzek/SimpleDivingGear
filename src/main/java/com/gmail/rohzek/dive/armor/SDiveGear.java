@@ -28,6 +28,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -60,7 +61,7 @@ public class SDiveGear extends ArmorItem
 		
 		if(!player.isCreative() && !player.isSpectator()) 
 		{
-			Block above = world.getBlockState(new BlockPos(player.getPosition().getX(), player.getPosition().getY() + 1, player.getPosition().getZ())).getBlock();
+			Block above = world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 1, player.getPosZ())).getBlock();
 			
 			NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
 			
@@ -75,7 +76,7 @@ public class SDiveGear extends ArmorItem
 				addChanges(world, player, head, chest, legs, feet, above);
 				
 				// Just standing in water shouldn't use air, only being underwater
-				if(above == Blocks.WATER || above == Blocks.SEAGRASS) // Check if we're in seagrass, too
+				if(above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT)
 				{
 					// Only damage the tank if we're consuming air, which we can only do with a helmet and the chest piece
 					if((head.getItem() == SArmor.DIVE_HELMET || head.getItem() == SArmor.DIVE_HELMET_LIGHTS) && chest.getItem() == SArmor.DIVE_CHEST) 
@@ -98,12 +99,48 @@ public class SDiveGear extends ArmorItem
 				repairTank(chest, player);
 			}
 		}
+		
+		else if (player.isCreative() || player.isSpectator() && player.isInWater())
+		{
+			// Even in Creative mode
+			Block above = world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 1, player.getPosZ())).getBlock();
+			
+			NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
+			
+			ItemStack head = armorSlots.get(3),
+					  chest = armorSlots.get(2),
+					  feet = armorSlots.get(0);
+			
+			// If just headlamp helmet, add night vision
+			if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
+			{
+				player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
+			}
+			
+			// If the chest is on, grant aqua affinity
+			if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST)) 
+			{
+				if(EnchantmentHelper.getEnchantments(chest).get(Enchantments.AQUA_AFFINITY) == null)
+				{
+					chest.addEnchantment(Enchantments.AQUA_AFFINITY, 1);
+				}
+			}
+			
+			// If boots are on, grant depth strider
+			if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS)) 
+			{
+				if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
+				{
+					feet.addEnchantment(Enchantments.DEPTH_STRIDER, 1);
+				}
+			}
+		}
 	}
 	
-	private void addChanges(World world, PlayerEntity player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
+	public void addChanges(World world, PlayerEntity player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
 	{
 		// If just headlamp helmet, add night vision
-		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER) 
+		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
 		{
 			player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
 		}
@@ -129,7 +166,7 @@ public class SDiveGear extends ArmorItem
 		// If either helmet, and the chest is on, and you're underwater, grant water breathing
 		if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET) || 
 		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) && 
-		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST) && above == Blocks.WATER &&
+		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT &&
 		   (chest.getDamage() < (chest.getMaxDamage() - 40))) 
 		{
 			player.addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, 2, 0, false, false));
@@ -162,7 +199,7 @@ public class SDiveGear extends ArmorItem
 		}
 	}
 	
-	private void removeChanges(World world, PlayerEntity player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
+	public void removeChanges(World world, PlayerEntity player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
 	{
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET)||
 		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) 
@@ -201,7 +238,7 @@ public class SDiveGear extends ArmorItem
 		}
 	}
 	
-	private void repairTank(ItemStack chest, PlayerEntity player) 
+	public void repairTank(ItemStack chest, PlayerEntity player) 
 	{
 		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST)) 
 		{
@@ -215,7 +252,7 @@ public class SDiveGear extends ArmorItem
 		}
 	}
 	
-	private void damageTank(ItemStack chest, PlayerEntity player) 
+	public void damageTank(ItemStack chest, PlayerEntity player) 
 	{
 		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST)) 
 		{	
@@ -229,7 +266,7 @@ public class SDiveGear extends ArmorItem
 		}
 	}
 	
-	private void repairArmor(NonNullList<ItemStack> armorSlots) 
+	public void repairArmor(NonNullList<ItemStack> armorSlots) 
 	{
 		if(ConfigurationManager.GENERAL.invincibleArmor.get()) 
 		{
@@ -270,7 +307,7 @@ public class SDiveGear extends ArmorItem
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) 
 	{
 		PlayerEntity player = (PlayerEntity) entity;
-		Block above = world.getBlockState(new BlockPos(player.getPosition().getX(), player.getPosition().getY() + 1, player.getPosition().getZ())).getBlock();
+		Block above = world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 1, player.getPosZ())).getBlock();
 		removeEnchantments(stack);
 		
 		repairArmor(player.inventory.armorInventory);
@@ -378,25 +415,18 @@ public class SDiveGear extends ArmorItem
     {
         if(stack.getItem() == SArmor.DIVE_CHEST) 
         {
-        	// Apparently accessing the configuration file here crashes the game
-        	// Even though it worked perfectly fine in 1.13
-        	/*
-        	if(ConfigurationManager.GENERAL.consumeAir.get())
-            {
-            	long miliseconds = stack.getMaxDamage() - stack.getDamage();
-            	long minutes = (miliseconds / 1000) / 60;
-            	long seconds = (miliseconds / 1000) % 60;
-                
-            	if(minutes == 0 && seconds == 0 && stack.getDamage() == stack.getMaxDamage() - 20) 
-            	{
-            		tooltip.add(new StringTextComponent("Air Tank Empty"));
-            	}
-            	else
-            	{
-            		tooltip.add(new StringTextComponent("Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
-            	}
-            }
-            */
+        	long miliseconds = stack.getMaxDamage() - stack.getDamage();
+        	long minutes = (miliseconds / 1000) / 60;
+        	long seconds = (miliseconds / 1000) % 60;
+            
+        	if(minutes == 0 && seconds == 0 && stack.getDamage() == stack.getMaxDamage() - 20) 
+        	{
+        		tooltip.add(new StringTextComponent("Air Tank Empty"));
+        	}
+        	else
+        	{
+        		tooltip.add(new StringTextComponent("Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
+        	}
         }
     }
 }

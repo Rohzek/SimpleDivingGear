@@ -1,0 +1,11 @@
+{
+	"itemGroup.diveGearTab": "تجهیزات اولیه‌ی غواصی",
+	"item.simpledivegear.divehelmetcore": "مواد اولیه‌ی کلاه غواصی",
+	"item.simpledivegear.divehelmet": "کلاه غواصی",
+	"item.simpledivegear.divehelmetlighted": "کلاه غواصی (چراغدار)",
+	"item.simpledivegear.divechest": "مخزن هوا",
+	"item.simpledivegear.divelegs": "لباس غواصی",
+	"item.simpledivegear.diveboots": "باله‌های غواصی",
+	"display.simpledivegear.airleft": "هوای باقیمانده",
+	"display.simpledivegear.airempty": "مخزن هوا خالی است"
+}

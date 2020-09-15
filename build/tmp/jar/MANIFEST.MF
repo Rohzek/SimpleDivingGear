@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: Simple Dive Gear
+Implementation-Version: 5.0.3 mc 1.16.3
+Specification-Vendor: examplemodsareus
+Specification-Title: examplemod
+Implementation-Timestamp: 2020-09-15T17:23:59-0500
+Specification-Version: 1
+Implementation-Vendor: examplemodsareus
+

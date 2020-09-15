@@ -1,0 +1,11 @@
+{
+	"itemGroup.diveGearTab": "Simple Dive Gear",
+	"item.simpledivegear.divehelmetcore": "Vitre de casque de plongée",
+	"item.simpledivegear.divehelmet": "Casque de plongée",
+	"item.simpledivegear.divehelmetlighted": "Casque de plongée (Lampe frontale)",
+	"item.simpledivegear.divechest": "Bouteille de plongée",
+	"item.simpledivegear.divelegs": "Pantalon de plongée",
+	"item.simpledivegear.diveboots": "Palmes",
+	"display.simpledivegear.airleft": "Air restant",
+	"display.simpledivegear.airempty": "Bouteille de plongée vide"
+}
