@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "divegear",
+  "pattern": [
+    "OOO",
+    "OGO",
+    "OOO"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "G": {
+      "item": "simpledivegear:divehelmetcore",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "simpledivegear:netherdivehelmet"
+  }
+}

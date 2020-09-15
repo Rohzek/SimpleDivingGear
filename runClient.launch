@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+  <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Simple Dive Gear"/>
+  <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="net.minecraftforge.userdev.LaunchTesting"/>
+  <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump &quot;-Dos.name=Windows 10&quot; -Dos.version=10.0"/>
+  <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value=""/>
+  <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="E:\Minecraft\Simple Dive Gear\run"/>
+  <mapAttribute key="org.eclipse.debug.core.environmentVariables">
+    <mapEntry key="MOD_CLASSES" value="examplemod%%E:\Minecraft\Simple Dive Gear\bin\main;examplemod%%E:\Minecraft\Simple Dive Gear\bin\main"/>
+    <mapEntry key="MCP_MAPPINGS" value="snapshot_20200514-1.16"/>
+    <mapEntry key="MCP_VERSION" value="20200911.084530"/>
+    <mapEntry key="FORGE_VERSION" value="34.0.7"/>
+    <mapEntry key="assetIndex" value="1.16"/>
+    <mapEntry key="assetDirectory" value="D:\Users\Rohzek\.gradle\caches\forge_gradle\assets"/>
+    <mapEntry key="nativesDirectory" value="E:\Minecraft\Simple Dive Gear\build\natives"/>
+    <mapEntry key="FORGE_GROUP" value="net.minecraftforge"/>
+    <mapEntry key="target" value="fmluserdevclient"/>
+    <mapEntry key="MC_VERSION" value="1.16.3"/>
+  </mapAttribute>
+</launchConfiguration>

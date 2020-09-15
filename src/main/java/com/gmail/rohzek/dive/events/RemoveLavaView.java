@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber({Dist.CLIENT})
 public class RemoveLavaView 
 {
+	@SuppressWarnings("deprecation")
 	@SubscribeEvent
 	public static void removeLavaView(EntityViewRenderEvent.FogDensity event) 
 	{
@@ -35,7 +36,7 @@ public class RemoveLavaView
 				
 				if(player.isInLava())
 				{
-					Block above = player.world.getBlockState(new BlockPos(player.getPosition().getX(), player.getPosition().getY() + 2, player.getPosition().getZ())).getBlock();
+					Block above = player.world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 2, player.getPosZ())).getBlock();
 					
 					if(above == Blocks.LAVA) 
 					{
