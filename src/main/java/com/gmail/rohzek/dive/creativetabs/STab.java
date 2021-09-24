@@ -13,7 +13,7 @@ public class STab extends ItemGroup
 	}
 
 	@Override
-	public ItemStack createIcon() 
+	public ItemStack makeIcon() 
 	{
 		return new ItemStack(SArmor.DIVE_HELMET);
 	}

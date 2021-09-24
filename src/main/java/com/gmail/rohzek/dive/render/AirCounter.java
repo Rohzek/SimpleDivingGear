@@ -4,11 +4,8 @@ import com.gmail.rohzek.dive.armor.SArmor;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -29,11 +26,11 @@ public class AirCounter
 		{
 			if (event.getType() == ElementType.AIR) 
 			{	
-				ItemStack chest = mc.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+				ItemStack chest = mc.player.inventory.armor.get(2); // 0 = feet, 1 = legs, 2 = chest, 3 = head
 				
 				if(chest.getItem() == SArmor.DIVE_CHEST) 
 				{
-					long miliseconds = chest.getMaxDamage() - chest.getDamage();
+					long miliseconds = chest.getMaxDamage() - chest.getDamageValue();
 	            	long minutes = (miliseconds / 1000) / 60;
 	            	long seconds = (miliseconds / 1000) % 60;
 	            	
@@ -53,28 +50,47 @@ public class AirCounter
 		{
 			if (event.getType() == ElementType.TEXT) 
 			{	
-				ItemStack chest = mc.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+				ItemStack chest = mc.player.inventory.armor.get(2); // 0 = feet, 1 = legs, 2 = chest, 3 = head
 				
 				if(chest.getItem() == SArmor.DIVE_CHEST) 
 				{
-					long miliseconds = chest.getMaxDamage() - chest.getDamage();
+					long miliseconds = chest.getMaxDamage() - chest.getDamageValue();
 	            	long minutes = (miliseconds / 1000) / 60;
 	            	long seconds = (miliseconds / 1000) % 60;
-	            	
-	            	Matrix4f matrix4f = event.getMatrixStack().getLast().getMatrix();
-	            	IRenderTypeBuffer buffer = mc.getRenderTypeBuffers().getBufferSource();
-	            	
-	            	if(minutes == 0 && seconds == 0 && chest.getDamage() == chest.getMaxDamage() - 20) 
-	            	{
-	            		display = I18n.format("display.simpledivegear.airempty");
-	            		mc.fontRenderer.renderString(display, getXCenter(display), getYCenter(display), 0, true, matrix4f, buffer, false, 0, 9);
-	            	}
-	            	else
-	            	{
-	            		String output = ": " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds);
-	            		display = I18n.format("display.simpledivegear.airleft") + output;
-	            		mc.fontRenderer.renderString(display, getXCenter(display), getYCenter(display), 0, true, matrix4f, buffer, false, 0, 9); 
-	            	}
+					  
+					  if(minutes == 0 && seconds == 0 && chest.getDamageValue() == chest.getMaxDamage() - 20) 
+					  { 
+						  display = I18n.get("display.simpledivegear.airempty");
+						  // This int seems to be for the font color, in a hex format
+						  mc.font.drawShadow(event.getMatrixStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("db8786", 16));
+					  } 
+					  else 
+					  { 
+						  String output = ": " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds); 
+						  display = I18n.get("display.simpledivegear.airleft") + output;
+						  // This int seems to be for the font color, in a hex format
+						  mc.font.drawShadow(event.getMatrixStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("ffffff", 16));
+					  }
+				}
+				else if(chest.getItem() == SArmor.NETHER_DIVE_CHEST) 
+				{
+					long miliseconds = chest.getMaxDamage() - chest.getDamageValue();
+	            	long minutes = (miliseconds / 1000) / 60;
+	            	long seconds = (miliseconds / 1000) % 60;
+					  
+					  if(minutes == 0 && seconds == 0 && chest.getDamageValue() == chest.getMaxDamage() - 20) 
+					  { 
+						  display = I18n.get("display.simpledivegear.coolantempty");
+						  // This int seems to be for the font color, in a hex format
+						  mc.font.drawShadow(event.getMatrixStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("db8786", 16));
+					  } 
+					  else 
+					  { 
+						  String output = ": " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds); 
+						  display = I18n.get("display.simpledivegear.coolantleft") + output;
+						  // This int seems to be for the font color, in a hex format
+						  mc.font.drawShadow(event.getMatrixStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("ffffff", 16));
+					  }
 				}
 			}
 		}
@@ -87,8 +103,8 @@ public class AirCounter
 			return ConfigurationManager.GENERAL.airDisplayCustomX.get();
 		}
 		
-		x = mc.getMainWindow().getScaledWidth();
-		return ((x - mc.fontRenderer.getStringWidth(text)) / 2);
+		x = mc.getWindow().getGuiScaledWidth();
+		return (Float)((x - mc.font.width(text)) / 2);
 	}
 	
 	public static float getYCenter(String text) 
@@ -98,7 +114,7 @@ public class AirCounter
 			return ConfigurationManager.GENERAL.airDisplayCustomY.get();
 		}
 		
-		y = mc.getMainWindow().getScaledHeight();
+		y = mc.getWindow().getGuiScaledHeight(); 
 		return (Float) (y - ConfigurationManager.GENERAL.airDisplayVerticalAlignment.get());
 	}
 }

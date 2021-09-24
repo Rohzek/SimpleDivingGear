@@ -3,6 +3,7 @@ package com.gmail.rohzek.dive.armor;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -11,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public enum DiveArmorMaterial implements IArmorMaterial
 {
-	divegear("divegear", -1, new int[] {0, 0, 0, 0}, 0, SoundEvents.BLOCK_PISTON_CONTRACT, 0f, Ingredient.fromItems(Blocks.OBSIDIAN));
+	divegear("divegear", -1, new int[] {0, 0, 0, 0}, 0, SoundEvents.PISTON_CONTRACT, 0f, Ingredient.of(new ItemStack(Blocks.OBSIDIAN)));
 	
 	private String name;
 	
@@ -38,31 +39,31 @@ public enum DiveArmorMaterial implements IArmorMaterial
 	}
 	
 	@Override
-	public int getDurability(EquipmentSlotType slotIn) 
+	public int getDurabilityForSlot(EquipmentSlotType slotIn) 
 	{
 		return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
 	}
 
 	@Override
-	public int getDamageReductionAmount(EquipmentSlotType slotIn) 
+	public int getDefenseForSlot(EquipmentSlotType slotIn) 
 	{
 		return this.damageReductionAmountArray[slotIn.getIndex()];
 	}
 
 	@Override
-	public int getEnchantability() 
+	public int getEnchantmentValue() 
 	{
 		return this.enchantability;
 	}
 
 	@Override
-	public SoundEvent getSoundEvent() 
+	public SoundEvent getEquipSound() 
 	{
 		return this.soundEvent;
 	}
 
 	@Override
-	public Ingredient getRepairMaterial() 
+	public Ingredient getRepairIngredient() 
 	{
 		return this.repairMaterial;
 	}
@@ -81,7 +82,7 @@ public enum DiveArmorMaterial implements IArmorMaterial
 	}
 
 	@Override
-	public float func_230304_f_() 
+	public float getKnockbackResistance() 
 	{
 		return 0;
 	}

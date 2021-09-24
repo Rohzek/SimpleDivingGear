@@ -5,79 +5,58 @@
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:\Minecraft\Simple Dive Gear\build\natives"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:\Github\SimpleDivingGear\build\natives"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry output="bin/main" kind="src" path="src/main/resources">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:\Minecraft\Simple Dive Gear\build\natives"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:\Github\SimpleDivingGear\build\natives"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry output="bin/main" kind="src" path="src/generated/resources">
+		<attributes>
+			<attribute name="gradle_scope" value="main"/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:\Github\SimpleDivingGear\build\natives"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry output="bin/test" kind="src" path="src/test/java">
 		<attributes>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:\Minecraft\Simple Dive Gear\build\natives"/>
+			<attribute name="test" value="true"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:\Github\SimpleDivingGear\build\natives"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry output="bin/test" kind="src" path="src/test/resources">
 		<attributes>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:\Minecraft\Simple Dive Gear\build\natives"/>
+			<attribute name="test" value="true"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:\Github\SimpleDivingGear\build\natives"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.3-34.0.7_mapped_snapshot_20200514-1.16/forge-1.16.3-34.0.7_mapped_snapshot_20200514-1.16-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.3-34.0.7_mapped_snapshot_20200514-1.16/forge-1.16.3-34.0.7_mapped_snapshot_20200514-1.16-recomp.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.5-36.2.0_mapped_official_1.16.5/forge-1.16.5-36.2.0_mapped_official_1.16.5-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.5-36.2.0_mapped_official_1.16.5/forge-1.16.5-36.2.0_mapped_official_1.16.5-recomp.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.3-34.0.7_mapped_snapshot_20200514-1.16/forge-1.16.3-34.0.7_mapped_snapshot_20200514-1.16-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.3-34.0.7_mapped_snapshot_20200514-1.16/forge-1.16.3-34.0.7_mapped_snapshot_20200514-1.16-launcher.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.5-36.2.0_mapped_official_1.16.5/forge-1.16.5-36.2.0_mapped_official_1.16.5-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.5-36.2.0_mapped_official_1.16.5/forge-1.16.5-36.2.0_mapped_official_1.16.5-launcher.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Users/Rohzek/.gradle/caches/forge_gradle/minecraft_repo/versions/1.16.3/client-extra.jar">
+	<classpathentry kind="lib" path="D:/Users/Rohzek/.gradle/caches/forge_gradle/minecraft_repo/versions/1.16.5/client-extra.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/accesstransformers/2.2.0/69ad62366c3f798f9e8aacd2c0723a1ed8f61d00/accesstransformers-2.2.0-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/accesstransformers/2.2.0/43c882f4e7e5648acb14c9de8c2eca5f670d2bd/accesstransformers-2.2.0-shadowed.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/a2926c057ca3b662b9db194c869bdbe7d3bb8aef/jsr305-3.0.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/f7be08ec23c21485b9b5a1cf1654c2ec8c58168d/jsr305-3.0.1.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/eventbus/3.0.3/e59cd5e8be4758212b6e6a75eb7af55c3bd122d1/eventbus-3.0.3-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/eventbus/3.0.3/e5dedecd71479bbb4984485553b6fcf36953ef00/eventbus-3.0.3-service.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/coremods/3.0.0/c842ab038d3308bbcf90348d6a609697ca8e5e9b/coremods-3.0.0-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/coremods/3.0.0/fdf3b62a9a1fbd6a0826190d6d9962d9dd4f0340/coremods-3.0.0.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/forgespi/3.1.1/f045ae91097e879ed4bdcda7e898746e23d3f7f7/forgespi-3.1.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/forgespi/3.1.1/f258f875d9252d5ee83d8f0f2d03f71123f37650/forgespi-3.1.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/7.0.1/6932e864dc94a2ace88bb5bb195a5e3c32bf903a/modlauncher-7.0.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/7.0.1/e66e347c2a4c61781198f86be5cc43f19c1dfb92/modlauncher-7.0.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/7.0.1/6932e864dc94a2ace88bb5bb195a5e3c32bf903a/modlauncher-7.0.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/7.0.1/46cf400820b6640e2d3231dd1644d1ee179f16f8/modlauncher-7.0.1-api.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/b19b5927c2c25b6c70f093767041e641ae0b1b35/jsr305-3.0.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/mergetool/1.0.9/d1e1ba354a40b5703340b5cb02fdca489cff3646/mergetool-1.0.9-api.jar">
@@ -85,37 +64,67 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Users/Rohzek/.gradle/caches/forge_gradle/maven_downloader/de/oceanlabs/mcp/mcp_snapshot/20200514-1.16/mcp_snapshot-20200514-1.16.zip">
+	<classpathentry kind="lib" path="D:/Users/Rohzek/.gradle/caches/forge_gradle/mcp_repo/net/minecraft/mapping/1.16.5/mapping-1.16.5-mapping.zip">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/7.2/328418165c861d64ed0ce5a7356f5dcea2f85eb/asm-commons-7.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/7.2/ca2954e8d92a05bacc28ff465b25c70e0f512497/asm-commons-7.2.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/8.0.9/763b9402d22e49db0daab3a0ded1b42a3f19e7d4/modlauncher-8.0.9-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/8.0.9/bb848f57758808692b9108df61c909c0a961ba81/modlauncher-8.0.9.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/7.2/c65999b8c86f537081623c75ab92ce5310bf3941/asm-util-7.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/7.2/a3ae34e57fa8a4040e28247291d0cc3d6b8c7bcf/asm-util-7.2.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/9.1/87a45a18693ec2d1eed3beb40ac47f82feb7fb27/asm-commons-9.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/9.1/8b971b182eb5cf100b9e8d4119152d83e00e0fdd/asm-commons-9.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/7.2/4cbab3f2c24aecfe37f5cdbd33ab840c5799fc6c/asm-analysis-7.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/7.2/b6e6abe057f23630113f4167c34bda7086691258/asm-analysis-7.2.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/9.1/d09e58920a332647ed8c65ad6ea2e7692e449f40/asm-util-9.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/9.1/36464a45d871779f3383a8a9aba2b26562a86729/asm-util-9.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/7.2/8a0c8569c12ddd20743cfe604a3c9c36dcf91538/asm-tree-7.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/7.2/3a23cc36edaf8fc5a89cb100182758ccb5991487/asm-tree-7.2.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/9.1/296a49fa21d815fc92eec1007ea2708983e8df2c/asm-analysis-9.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/9.1/4f61b83b81d8b659958f4bcc48907e93ecea55a0/asm-analysis-9.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/7.2/abad1a0f824d3c68508f73ba0e668053d026a1dc/asm-7.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/7.2/fa637eb67eb7628c915d73762b681ae7ff0b9731/asm-7.2.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/9.1/ef07227f641685b6473fd0fbb4931afd6539df1a/asm-tree-9.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/9.1/c333f2a855069cb8eb17a40a3eb8b1b67755d0eb/asm-tree-9.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/grossjava9hacks/1.3.0/fb7f80f1a8a81e1665f54f490cf945d68908da04/grossjava9hacks-1.3.0-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/grossjava9hacks/1.3.0/1a922de964d0c19d864fbcba2678c1a1c4602c35/grossjava9hacks-1.3.0.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/9.1/3fb15dd478bf8dcb039aa0d035f9fff9e4229c61/asm-9.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/9.1/a99500cf6eea30535eeac6be73899d048f8d12a8/asm-9.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/grossjava9hacks/1.3.3/ecf89624be98b57b83cb2c6838be34fc1bfc0f5c/grossjava9hacks-1.3.3-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/grossjava9hacks/1.3.3/e49222512ea6cabdd8b49761cef1d5a207b1f0d9/grossjava9hacks-1.3.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/accesstransformers/3.0.1/be0d2b1ddf0fd6279ccce90200d51a8417c3ea2f/accesstransformers-3.0.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/accesstransformers/3.0.1/6d23c1b9cb0607fddc38d09730796f68db96f546/accesstransformers-3.0.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.9.1/17b7d09ad295b93223e965df5860331cbccaa797/antlr4-runtime-4.9.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.9.1/428664f05d2b7f7b7610204b5aa7c1763f62011a/antlr4-runtime-4.9.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/eventbus/4.0.0/c6544df1c500682b404a9e6c5472e9498f2299ac/eventbus-4.0.0-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/eventbus/4.0.0/260e34800723e4c098c4e247cf2b900535e01b6d/eventbus-4.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/forgespi/3.2.0/56b92992f07b8bd2f99c8769ff91e18d64746cde/forgespi-3.2.0-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/forgespi/3.2.0/c6ca4e4e4a0343701407c760e642537b613b543/forgespi-3.2.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/coremods/4.0.6/a6e7174676719543c22c3f9f3dc24ff27d10547a/coremods-4.0.6-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/coremods/4.0.6/d6d761379c841e2610abebcbf70ed20b65f728f0/coremods-4.0.6.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -125,12 +134,12 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/toml/3.6.2/a4de4fa51b7c36182ab9b5a83a0b8a80787533cb/toml-3.6.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/toml/3.6.2/3ac4263d06433da39a5eee95e2679f1642d921f0/toml-3.6.2.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/toml/3.6.3/f9753a7a649c6ce52ae754a7989c02941d67ef23/toml-3.6.3-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/toml/3.6.3/2b05b4d606c517da4d1a7b6d2b97d751c92887d7/toml-3.6.3.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/core/3.6.2/60affa7434c702e5824ebb6c9b5fe261d7cea7e2/core-3.6.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/core/3.6.2/56f6500038861d4a8832072676da7bf7916217d0/core-3.6.2.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/core/3.6.3/322b90f5fdccbc18e6929b4addbb9b8b6979a977/core-3.6.3-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/core/3.6.3/c601bfeaeb2c0abe7aaa901b0bbe6d1beff49281/core-3.6.3.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -145,7 +154,7 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.jodah/typetools/0.8.1/d12de898d333cb7eb0e39a35db03c1e09d92d595/typetools-0.8.1.jar">
+	<classpathentry kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.jodah/typetools/0.8.3/98f84f353457629e81cc6827224871b1a8faa7af/typetools-0.8.3.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -170,12 +179,17 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8/6b369c870f027904cde368c1c6c574d79178115f/mixin-0.8-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8/dbe9e5db694a7c3cd644d5bb98f8a21295c75048/mixin-0.8.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.2/caccc1f7d6fc35b3dc93246d44d3458d2f141334/mixin-0.8.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.2/1cf212283d26f706fd3074318870bebd14d2a9ed/mixin-0.8.2.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/patchy/1.1/5e398295fbcb8fb590e3e3bddace13f659792e50/patchy-1.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/patchy/1.1/aef610b34a1be37fa851825f12372b78424d8903/patchy-1.1.jar">
+	<classpathentry kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.minecraftforge/nashorn-core-compat/15.1.1.1/1817deb38a5a8811148dca0d23161d92bdbd6184/nashorn-core-compat-15.1.1.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/patchy/1.2.3/e3107ca512d704a434076a153a6e1149e3787275/patchy-1.2.3.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -260,7 +274,7 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/authlib/1.6.25/de9a1ba1e01d2f3e03a0b5812f4f4e51624a671e/authlib-1.6.25-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/authlib/1.6.25/5bd0ce00c1e1f483641f85bccb02d1956dd77ec0/authlib-1.6.25.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/authlib/2.1.28/7385611cf8837615a31048ac555171313424867a/authlib-2.1.28-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/authlib/2.1.28/ad54da276bf59983d02d5ed16fc14541354c71fd/authlib-2.1.28.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -290,17 +304,7 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.2.2/d20a6df6fcb6308fea22c835d23e0297454d759d/lwjgl-jemalloc-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.2.2/338b25b99da3ba5f441f6492f2ce2a9c608860ed/lwjgl-jemalloc-3.2.2-natives-windows.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.2.2/1f60241adab8073234fbe7d38cf9dbc4c28c50b6/lwjgl-openal-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.2.2/2b772a102b0a11ee5f2109a5b136f4dc7c630827/lwjgl-openal-3.2.2.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.2.2/1f60241adab8073234fbe7d38cf9dbc4c28c50b6/lwjgl-openal-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.2.2/ec20a7d42a2438528fca87e60b1705f1e2339ddb/lwjgl-openal-3.2.2-natives-windows.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -310,17 +314,7 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.2.2/4f5dffe36ce3f4a35d9d0ea1b7b31cd49e36d58b/lwjgl-opengl-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.2.2/d8dcdc91066cae2d2d8279cb4a9f9f05d9525826/lwjgl-opengl-3.2.2-natives-windows.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.2.2/3e402df983933dec9d9123e494fa3130b3900ab8/lwjgl-glfw-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.2.2/d3ad4df38e400b8afba1de63f84338809399df5b/lwjgl-glfw-3.2.2.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.2.2/3e402df983933dec9d9123e494fa3130b3900ab8/lwjgl-glfw-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.2.2/dc6826d636bf796b33a49038c354210e661bfc17/lwjgl-glfw-3.2.2-natives-windows.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -330,17 +324,7 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.2.2/2eb5cd96aabf2f1abf165dff12ab882878f7dc1d/lwjgl-stb-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.2.2/811f705cbb29e8ae8d60bdf8fdd38c0c123ad3ef/lwjgl-stb-3.2.2-natives-windows.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.2.2/2fe76dcf2ca02ae0e64ac7c69eb251c09df0e922/lwjgl-tinyfd-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.2.2/fcbe606c8f8da6f8f9a05e2c540eb1ee8632b0e9/lwjgl-tinyfd-3.2.2.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.2.2/2fe76dcf2ca02ae0e64ac7c69eb251c09df0e922/lwjgl-tinyfd-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.2.2/e9115958773644e863332a6a06488d26f9e1fc9f/lwjgl-tinyfd-3.2.2-natives-windows.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -350,27 +334,72 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.2.2/b32bcb411ea7a91aab25b1d0309887aae16778df/lwjgl-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.2.2/5359f3aa50d36352815fc662ea73e1c00d22170/lwjgl-3.2.2-natives-windows.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.11.3/772a37dd77417571e6f119a8d306f0c14c2ee410/text2speech-1.11.3-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.11.3/f378f889797edd7df8d32272c06ca80a1b6b0f58/text2speech-1.11.3.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.11.3/772a37dd77417571e6f119a8d306f0c14c2ee410/text2speech-1.11.3-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.11.3/c0b242c0091be5acbf303263c7eeeaedd70544c7/text2speech-1.11.3-natives-windows.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.7.2/14fff5b9b6c84f3b3a1fe0980e8560a555df07c0/antlr4-runtime-4.7.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.7.2/e27d8ab4f984f9d186f54da984a6ab1cccac755e/antlr4-runtime-4.7.2.jar">
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/3.2.1/6190c9c85289f11f3455d84eefdc3c54544e8cce/plexus-utils-3.2.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/3.2.1/13b015768e0d04849d2794e4c47eb02d01a0de32/plexus-utils-3.2.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.jline/jline-reader/3.12.1/88d7d2011ebec345d0a5c6237be1e7be864c7ec8/jline-reader-3.12.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.jline/jline-reader/3.12.1/4382ab1382c7b6f379377ed5f665dc2f6e1218bc/jline-reader-3.12.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.12.1/3f3b61e6f3eafeba0c289b308926e0f93457140/jline-terminal-3.12.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.12.1/c777448314e050d980a6b697c140f3bfe9eb7416/jline-terminal-3.12.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/8.0.9/763b9402d22e49db0daab3a0ded1b42a3f19e7d4/modlauncher-8.0.9-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/8.0.9/476a62d2a2ebd3573134b8bcd8f0bc21bbdf29ac/modlauncher-8.0.9-api.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/b19b5927c2c25b6c70f093767041e641ae0b1b35/jsr305-3.0.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.2.2/d20a6df6fcb6308fea22c835d23e0297454d759d/lwjgl-jemalloc-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.2.2/338b25b99da3ba5f441f6492f2ce2a9c608860ed/lwjgl-jemalloc-3.2.2-natives-windows.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.2.2/1f60241adab8073234fbe7d38cf9dbc4c28c50b6/lwjgl-openal-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.2.2/ec20a7d42a2438528fca87e60b1705f1e2339ddb/lwjgl-openal-3.2.2-natives-windows.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.2.2/4f5dffe36ce3f4a35d9d0ea1b7b31cd49e36d58b/lwjgl-opengl-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.2.2/d8dcdc91066cae2d2d8279cb4a9f9f05d9525826/lwjgl-opengl-3.2.2-natives-windows.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.2.2/3e402df983933dec9d9123e494fa3130b3900ab8/lwjgl-glfw-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.2.2/dc6826d636bf796b33a49038c354210e661bfc17/lwjgl-glfw-3.2.2-natives-windows.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.2.2/2eb5cd96aabf2f1abf165dff12ab882878f7dc1d/lwjgl-stb-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.2.2/811f705cbb29e8ae8d60bdf8fdd38c0c123ad3ef/lwjgl-stb-3.2.2-natives-windows.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.2.2/2fe76dcf2ca02ae0e64ac7c69eb251c09df0e922/lwjgl-tinyfd-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.2.2/e9115958773644e863332a6a06488d26f9e1fc9f/lwjgl-tinyfd-3.2.2-natives-windows.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.2.2/b32bcb411ea7a91aab25b1d0309887aae16778df/lwjgl-3.2.2-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.2.2/5359f3aa50d36352815fc662ea73e1c00d22170/lwjgl-3.2.2-natives-windows.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.11.3/772a37dd77417571e6f119a8d306f0c14c2ee410/text2speech-1.11.3-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.11.3/c0b242c0091be5acbf303263c7eeeaedd70544c7/text2speech-1.11.3-natives-windows.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -386,16 +415,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/53f9c919f34d2ca9de8c51fc4e1e8282029a9232/jinput-platform-2.0.5-natives-osx.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/3.2.1/6190c9c85289f11f3455d84eefdc3c54544e8cce/plexus-utils-3.2.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/3.2.1/13b015768e0d04849d2794e4c47eb02d01a0de32/plexus-utils-3.2.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.12.1/3f3b61e6f3eafeba0c289b308926e0f93457140/jline-terminal-3.12.1-sources.jar" kind="lib" path="D:/Users/Rohzek/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.12.1/c777448314e050d980a6b697c140f3bfe9eb7416/jline-terminal-3.12.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>

@@ -37,8 +37,14 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
 	public SNetherDiveGear(String name, IArmorMaterial mat, EquipmentSlotType equipSlot) 
 	{
-		super(mat, equipSlot, new Item.Properties().group(Main.DIVE_GEAR_TAB).maxStackSize(1));
+		super(mat, equipSlot, new Item.Properties().tab(Main.DIVE_GEAR_TAB).stacksTo(1));
 		setNames(name);
+	}
+	
+	@Override
+	public boolean isDamageable(ItemStack stack) 
+	{
+		return true;
 	}
 	
 	@Override
@@ -55,13 +61,13 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	@Override
 	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) 
 	{	
-		repairArmor(player.inventory.armorInventory);
+		repairArmor(player.inventory.armor);
 		
 		if(!player.isCreative() && !player.isSpectator()) 
 		{
-			Block above = world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 1, player.getPosZ())).getBlock();
+			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
 			
-			NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
+			NonNullList<ItemStack> armorSlots = player.inventory.armor;
 			
 			ItemStack head = armorSlots.get(3),
 					  chest = armorSlots.get(2),
@@ -69,7 +75,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 					  feet = armorSlots.get(0);
 			
 			addChanges(world, player, head, chest, legs, feet, above);
-			player.extinguish();
+			player.clearFire();
 			
 			if(player.isInLava())
 			{
@@ -103,15 +109,15 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		else if(player.isCreative() || player.isSpectator() && player.isInLava())
 		{
 			// Even in Creative mode
-			Block above = world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 1, player.getPosZ())).getBlock();			
+			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();			
 			
-			NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
+			NonNullList<ItemStack> armorSlots = player.inventory.armor;
 						
 			ItemStack head = armorSlots.get(3);
 			
 			if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS) && above == Blocks.LAVA) 
 			{
-				player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
+				player.addEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
 			}
 		}
 	}
@@ -120,7 +126,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	{
 		if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS) && above == Blocks.LAVA) 
 		{
-			player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
+			player.addEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
 		}
 		
 		// If boots are on, grant depth strider
@@ -128,7 +134,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		{
 			if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
 			{
-				feet.addEnchantment(Enchantments.DEPTH_STRIDER, 1);
+				feet.enchant(Enchantments.DEPTH_STRIDER, 1);
 			}
 		}
 		
@@ -138,15 +144,15 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		{
 			if(oldFlySpeed == -1f)
 			{
-				oldFlySpeed = player.abilities.getFlySpeed();
+				oldFlySpeed = player.abilities.getFlyingSpeed();
 			}
 			
-			if(world.isRemote) 
+			if(world.isClientSide) 
 			{
-				player.abilities.setFlySpeed(newFlySpeed);
+				player.abilities.setFlyingSpeed(newFlySpeed);
 			}
 			
-			player.abilities.isFlying = true;
+			player.abilities.flying = true;
 		}
 		
 		// Requires all components to receive the fire resistance
@@ -154,7 +160,10 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		   chest != null && chest.getItem().equals(SArmor.NETHER_DIVE_CHEST) && legs != null && legs.getItem().equals(SArmor.NETHER_DIVE_LEGS) &&
 		   feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS)) 
 		{	
-			player.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 2, 0, false, false));
+			if(chest.getDamageValue() < (chest.getMaxDamage() - 40)) 
+			{
+				player.addEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 2, 0, false, false));
+			}
 		}
 	}
 	
@@ -171,17 +180,17 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		   legs != null && legs.getItem().equals(SArmor.NETHER_DIVE_LEGS) || 
 		   feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS))
 		{
-			player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2, 0, false, false));
-			player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 2, 0, false, false));
+			player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 2, 0, false, false));
+			player.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 2, 0, false, false));
 			
-			if(world.isRemote) 
+			if(world.isClientSide) 
 			{
-				player.abilities.setFlySpeed(oldFlySpeed);
+				player.abilities.setFlyingSpeed(oldFlySpeed);
 			}
 			
 			if(!player.isSpectator() && !player.isCreative()) 
 			{
-				player.abilities.isFlying = false;
+				player.abilities.flying = false;
 			}
 		}
 	}
@@ -193,9 +202,9 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 			// By fdefault we refill with air twice as fast as it loses it 
 			// (E.G. If you get 1 full minute of air, it takes 30 full seconds to refill)
 			// But we allow up to 4 times faster
-			if(chest.getDamage() < chest.getMaxDamage()) 
+			if(chest.getDamageValue() < chest.getMaxDamage()) 
 			{
-				chest.damageItem(-(20 * ConfigurationManager.GENERAL.regainAirSpeed.get()), player, null);
+				chest.setDamageValue(chest.getDamageValue() - (20 * ConfigurationManager.GENERAL.regainAirSpeed.get()));
 			}
 		}
 	}
@@ -205,9 +214,9 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.NETHER_DIVE_CHEST)) 
 		{	
 			// We don't want to break the item, so only lower if we still have room to lower
-			if(chest.getDamage() < (chest.getMaxDamage() - 21)) 
+			if(chest.getDamageValue() < (chest.getMaxDamage() - 21)) 
 			{
-				chest.damageItem(20, player, null);
+				chest.setDamageValue((chest.getDamageValue() + 20));
 			}
 		}
 	}
@@ -225,7 +234,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 			{
 				if(head.isDamaged()) 
 				{
-					head.setDamage(0);
+					head.setDamageValue(0);
 				}
 			}
 			
@@ -233,7 +242,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 			{
 				if(legs.isDamaged()) 
 				{
-					legs.setDamage(0);
+					legs.setDamageValue(0);
 				}
 			}
 			
@@ -241,7 +250,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 			{
 				if(feet.isDamaged()) 
 				{
-					feet.setDamage(0);
+					feet.setDamageValue(0);
 				}
 			}
 		}
@@ -253,10 +262,10 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) 
 	{
 		PlayerEntity player = (PlayerEntity) entity;
-		Block above = world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 1, player.getPosZ())).getBlock();
+		Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
 		removeEnchantments(stack);
 		
-		repairArmor(player.inventory.armorInventory);
+		repairArmor(player.inventory.armor);
 		
 		// If you're not in water, then get air back
 		if(!player.isInLava()) 
@@ -270,9 +279,9 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		}
 		
 		// Remove the ability to still fly, if the armor is removed underwater
-		if(!player.isCreative() && !player.isSpectator() && player.abilities.isFlying) 
+		if(!player.isCreative() && !player.isSpectator() && player.abilities.flying) 
 		{
-			NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
+			NonNullList<ItemStack> armorSlots = player.inventory.armor;
 			
 			ItemStack head = armorSlots.get(3),
 					  chest = armorSlots.get(2),
@@ -282,14 +291,14 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 			if(legs != null && !legs.getItem().equals(SArmor.NETHER_DIVE_LEGS) ||
 			   feet != null && !feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS)) 
 			{
-				if(world.isRemote) 
+				if(world.isClientSide) 
 				{
-					player.abilities.setFlySpeed(oldFlySpeed);
+					player.abilities.setFlyingSpeed(oldFlySpeed);
 				}
 				
 				if(!player.isSpectator() && !player.isCreative()) 
 				{
-					player.abilities.isFlying = false;
+					player.abilities.flying = false;
 				}
 			}
 		}
@@ -324,14 +333,14 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	}
 	
 	@Override
-	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) 
+	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) 
 	{
 		return false;
 	}
 	
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public boolean hasEffect(ItemStack stack) 
+	public boolean isFoil(ItemStack stack) 
 	{
 		return false;
 	}
@@ -344,21 +353,21 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
+	public void appendHoverText(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
 		if(stack.getItem() == SArmor.NETHER_DIVE_CHEST) 
         {
-        	long miliseconds = stack.getMaxDamage() - stack.getDamage();
+        	long miliseconds = stack.getMaxDamage() - stack.getDamageValue();
         	long minutes = (miliseconds / 1000) / 60;
         	long seconds = (miliseconds / 1000) % 60;
             
-        	if(minutes == 0 && seconds == 0 && stack.getDamage() == stack.getMaxDamage() - 20) 
+        	if(minutes == 0 && seconds == 0 && stack.getDamageValue() == stack.getMaxDamage() - 20) 
         	{
-        		tooltip.add(new StringTextComponent("Air Tank Empty"));
+        		tooltip.add(new StringTextComponent("Coolant Tank Empty"));
         	}
         	else
         	{
-        		tooltip.add(new StringTextComponent("Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
+        		tooltip.add(new StringTextComponent("Coolant Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
         	}
         }
 	}

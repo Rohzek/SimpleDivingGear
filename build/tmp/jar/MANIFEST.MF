@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
-Implementation-Title: Simple Dive Gear
-Implementation-Version: 5.0.3 mc 1.16.3
-Specification-Vendor: examplemodsareus
 Specification-Title: examplemod
-Implementation-Timestamp: 2020-09-15T17:23:59-0500
+Specification-Vendor: examplemodsareus
 Specification-Version: 1
+Implementation-Title: SimpleDivingGear
+Implementation-Version: 5.0.5 mc 1.16.5
 Implementation-Vendor: examplemodsareus
+Implementation-Timestamp: 2021-09-24T02:52:26-0500
 
