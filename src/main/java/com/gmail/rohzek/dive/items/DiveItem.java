@@ -9,7 +9,7 @@ public class DiveItem extends Item
 {
 	public DiveItem(String name) 
 	{
-		super(new Item.Properties().group(Main.DIVE_GEAR_TAB).maxStackSize(1));
+		super(new Item.Properties().tab(Main.DIVE_GEAR_TAB).stacksTo(1));
 		
 		setNames(name);
 	}

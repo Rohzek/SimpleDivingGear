@@ -39,8 +39,14 @@ public class SDiveGear extends ArmorItem
 	
 	public SDiveGear(String name, IArmorMaterial mat, EquipmentSlotType equipSlot) 
 	{
-		super(mat, equipSlot, new Item.Properties().group(Main.DIVE_GEAR_TAB).maxStackSize(1));
+		super(mat, equipSlot, new Item.Properties().tab(Main.DIVE_GEAR_TAB).stacksTo(1));
 		setNames(name);
+	}
+	
+	@Override
+	public boolean isDamageable(ItemStack stack) 
+	{
+		return true;
 	}
 	
 	@Override
@@ -57,13 +63,13 @@ public class SDiveGear extends ArmorItem
 	@Override
 	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) 
 	{
-		repairArmor(player.inventory.armorInventory);
+		repairArmor(player.inventory.armor);
 		
 		if(!player.isCreative() && !player.isSpectator()) 
 		{
-			Block above = world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 1, player.getPosZ())).getBlock();
+			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
 			
-			NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
+			NonNullList<ItemStack> armorSlots = player.inventory.armor;
 			
 			ItemStack head = armorSlots.get(3),
 					  chest = armorSlots.get(2),
@@ -103,9 +109,9 @@ public class SDiveGear extends ArmorItem
 		else if (player.isCreative() || player.isSpectator() && player.isInWater())
 		{
 			// Even in Creative mode
-			Block above = world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 1, player.getPosZ())).getBlock();
+			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
 			
-			NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
+			NonNullList<ItemStack> armorSlots = player.inventory.armor;
 			
 			ItemStack head = armorSlots.get(3),
 					  chest = armorSlots.get(2),
@@ -114,7 +120,7 @@ public class SDiveGear extends ArmorItem
 			// If just headlamp helmet, add night vision
 			if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
 			{
-				player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
+				player.addEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
 			}
 			
 			// If the chest is on, grant aqua affinity
@@ -122,7 +128,7 @@ public class SDiveGear extends ArmorItem
 			{
 				if(EnchantmentHelper.getEnchantments(chest).get(Enchantments.AQUA_AFFINITY) == null)
 				{
-					chest.addEnchantment(Enchantments.AQUA_AFFINITY, 1);
+					chest.enchant(Enchantments.AQUA_AFFINITY, 1);
 				}
 			}
 			
@@ -131,7 +137,7 @@ public class SDiveGear extends ArmorItem
 			{
 				if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
 				{
-					feet.addEnchantment(Enchantments.DEPTH_STRIDER, 1);
+					feet.enchant(Enchantments.DEPTH_STRIDER, 1);
 				}
 			}
 		}
@@ -142,7 +148,7 @@ public class SDiveGear extends ArmorItem
 		// If just headlamp helmet, add night vision
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
 		{
-			player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
+			player.addEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
 		}
 		
 		// If either helmet is on, grant respiration
@@ -150,7 +156,7 @@ public class SDiveGear extends ArmorItem
 		{
 			if(EnchantmentHelper.getEnchantments(head).get(Enchantments.RESPIRATION) == null)
 			{
-				head.addEnchantment(Enchantments.RESPIRATION, 1);
+				head.enchant(Enchantments.RESPIRATION, 1);
 			}
 		}
 		
@@ -159,7 +165,7 @@ public class SDiveGear extends ArmorItem
 		{
 			if(EnchantmentHelper.getEnchantments(chest).get(Enchantments.AQUA_AFFINITY) == null)
 			{
-				chest.addEnchantment(Enchantments.AQUA_AFFINITY, 1);
+				chest.enchant(Enchantments.AQUA_AFFINITY, 1);
 			}
 		}
 		
@@ -167,9 +173,12 @@ public class SDiveGear extends ArmorItem
 		if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET) || 
 		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) && 
 		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT &&
-		   (chest.getDamage() < (chest.getMaxDamage() - 40))) 
+		   (chest.getDamageValue() < (chest.getMaxDamage() - 40))) 
 		{
-			player.addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, 2, 0, false, false));
+			if(chest.getDamageValue() < (chest.getMaxDamage() - 40))
+			{
+				player.addEffect(new EffectInstance(Effects.WATER_BREATHING, 2, 0, false, false));
+			}
 		}
 		
 		// If boots are on, grant depth strider
@@ -177,7 +186,7 @@ public class SDiveGear extends ArmorItem
 		{
 			if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
 			{
-				feet.addEnchantment(Enchantments.DEPTH_STRIDER, 1);
+				feet.enchant(Enchantments.DEPTH_STRIDER, 1);
 			}
 		}
 		
@@ -187,15 +196,15 @@ public class SDiveGear extends ArmorItem
 		{
 			if(oldFlySpeed == -1f)
 			{
-				oldFlySpeed = player.abilities.getFlySpeed();
+				oldFlySpeed = player.abilities.getFlyingSpeed();
 			}
 			
-			if(world.isRemote) 
+			if(world.isClientSide) 
 			{
-				player.abilities.setFlySpeed(newFlySpeed);
+				player.abilities.setFlyingSpeed(newFlySpeed);
 			}
 			
-			player.abilities.isFlying = true;
+			player.abilities.flying = true;
 		}
 	}
 	
@@ -223,17 +232,17 @@ public class SDiveGear extends ArmorItem
 		   legs != null && legs.getItem().equals(SArmor.DIVE_LEGS) || 
 		   feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS))
 		{
-			player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2, 0, false, false));
-			player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 2, 0, false, false));
+			player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 2, 0, false, false));
+			player.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 2, 0, false, false));
 			
-			if(world.isRemote) 
+			if(world.isClientSide) 
 			{
-				player.abilities.setFlySpeed(oldFlySpeed);
+				player.abilities.setFlyingSpeed(oldFlySpeed);
 			}
 			
 			if(!player.isSpectator() && !player.isCreative()) 
 			{
-				player.abilities.isFlying = false;
+				player.abilities.flying = false;
 			}
 		}
 	}
@@ -245,9 +254,9 @@ public class SDiveGear extends ArmorItem
 			// By fdefault we refill with air twice as fast as it loses it 
 			// (E.G. If you get 1 full minute of air, it takes 30 full seconds to refill)
 			// But we allow up to 4 times faster
-			if(chest.getDamage() < chest.getMaxDamage()) 
+			if(chest.getDamageValue() < chest.getMaxDamage()) 
 			{
-				chest.damageItem(-(20 * ConfigurationManager.GENERAL.regainAirSpeed.get()), player, null);
+				chest.setDamageValue(chest.getDamageValue() - (20 * ConfigurationManager.GENERAL.regainAirSpeed.get()));
 			}
 		}
 	}
@@ -255,13 +264,15 @@ public class SDiveGear extends ArmorItem
 	public void damageTank(ItemStack chest, PlayerEntity player) 
 	{
 		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST)) 
-		{	
+		{
 			// We don't want to break the item, so only lower if we still have room to lower
-			if(chest.getDamage() < (chest.getMaxDamage() - 21)) 
+			if(chest.getDamageValue() < (chest.getMaxDamage() - 21)) 
 			{
-				chest.damageItem(20, player, null);
+				LogHelper.debug("I should be damaging the tank right now. Damage is at: " + chest.getDamageValue());
+				chest.setDamageValue((chest.getDamageValue() + 20));
+				
 				// If air tank is equipped underwater, after they've been breathing for awhile, refill the air instantly.
-				player.setAir(player.getMaxAir());
+				player.setAirSupply(player.getMaxAirSupply());
 			}
 		}
 	}
@@ -279,7 +290,7 @@ public class SDiveGear extends ArmorItem
 			{
 				if(head.isDamaged()) 
 				{
-					head.setDamage(0);
+					head.setDamageValue(0);
 				}
 			}
 			
@@ -287,7 +298,7 @@ public class SDiveGear extends ArmorItem
 			{
 				if(legs.isDamaged()) 
 				{
-					legs.setDamage(0);
+					legs.setDamageValue(0);
 				}
 			}
 			
@@ -295,7 +306,7 @@ public class SDiveGear extends ArmorItem
 			{
 				if(feet.isDamaged()) 
 				{
-					feet.setDamage(0);
+					feet.setDamageValue(0);
 				}
 			}
 		}
@@ -307,10 +318,10 @@ public class SDiveGear extends ArmorItem
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) 
 	{
 		PlayerEntity player = (PlayerEntity) entity;
-		Block above = world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 1, player.getPosZ())).getBlock();
+		Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
 		removeEnchantments(stack);
 		
-		repairArmor(player.inventory.armorInventory);
+		repairArmor(player.inventory.armor);
 		
 		// If you're not in water, then get air back
 		if(!player.isInWater()) 
@@ -324,9 +335,9 @@ public class SDiveGear extends ArmorItem
 		}
 		
 		// Remove the ability to still fly, if the armor is removed underwater
-		if(!player.isCreative() && !player.isSpectator() && player.abilities.isFlying) 
+		if(!player.isCreative() && !player.isSpectator() && player.abilities.flying) 
 		{
-			NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
+			NonNullList<ItemStack> armorSlots = player.inventory.armor;
 			
 			ItemStack head = armorSlots.get(3),
 					  chest = armorSlots.get(2),
@@ -336,14 +347,14 @@ public class SDiveGear extends ArmorItem
 			if(legs != null && !legs.getItem().equals(SArmor.DIVE_LEGS) ||
 			   feet != null && !feet.getItem().equals(SArmor.DIVE_BOOTS)) 
 			{
-				if(world.isRemote) 
+				if(world.isClientSide) 
 				{
-					player.abilities.setFlySpeed(oldFlySpeed);
+					player.abilities.setFlyingSpeed(oldFlySpeed);
 				}
 				
 				if(!player.isSpectator() && !player.isCreative()) 
 				{
-					player.abilities.isFlying = false;
+					player.abilities.flying = false;
 				}
 			}
 		}
@@ -390,14 +401,14 @@ public class SDiveGear extends ArmorItem
 	}
 	
 	@Override
-	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) 
+	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) 
 	{
 		return false;
 	}
 	
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public boolean hasEffect(ItemStack stack) 
+	public boolean isFoil(ItemStack stack) 
 	{
 		return false;
 	}
@@ -411,15 +422,16 @@ public class SDiveGear extends ArmorItem
 	
 	@Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
         if(stack.getItem() == SArmor.DIVE_CHEST) 
         {
-        	long miliseconds = stack.getMaxDamage() - stack.getDamage();
+        	long miliseconds = stack.getMaxDamage() - stack.getDamageValue();
+        	
         	long minutes = (miliseconds / 1000) / 60;
         	long seconds = (miliseconds / 1000) % 60;
             
-        	if(minutes == 0 && seconds == 0 && stack.getDamage() == stack.getMaxDamage() - 20) 
+        	if(minutes == 0 && seconds == 0 && stack.getDamageValue() == stack.getMaxDamage() - 20) 
         	{
         		tooltip.add(new StringTextComponent("Air Tank Empty"));
         	}

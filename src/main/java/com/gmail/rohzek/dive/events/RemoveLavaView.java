@@ -24,7 +24,7 @@ public class RemoveLavaView
 	@SubscribeEvent
 	public static void removeLavaView(EntityViewRenderEvent.FogDensity event) 
 	{
-		Entity entity = event.getInfo().getRenderViewEntity();
+		Entity entity = event.getInfo().getEntity();
 		
 		if(entity instanceof LivingEntity) 
 		{
@@ -36,11 +36,11 @@ public class RemoveLavaView
 				
 				if(player.isInLava())
 				{
-					Block above = player.world.getBlockState(new BlockPos(player.getPosX(), player.getPosY() + 2, player.getPosZ())).getBlock();
-					
+					Block above = player.level.getBlockState(new BlockPos(player.getX(), player.getY() + 2, player.getZ())).getBlock();
+
 					if(above == Blocks.LAVA) 
 					{
-						NonNullList<ItemStack> armorSlots = player.inventory.armorInventory;
+						NonNullList<ItemStack> armorSlots = player.inventory.armor;
 						
 						ItemStack head = armorSlots.get(3);
 						
