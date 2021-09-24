@@ -3,7 +3,7 @@ package com.gmail.rohzek.dive.items;
 import com.gmail.rohzek.dive.lib.Reference;
 import com.gmail.rohzek.dive.main.Main;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public class DiveItem extends Item
 {
