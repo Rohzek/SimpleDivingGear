@@ -2,7 +2,6 @@ package com.gmail.rohzek.dive.armor;
 
 import com.gmail.rohzek.dive.lib.Reference;
 
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.event.RegistryEvent;

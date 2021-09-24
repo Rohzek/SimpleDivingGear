@@ -2,10 +2,10 @@ package com.gmail.rohzek.dive.creativetabs;
 
 import com.gmail.rohzek.dive.armor.SArmor;
 
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
-public class STab extends ItemGroup
+public class STab extends CreativeModeTab
 {
 	public STab() 
 	{

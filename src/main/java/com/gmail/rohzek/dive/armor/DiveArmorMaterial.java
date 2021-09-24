@@ -1,17 +1,16 @@
 package com.gmail.rohzek.dive.armor;
 
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public enum DiveArmorMaterial implements IArmorMaterial
+public enum DiveArmorMaterial implements ArmorMaterial
 {
 	divegear("divegear", -1, new int[] {0, 0, 0, 0}, 0, SoundEvents.PISTON_CONTRACT, 0f, Ingredient.of(new ItemStack(Blocks.OBSIDIAN)));
 	
