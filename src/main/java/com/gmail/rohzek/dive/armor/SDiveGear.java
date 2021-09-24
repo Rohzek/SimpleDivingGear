@@ -10,26 +10,29 @@ import com.gmail.rohzek.dive.main.Main;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.client.renderer.EffectInstance;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -37,7 +40,7 @@ public class SDiveGear extends ArmorItem
 {
 	float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
-	public SDiveGear(String name, IArmorMaterial mat, EquipmentSlotType equipSlot) 
+	public SDiveGear(String name, IArmorMaterial mat, EquipmentSlot equipSlot) 
 	{
 		super(mat, equipSlot, new Item.Properties().tab(Main.DIVE_GEAR_TAB).stacksTo(1));
 		setNames(name);
@@ -61,15 +64,15 @@ public class SDiveGear extends ArmorItem
 	}
 	
 	@Override
-	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) 
+	public void onArmorTick(ItemStack stack, Level world, Player player) 
 	{
-		repairArmor(player.inventory.armor);
+		repairArmor(player.getInventory().armor);
 		
 		if(!player.isCreative() && !player.isSpectator()) 
 		{
 			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
 			
-			NonNullList<ItemStack> armorSlots = player.inventory.armor;
+			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
 			ItemStack head = armorSlots.get(3),
 					  chest = armorSlots.get(2),
@@ -111,7 +114,7 @@ public class SDiveGear extends ArmorItem
 			// Even in Creative mode
 			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
 			
-			NonNullList<ItemStack> armorSlots = player.inventory.armor;
+			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
 			ItemStack head = armorSlots.get(3),
 					  chest = armorSlots.get(2),
@@ -208,7 +211,7 @@ public class SDiveGear extends ArmorItem
 		}
 	}
 	
-	public void removeChanges(World world, PlayerEntity player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
+	public void removeChanges(World world, Player player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
 	{
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET)||
 		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) 
@@ -317,7 +320,7 @@ public class SDiveGear extends ArmorItem
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) 
 	{
-		PlayerEntity player = (PlayerEntity) entity;
+		Player player = (Player) entity;
 		Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
 		removeEnchantments(stack);
 		
@@ -414,7 +417,7 @@ public class SDiveGear extends ArmorItem
 	}
 	
 	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) 
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) 
 	{
 		// Have to return the exact path to the armor, just passing standard resource location won't work
 		return Reference.RESOURCEID + "textures/models/armor/divegear" + (slot == EquipmentSlotType.LEGS ? "_layer_2" : "_layer_1") + ".png";
@@ -422,7 +425,7 @@ public class SDiveGear extends ArmorItem
 	
 	@Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
         if(stack.getItem() == SArmor.DIVE_CHEST) 
         {

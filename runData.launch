@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
   <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="SimpleDivingGear"/>
-  <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="net.minecraftforge.userdev.LaunchTesting"/>
-  <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dforge.logging.console.level=debug -Dforge.logging.markers=REGISTRIES -XX:+IgnoreUnrecognizedVMOptions --add-exports=java.base/sun.security.util=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming --add-opens=java.base/java.util.jar=ALL-UNNAMED"/>
-  <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="--mod examplemod --all --output E:\Github\SimpleDivingGear\src\generated\resources --existing E:\Github\SimpleDivingGear\src\main\resources"/>
+  <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="cpw.mods.bootstraplauncher.BootstrapLauncher"/>
+  <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dforge.logging.console.level=debug -Dforge.logging.markers=REGISTRIES -DlegacyClassPath.file=E:\Github\SimpleDivingGear\build\classpath\runData_minecraftClasspath.txt -DignoreList=bootstraplauncher,securejarhandler,asm-commons,asm-util,asm-analysis,asm-tree,asm,client-extra,fmlcore,javafmllanguage,mclanguage,forge- -DmergeModules=jna-5.8.0.jar,jna-platform-58.0.jar,java-objc-bridge-1.0.0.jar -p D:\Users\Rohzek\.gradle\caches\modules-2\files-2.1\cpw.mods\bootstraplauncher\0.1.17\899fb8e3912bb7d14a6f9611de117f77db710ec3\bootstraplauncher-0.1.17.jar;D:\Users\Rohzek\.gradle\caches\modules-2\files-2.1\cpw.mods\securejarhandler\0.9.46\63b520c4dad090d67dbe040bea47567534fe2722\securejarhandler-0.9.46.jar;D:\Users\Rohzek\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-commons\9.1\8b971b182eb5cf100b9e8d4119152d83e00e0fdd\asm-commons-9.1.jar;D:\Users\Rohzek\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-util\9.1\36464a45d871779f3383a8a9aba2b26562a86729\asm-util-9.1.jar;D:\Users\Rohzek\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-analysis\9.1\4f61b83b81d8b659958f4bcc48907e93ecea55a0\asm-analysis-9.1.jar;D:\Users\Rohzek\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-tree\9.1\c333f2a855069cb8eb17a40a3eb8b1b67755d0eb\asm-tree-9.1.jar;D:\Users\Rohzek\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm\9.1\a99500cf6eea30535eeac6be73899d048f8d12a8\asm-9.1.jar --add-modules ALL-MODULE-PATH --add-opens java.base/java.util.jar=cpw.mods.securejarhandler --add-exports java.base/sun.security.util=cpw.mods.securejarhandler --add-exports jdk.naming.dns/com.sun.jndi.dns=java.naming"/>
+  <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="--launchTarget forgedatauserdev --assetIndex 1.17 --assetsDir D:\Users\Rohzek\.gradle\caches\forge_gradle\assets --gameDir . --fml.forgeVersion 37.0.70 --fml.mcVersion 1.17.1 --fml.forgeGroup net.minecraftforge --fml.mcpVersion 20210706.113038 --mod examplemod --all --output E:\Github\SimpleDivingGear\src\generated\resources --existing E:\Github\SimpleDivingGear\src\main\resources"/>
   <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="E:\Github\SimpleDivingGear\run"/>
   <mapAttribute key="org.eclipse.debug.core.environmentVariables">
     <mapEntry key="MOD_CLASSES" value="examplemod%%E:\Github\SimpleDivingGear\bin\main;examplemod%%E:\Github\SimpleDivingGear\bin\main"/>
-    <mapEntry key="MCP_MAPPINGS" value="official_1.16.5"/>
-    <mapEntry key="MCP_VERSION" value="20210115.111550"/>
-    <mapEntry key="FORGE_VERSION" value="36.2.0"/>
-    <mapEntry key="assetIndex" value="1.16"/>
-    <mapEntry key="assetDirectory" value="D:\Users\Rohzek\.gradle\caches\forge_gradle\assets"/>
-    <mapEntry key="FORGE_GROUP" value="net.minecraftforge"/>
-    <mapEntry key="target" value="fmluserdevdata"/>
-    <mapEntry key="MC_VERSION" value="1.16.5"/>
+    <mapEntry key="MCP_MAPPINGS" value="official_1.17.1"/>
   </mapAttribute>
 </launchConfiguration>

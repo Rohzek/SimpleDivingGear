@@ -4,8 +4,8 @@ import com.gmail.rohzek.dive.armor.SArmor;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -24,8 +24,8 @@ public class AirCounter
 	{
 		if(ConfigurationManager.GENERAL.displayAirRemaining.get() && ConfigurationManager.GENERAL.consumeAir.get() && !mc.player.isCreative()) 
 		{
-			if (event.getType() == ElementType.AIR) 
-			{	
+			if (event.getType() == ElementType.AIR)
+			{
 				ItemStack chest = mc.player.inventory.armor.get(2); // 0 = feet, 1 = legs, 2 = chest, 3 = head
 				
 				if(chest.getItem() == SArmor.DIVE_CHEST) 
