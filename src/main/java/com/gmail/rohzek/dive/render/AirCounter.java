@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
@@ -20,21 +21,27 @@ public class AirCounter
 	private static String display = "";
 	
 	@SubscribeEvent
-	public static void render(RenderGameOverlayEvent.Pre event)
+	public static void render(RenderGameOverlayEvent.PreLayer event)
 	{
 		if(ConfigurationManager.GENERAL.displayAirRemaining.get() && ConfigurationManager.GENERAL.consumeAir.get() && !mc.player.isCreative()) 
 		{
-			/*
-			 * if (event.getType() == ElementType.AIR) { ItemStack chest =
-			 * mc.player.getInventory().armor.get(2); // 0 = feet, 1 = legs, 2 = chest, 3 =
-			 * head
-			 * 
-			 * if(chest.getItem() == SArmor.DIVE_CHEST) { long miliseconds =
-			 * chest.getMaxDamage() - chest.getDamageValue(); long minutes = (miliseconds /
-			 * 1000) / 60; long seconds = (miliseconds / 1000) % 60;
-			 * 
-			 * if(minutes > 0 || seconds > 0) { event.setCanceled(true); } } }
-			 */
+			
+			  if (event.getOverlay() == ForgeIngameGui.AIR_LEVEL_ELEMENT) 
+			  { 
+				  ItemStack chest = mc.player.getInventory().armor.get(2); // 0 = feet, 1 = legs, 2 = chest, 3 = head
+			  
+				  if(chest.getItem() == SArmor.DIVE_CHEST) 
+				  { 
+					  long miliseconds = chest.getMaxDamage() - chest.getDamageValue(); 
+					  long minutes = (miliseconds / 1000) / 60; 
+					  long seconds = (miliseconds / 1000) % 60;
+				  
+					  if(minutes > 0 || seconds > 0) 
+					  { 
+						  event.setCanceled(true); 
+					  } 
+				  } 
+			  }
 		}
 	}
 	

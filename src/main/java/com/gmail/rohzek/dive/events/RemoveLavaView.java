@@ -22,7 +22,7 @@ public class RemoveLavaView
 {
 
 	@SubscribeEvent
-	public static void removeLavaView(EntityViewRenderEvent.FogDensity event) 
+	public static void removeLavaView(EntityViewRenderEvent.RenderFogEvent event) 
 	{
 		Entity entity = event.getInfo().getEntity();
 		
@@ -49,9 +49,7 @@ public class RemoveLavaView
 							LogHelper.debug("Remove that lava view!");
 							
 							RenderSystem.setShaderFogStart(0.0F);
-							RenderSystem.setShaderFogEnd(1024F);
-					        event.setDensity(0.05F);
-					        event.setCanceled(true);
+							RenderSystem.setShaderFogEnd(30F);
 						}
 					}
 				}
