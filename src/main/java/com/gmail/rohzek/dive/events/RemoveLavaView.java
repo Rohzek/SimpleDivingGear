@@ -4,14 +4,14 @@ import com.gmail.rohzek.dive.armor.SArmor;
 import com.gmail.rohzek.dive.util.LogHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,9 +20,9 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber({Dist.CLIENT})
 public class RemoveLavaView 
 {
-	@SuppressWarnings("deprecation")
+
 	@SubscribeEvent
-	public static void removeLavaView(EntityViewRenderEvent.FogDensity event) 
+	public static void removeLavaView(EntityViewRenderEvent.RenderFogEvent event) 
 	{
 		Entity entity = event.getInfo().getEntity();
 		
@@ -30,9 +30,9 @@ public class RemoveLavaView
 		{
 			LivingEntity lEntity = (LivingEntity) entity;
 			
-			if(lEntity instanceof PlayerEntity) 
+			if(lEntity instanceof Player) 
 			{
-				PlayerEntity player = (PlayerEntity) lEntity;
+				Player player = (Player) lEntity;
 				
 				if(player.isInLava())
 				{
@@ -40,7 +40,7 @@ public class RemoveLavaView
 
 					if(above == Blocks.LAVA) 
 					{
-						NonNullList<ItemStack> armorSlots = player.inventory.armor;
+						NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 						
 						ItemStack head = armorSlots.get(3);
 						
@@ -48,10 +48,8 @@ public class RemoveLavaView
 						{
 							LogHelper.debug("Remove that lava view!");
 							
-							RenderSystem.fogStart(0.0F);
-					        RenderSystem.fogEnd(1024F);
-					        event.setDensity(0.05F);
-					        event.setCanceled(true);
+							RenderSystem.setShaderFogStart(0.0F);
+							RenderSystem.setShaderFogEnd(30F);
 						}
 					}
 				}

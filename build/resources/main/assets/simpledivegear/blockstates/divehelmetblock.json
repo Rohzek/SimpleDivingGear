@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "simpledivegear:divehelmetblock" },
-        "facing=south": { "model": "simpledivegear:divehelmetblock", "y": 180 },
-        "facing=west":  { "model": "simpledivegear:divehelmetblock", "y": 270 },
-        "facing=east":  { "model": "simpledivegear:divehelmetblock", "y": 90 }
-    }
-}

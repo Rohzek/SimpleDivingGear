@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Specification-Title: examplemod
-Specification-Vendor: examplemodsareus
-Specification-Version: 1
-Implementation-Title: SimpleDivingGear
-Implementation-Version: 5.0.5 mc 1.16.5
-Implementation-Vendor: examplemodsareus
-Implementation-Timestamp: 2021-09-24T02:52:26-0500
-

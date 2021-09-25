@@ -10,26 +10,26 @@ import com.gmail.rohzek.dive.main.Main;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -37,12 +37,12 @@ public class SDiveGear extends ArmorItem
 {
 	float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
-	public SDiveGear(String name, IArmorMaterial mat, EquipmentSlotType equipSlot) 
+	public SDiveGear(String name, ArmorMaterial mat, EquipmentSlot equipSlot) 
 	{
 		super(mat, equipSlot, new Item.Properties().tab(Main.DIVE_GEAR_TAB).stacksTo(1));
 		setNames(name);
 	}
-	
+		
 	@Override
 	public boolean isDamageable(ItemStack stack) 
 	{
@@ -61,15 +61,15 @@ public class SDiveGear extends ArmorItem
 	}
 	
 	@Override
-	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) 
+	public void onArmorTick(ItemStack stack, Level world, Player player) 
 	{
-		repairArmor(player.inventory.armor);
+		repairArmor(player.getInventory().armor);
 		
 		if(!player.isCreative() && !player.isSpectator()) 
 		{
 			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
 			
-			NonNullList<ItemStack> armorSlots = player.inventory.armor;
+			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
 			ItemStack head = armorSlots.get(3),
 					  chest = armorSlots.get(2),
@@ -111,7 +111,7 @@ public class SDiveGear extends ArmorItem
 			// Even in Creative mode
 			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
 			
-			NonNullList<ItemStack> armorSlots = player.inventory.armor;
+			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
 			ItemStack head = armorSlots.get(3),
 					  chest = armorSlots.get(2),
@@ -120,7 +120,7 @@ public class SDiveGear extends ArmorItem
 			// If just headlamp helmet, add night vision
 			if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
 			{
-				player.addEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
+				player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2, 0, false, false));
 			}
 			
 			// If the chest is on, grant aqua affinity
@@ -143,12 +143,13 @@ public class SDiveGear extends ArmorItem
 		}
 	}
 	
-	public void addChanges(World world, PlayerEntity player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
+	public void addChanges(Level world, Player player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
 	{
 		// If just headlamp helmet, add night vision
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
 		{
-			player.addEffect(new EffectInstance(Effects.NIGHT_VISION, 2, 0, false, false));
+			player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2, 0, false, false));
+			
 		}
 		
 		// If either helmet is on, grant respiration
@@ -177,7 +178,7 @@ public class SDiveGear extends ArmorItem
 		{
 			if(chest.getDamageValue() < (chest.getMaxDamage() - 40))
 			{
-				player.addEffect(new EffectInstance(Effects.WATER_BREATHING, 2, 0, false, false));
+				player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 2, 0, false, false));
 			}
 		}
 		
@@ -196,19 +197,19 @@ public class SDiveGear extends ArmorItem
 		{
 			if(oldFlySpeed == -1f)
 			{
-				oldFlySpeed = player.abilities.getFlyingSpeed();
+				oldFlySpeed = player.getAbilities().getFlyingSpeed();
 			}
 			
 			if(world.isClientSide) 
 			{
-				player.abilities.setFlyingSpeed(newFlySpeed);
+				player.getAbilities().setFlyingSpeed(newFlySpeed);
 			}
 			
-			player.abilities.flying = true;
+			player.getAbilities().flying = true;
 		}
 	}
 	
-	public void removeChanges(World world, PlayerEntity player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
+	public void removeChanges(Level world, Player player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
 	{
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET)||
 		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) 
@@ -232,22 +233,22 @@ public class SDiveGear extends ArmorItem
 		   legs != null && legs.getItem().equals(SArmor.DIVE_LEGS) || 
 		   feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS))
 		{
-			player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 2, 0, false, false));
-			player.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 2, 0, false, false));
+			player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 0, false, false));
+			player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 2, 0, false, false));
 			
 			if(world.isClientSide) 
 			{
-				player.abilities.setFlyingSpeed(oldFlySpeed);
+				player.getAbilities().setFlyingSpeed(oldFlySpeed);
 			}
 			
 			if(!player.isSpectator() && !player.isCreative()) 
 			{
-				player.abilities.flying = false;
+				player.getAbilities().flying = false;
 			}
 		}
 	}
 	
-	public void repairTank(ItemStack chest, PlayerEntity player) 
+	public void repairTank(ItemStack chest, Player player) 
 	{
 		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST)) 
 		{
@@ -261,7 +262,7 @@ public class SDiveGear extends ArmorItem
 		}
 	}
 	
-	public void damageTank(ItemStack chest, PlayerEntity player) 
+	public void damageTank(ItemStack chest, Player player) 
 	{
 		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST)) 
 		{
@@ -315,13 +316,13 @@ public class SDiveGear extends ArmorItem
 	// Was named onUpdate in previous versions, is now inventoryTick
 	@SuppressWarnings("unused")
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) 
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int itemSlot, boolean isSelected) 
 	{
-		PlayerEntity player = (PlayerEntity) entity;
+		Player player = (Player) entity;
 		Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
 		removeEnchantments(stack);
 		
-		repairArmor(player.inventory.armor);
+		repairArmor(player.getInventory().armor);
 		
 		// If you're not in water, then get air back
 		if(!player.isInWater()) 
@@ -335,9 +336,9 @@ public class SDiveGear extends ArmorItem
 		}
 		
 		// Remove the ability to still fly, if the armor is removed underwater
-		if(!player.isCreative() && !player.isSpectator() && player.abilities.flying) 
+		if(!player.isCreative() && !player.isSpectator() && player.getAbilities().flying) 
 		{
-			NonNullList<ItemStack> armorSlots = player.inventory.armor;
+			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
 			ItemStack head = armorSlots.get(3),
 					  chest = armorSlots.get(2),
@@ -349,12 +350,12 @@ public class SDiveGear extends ArmorItem
 			{
 				if(world.isClientSide) 
 				{
-					player.abilities.setFlyingSpeed(oldFlySpeed);
+					player.getAbilities().setFlyingSpeed(oldFlySpeed);
 				}
 				
 				if(!player.isSpectator() && !player.isCreative()) 
 				{
-					player.abilities.flying = false;
+					player.getAbilities().flying = false;
 				}
 			}
 		}
@@ -414,15 +415,15 @@ public class SDiveGear extends ArmorItem
 	}
 	
 	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) 
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) 
 	{
 		// Have to return the exact path to the armor, just passing standard resource location won't work
-		return Reference.RESOURCEID + "textures/models/armor/divegear" + (slot == EquipmentSlotType.LEGS ? "_layer_2" : "_layer_1") + ".png";
+		return Reference.RESOURCEID + "textures/models/armor/divegear" + (slot == EquipmentSlot.LEGS ? "_layer_2" : "_layer_1") + ".png";
 	}
 	
 	@Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn)
     {
         if(stack.getItem() == SArmor.DIVE_CHEST) 
         {
@@ -433,11 +434,11 @@ public class SDiveGear extends ArmorItem
             
         	if(minutes == 0 && seconds == 0 && stack.getDamageValue() == stack.getMaxDamage() - 20) 
         	{
-        		tooltip.add(new StringTextComponent("Air Tank Empty"));
+        		tooltip.add(new TextComponent("Air Tank Empty"));
         	}
         	else
         	{
-        		tooltip.add(new StringTextComponent("Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
+        		tooltip.add(new TextComponent("Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
         	}
         }
     }

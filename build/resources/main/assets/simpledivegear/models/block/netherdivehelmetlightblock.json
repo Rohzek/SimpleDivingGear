@@ -1,8 +1,0 @@
-{
-    "parent": "block/orientable",
-    "textures": {
-        "top": "simpledivegear:blocks/nether_dark",
-        "front": "simpledivegear:blocks/nether_lighted",
-        "side": "simpledivegear:blocks/nether_dark"
-    }
-}

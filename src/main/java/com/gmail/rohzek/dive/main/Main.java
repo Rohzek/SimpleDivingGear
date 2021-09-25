@@ -6,7 +6,7 @@ import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 import com.gmail.rohzek.dive.util.TimeOutput;
 
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(Reference.MODID)
 public class Main 
 {
-	public static final ItemGroup DIVE_GEAR_TAB = new STab();
+	public static final CreativeModeTab DIVE_GEAR_TAB = new STab();
 	
 	public Main() 
 	{
