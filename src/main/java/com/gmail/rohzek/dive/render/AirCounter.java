@@ -14,7 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @EventBusSubscriber(value = Dist.CLIENT)
-public class AirCounter 
+public class AirCounter
 {
 	private static Minecraft mc = Minecraft.getInstance();
 	private static float x = 0f, y = 0f;
@@ -25,20 +25,19 @@ public class AirCounter
 	{
 		if(ConfigurationManager.GENERAL.displayAirRemaining.get() && ConfigurationManager.GENERAL.consumeAir.get() && !mc.player.isCreative()) 
 		{
-			
-			  if (event.getOverlay() == ForgeIngameGui.AIR_LEVEL_ELEMENT) 
-			  { 
+			if (event.getOverlay() == ForgeIngameGui.AIR_LEVEL_ELEMENT) 
+			{
 				  ItemStack chest = mc.player.getInventory().armor.get(2); // 0 = feet, 1 = legs, 2 = chest, 3 = head
 			  
 				  if(chest.getItem() == SArmor.DIVE_CHEST) 
 				  { 
-					  long miliseconds = chest.getMaxDamage() - chest.getDamageValue(); 
+					  long miliseconds = chest.getMaxDamage() - chest.getDamageValue();
 					  long minutes = (miliseconds / 1000) / 60; 
 					  long seconds = (miliseconds / 1000) % 60;
 				  
 					  if(minutes > 0 || seconds > 0) 
 					  { 
-						  event.setCanceled(true); 
+						  event.setCanceled(true);
 					  } 
 				  } 
 			  }
