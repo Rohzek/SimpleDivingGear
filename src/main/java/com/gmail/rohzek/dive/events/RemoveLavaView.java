@@ -17,39 +17,40 @@ import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@EventBusSubscriber({Dist.CLIENT})
+@EventBusSubscriber({ Dist.CLIENT })
 public class RemoveLavaView 
 {
-
 	@SubscribeEvent
 	public static void removeLavaView(EntityViewRenderEvent.RenderFogEvent event) 
 	{
-		Entity entity = event.getInfo().getEntity();
-		
-		if(entity instanceof LivingEntity) 
+		//Entity entity = event.getInfo().getEntity();
+		Entity entity = event.getRenderer().getMainCamera().getEntity();
+
+		if (entity instanceof LivingEntity) 
 		{
 			LivingEntity lEntity = (LivingEntity) entity;
-			
-			if(lEntity instanceof Player) 
+
+			if (lEntity instanceof Player)
 			{
 				Player player = (Player) lEntity;
-				
-				if(player.isInLava())
-				{
-					Block above = player.level.getBlockState(new BlockPos(player.getX(), player.getY() + 2, player.getZ())).getBlock();
 
-					if(above == Blocks.LAVA) 
+				if (player.isInLava()) 
+				{
+					Block above = player.level .getBlockState(new BlockPos(player.getX(), player.getY() + 2, player.getZ())).getBlock();
+
+					if (above == Blocks.LAVA) 
 					{
 						NonNullList<ItemStack> armorSlots = player.getInventory().armor;
-						
+
 						ItemStack head = armorSlots.get(3);
-						
-						if(head.getItem().equals(SArmor.NETHER_DIVE_HELMET) || head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS)) 
+
+						if (head.getItem().equals(SArmor.NETHER_DIVE_HELMET) || head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS)) 
 						{
 							LogHelper.debug("Remove that lava view!");
-							
+
+							// See if we can fine tune by going into the nether
 							RenderSystem.setShaderFogStart(0.0F);
-							RenderSystem.setShaderFogEnd(30F);
+							RenderSystem.setShaderFogEnd(50F);
 						}
 					}
 				}
