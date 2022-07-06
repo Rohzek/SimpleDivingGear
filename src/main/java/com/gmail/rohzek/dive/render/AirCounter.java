@@ -29,7 +29,7 @@ public class AirCounter
 			{
 				  ItemStack chest = mc.player.getInventory().armor.get(2); // 0 = feet, 1 = legs, 2 = chest, 3 = head
 			  
-				  if(chest.getItem() == SArmor.DIVE_CHEST) 
+				  if(chest.getItem() == SArmor.DIVE_CHEST.get().asItem()) 
 				  { 
 					  long miliseconds = chest.getMaxDamage() - chest.getDamageValue();
 					  long minutes = (miliseconds / 1000) / 60; 
@@ -53,7 +53,7 @@ public class AirCounter
 			{	
 				ItemStack chest = mc.player.getInventory().armor.get(2); // 0 = feet, 1 = legs, 2 = chest, 3 = head
 				
-				if(chest.getItem() == SArmor.DIVE_CHEST) 
+				if(chest.getItem() == SArmor.DIVE_CHEST.get().asItem()) 
 				{
 					long miliseconds = chest.getMaxDamage() - chest.getDamageValue();
 	            	long minutes = (miliseconds / 1000) / 60;
@@ -63,17 +63,17 @@ public class AirCounter
 					  { 
 						  display = I18n.get("display.simpledivegear.airempty");
 						  // This int seems to be for the font color, in a hex format
-						  mc.font.drawShadow(event.getMatrixStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("db8786", 16));
+						  mc.font.drawShadow(event.getPoseStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("db8786", 16));
 					  } 
 					  else 
 					  { 
 						  String output = ": " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds); 
 						  display = I18n.get("display.simpledivegear.airleft") + output;
 						  // This int seems to be for the font color, in a hex format
-						  mc.font.drawShadow(event.getMatrixStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("ffffff", 16));
+						  mc.font.drawShadow(event.getPoseStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("ffffff", 16));
 					  }
 				}
-				else if(chest.getItem() == SArmor.NETHER_DIVE_CHEST) 
+				else if(chest.getItem() == SArmor.NETHER_DIVE_CHEST.get().asItem()) 
 				{
 					long miliseconds = chest.getMaxDamage() - chest.getDamageValue();
 	            	long minutes = (miliseconds / 1000) / 60;
@@ -83,14 +83,14 @@ public class AirCounter
 					  { 
 						  display = I18n.get("display.simpledivegear.coolantempty");
 						  // This int seems to be for the font color, in a hex format
-						  mc.font.drawShadow(event.getMatrixStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("db8786", 16));
+						  mc.font.drawShadow(event.getPoseStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("db8786", 16));
 					  } 
 					  else 
 					  { 
 						  String output = ": " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds); 
 						  display = I18n.get("display.simpledivegear.coolantleft") + output;
 						  // This int seems to be for the font color, in a hex format
-						  mc.font.drawShadow(event.getMatrixStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("ffffff", 16));
+						  mc.font.drawShadow(event.getPoseStack(), display, getXCenter(display), getYCenter(display), Integer.parseInt("ffffff", 16));
 					  }
 				}
 			}

@@ -8,10 +8,10 @@ import com.gmail.rohzek.dive.main.Main;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -35,10 +35,9 @@ public class SNetherDiveGear extends ArmorItem
 {
 float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
-	public SNetherDiveGear(String name, ArmorMaterial mat, EquipmentSlot equipSlot) 
+	public SNetherDiveGear(ArmorMaterial mat, EquipmentSlot equipSlot) 
 	{
 		super(mat, equipSlot, new Item.Properties().tab(Main.DIVE_GEAR_TAB).stacksTo(1));
-		setNames(name);
 	}
 	
 	@Override
@@ -51,11 +50,6 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	public int getMaxDamage(ItemStack stack) 
 	{
 		return ((ConfigurationManager.GENERAL.minutesOfAir.get() * 60) * 1000);
-	}
-	
-	void setNames(String name) 
-	{
-		setRegistryName(Reference.MODID, name);
 	}
 	
 	@Override
@@ -84,7 +78,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 				// Only damage the tank if we're consuming air, which we can only do with a helmet and the chest piece
 				if(above == Blocks.LAVA) 
 				{
-					if((head.getItem() == SArmor.NETHER_DIVE_HELMET || head.getItem() == SArmor.NETHER_DIVE_HELMET_LIGHTS) && chest.getItem() == SArmor.NETHER_DIVE_CHEST) 
+					if((head.getItem() == SArmor.NETHER_DIVE_HELMET.get().asItem() || head.getItem() == SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem()) && chest.getItem() == SArmor.NETHER_DIVE_CHEST.get().asItem()) 
 					{
 						LogHelper.debug("I'm under lava, damage the air tank!");
 						damageTank(chest, player);
@@ -115,7 +109,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 						
 			ItemStack head = armorSlots.get(3);
 			
-			if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS) && above == Blocks.LAVA) 
+			if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem()) && above == Blocks.LAVA) 
 			{
 				player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2, 0, false, false));
 			}
@@ -124,13 +118,13 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
 	private void addChanges(Level world, Player player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
 	{
-		if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS) && above == Blocks.LAVA) 
+		if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem()) && above == Blocks.LAVA) 
 		{
 			player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2, 0, false, false));
 		}
 		
 		// If boots are on, grant depth strider
-		if(feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS)) 
+		if(feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
 		{
 			if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
 			{
@@ -139,8 +133,8 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		}
 		
 		// If the boots and pants are on, grant easy movement through 'flying'
-		if(legs != null && legs.getItem().equals(SArmor.NETHER_DIVE_LEGS) && 
-		   feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS))
+		if(legs != null && legs.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem()) && 
+		   feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem()))
 		{
 			if(oldFlySpeed == -1f)
 			{
@@ -156,9 +150,9 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		}
 		
 		// Requires all components to receive the fire resistance
-		if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET) || head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS) &&
-		   chest != null && chest.getItem().equals(SArmor.NETHER_DIVE_CHEST) && legs != null && legs.getItem().equals(SArmor.NETHER_DIVE_LEGS) &&
-		   feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS)) 
+		if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET.get().asItem()) || head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem()) &&
+		   chest != null && chest.getItem().equals(SArmor.NETHER_DIVE_CHEST.get().asItem()) && legs != null && legs.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem()) &&
+		   feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
 		{	
 			if(chest.getDamageValue() < (chest.getMaxDamage() - 40)) 
 			{
@@ -169,16 +163,16 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
 	private void removeChanges(Level world, Player player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
 	{
-		if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS)) 
+		if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
 		{
 			removeEnchantments(feet);
 		}
 		
-		if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET) ||
-		   head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS) ||
-		   chest != null && chest.getItem().equals(SArmor.NETHER_DIVE_CHEST) ||
-		   legs != null && legs.getItem().equals(SArmor.NETHER_DIVE_LEGS) || 
-		   feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS))
+		if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET.get().asItem()) ||
+		   head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem()) ||
+		   chest != null && chest.getItem().equals(SArmor.NETHER_DIVE_CHEST.get().asItem()) ||
+		   legs != null && legs.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem()) || 
+		   feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem()))
 		{
 			player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 0, false, false));
 			player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 2, 0, false, false));
@@ -197,7 +191,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
 	private void repairTank(ItemStack chest, Player player) 
 	{
-		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.NETHER_DIVE_CHEST)) 
+		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.NETHER_DIVE_CHEST.get().asItem())) 
 		{
 			// By fdefault we refill with air twice as fast as it loses it 
 			// (E.G. If you get 1 full minute of air, it takes 30 full seconds to refill)
@@ -211,7 +205,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
 	private void damageTank(ItemStack chest, Player player) 
 	{
-		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.NETHER_DIVE_CHEST)) 
+		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.NETHER_DIVE_CHEST.get().asItem())) 
 		{	
 			// We don't want to break the item, so only lower if we still have room to lower
 			if(chest.getDamageValue() < (chest.getMaxDamage() - 21)) 
@@ -229,8 +223,8 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 					  legs = armorSlots.get(1),
 					  feet = armorSlots.get(0);
 			
-			if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET) || 
-			   head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS)) 
+			if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET.get().asItem()) || 
+			   head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem())) 
 			{
 				if(head.isDamaged()) 
 				{
@@ -238,7 +232,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 				}
 			}
 			
-			if(legs != null && legs.getItem().equals(SArmor.NETHER_DIVE_LEGS)) 
+			if(legs != null && legs.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem())) 
 			{
 				if(legs.isDamaged()) 
 				{
@@ -246,7 +240,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 				}
 			}
 			
-			if(feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS)) 
+			if(feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
 			{
 				if(feet.isDamaged()) 
 				{
@@ -288,8 +282,8 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 					  legs = armorSlots.get(1),
 					  feet = armorSlots.get(0);
 			
-			if(legs != null && !legs.getItem().equals(SArmor.NETHER_DIVE_LEGS) ||
-			   feet != null && !feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS)) 
+			if(legs != null && !legs.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem()) ||
+			   feet != null && !feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
 			{
 				if(world.isClientSide) 
 				{
@@ -355,7 +349,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	@Override
 	public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) 
 	{
-		if(stack.getItem() == SArmor.NETHER_DIVE_CHEST) 
+		if(stack.getItem() == SArmor.NETHER_DIVE_CHEST.get().asItem()) 
         {
         	long miliseconds = stack.getMaxDamage() - stack.getDamageValue();
         	long minutes = (miliseconds / 1000) / 60;
@@ -363,11 +357,11 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
             
         	if(minutes == 0 && seconds == 0 && stack.getDamageValue() == stack.getMaxDamage() - 20) 
         	{
-        		tooltip.add(new TextComponent("Coolant Tank Empty"));
+        		tooltip.add(Component.translatable("display.simpledivegear.coolantempty"));
         	}
         	else
         	{
-        		tooltip.add(new TextComponent("Coolant Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
+        		tooltip.add(Component.translatable(I18n.get("display.simpledivegear.coolantleft") + ": " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
         	}
         }
 	}

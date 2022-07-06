@@ -1,28 +1,12 @@
 package com.gmail.rohzek.dive.items;
 
-import com.gmail.rohzek.dive.lib.Reference;
+import com.gmail.rohzek.dive.lib.DeferredRegistration;
 
-import net.minecraft.world.item.Item;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.registries.RegistryObject;
 
-@ObjectHolder(Reference.MODID)
 public class DiveGearItems 
 {
-    public static final Item DIVE_HELMET_CORE = new DiveItem("divehelmetcore");
+    public static final RegistryObject<DiveItem> DIVE_HELMET_CORE = DeferredRegistration.ITEMS.register("divehelmetcore", () -> new DiveItem());
     
-    @Mod.EventBusSubscriber(modid = Reference.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-	public static class RegistrationHandler 
-	{
-		@SubscribeEvent
-		public static void registerItems(final RegistryEvent.Register<Item> event) 
-		{
-			event.getRegistry().registerAll
-			(
-					DIVE_HELMET_CORE
-			);
-		}
-	}
+    public static void register() {}
 }

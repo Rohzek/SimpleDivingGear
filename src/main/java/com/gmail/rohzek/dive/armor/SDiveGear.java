@@ -10,10 +10,10 @@ import com.gmail.rohzek.dive.main.Main;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -37,10 +37,9 @@ public class SDiveGear extends ArmorItem
 {
 	float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
-	public SDiveGear(String name, ArmorMaterial mat, EquipmentSlot equipSlot) 
+	public SDiveGear(ArmorMaterial mat, EquipmentSlot equipSlot) 
 	{
 		super(mat, equipSlot, new Item.Properties().tab(Main.DIVE_GEAR_TAB).stacksTo(1));
-		setNames(name);
 	}
 		
 	@Override
@@ -53,11 +52,6 @@ public class SDiveGear extends ArmorItem
 	public int getMaxDamage(ItemStack stack) 
 	{
 		return ((ConfigurationManager.GENERAL.minutesOfAir.get() * 60) * 1000);
-	}
-	
-	void setNames(String name) 
-	{
-		setRegistryName(Reference.MODID, name);
 	}
 	
 	@Override
@@ -85,7 +79,7 @@ public class SDiveGear extends ArmorItem
 				if(above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT)
 				{
 					// Only damage the tank if we're consuming air, which we can only do with a helmet and the chest piece
-					if((head.getItem() == SArmor.DIVE_HELMET || head.getItem() == SArmor.DIVE_HELMET_LIGHTS) && chest.getItem() == SArmor.DIVE_CHEST) 
+					if((head.getItem() == SArmor.DIVE_HELMET.get().asItem() || head.getItem() == SArmor.DIVE_HELMET_LIGHTS.get().asItem()) && chest.getItem() == SArmor.DIVE_CHEST.get().asItem()) 
 					{
 						LogHelper.debug("I'm underwater, damage the air tank!");
 						damageTank(chest, player);
@@ -118,13 +112,13 @@ public class SDiveGear extends ArmorItem
 					  feet = armorSlots.get(0);
 			
 			// If just headlamp helmet, add night vision
-			if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
+			if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem()) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
 			{
 				player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2, 0, false, false));
 			}
 			
 			// If the chest is on, grant aqua affinity
-			if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST)) 
+			if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
 			{
 				if(EnchantmentHelper.getEnchantments(chest).get(Enchantments.AQUA_AFFINITY) == null)
 				{
@@ -133,7 +127,7 @@ public class SDiveGear extends ArmorItem
 			}
 			
 			// If boots are on, grant depth strider
-			if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS)) 
+			if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
 			{
 				if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
 				{
@@ -146,14 +140,14 @@ public class SDiveGear extends ArmorItem
 	public void addChanges(Level world, Player player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, Block above) 
 	{
 		// If just headlamp helmet, add night vision
-		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
+		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem()) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
 		{
 			player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2, 0, false, false));
 			
 		}
 		
 		// If either helmet is on, grant respiration
-		if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET) || head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)))
+		if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET.get().asItem()) || head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem())))
 		{
 			if(EnchantmentHelper.getEnchantments(head).get(Enchantments.RESPIRATION) == null)
 			{
@@ -162,7 +156,7 @@ public class SDiveGear extends ArmorItem
 		}
 		
 		// If the chest is on, grant aqua affinity
-		if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST)) 
+		if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
 		{
 			if(EnchantmentHelper.getEnchantments(chest).get(Enchantments.AQUA_AFFINITY) == null)
 			{
@@ -171,9 +165,9 @@ public class SDiveGear extends ArmorItem
 		}
 		
 		// If either helmet, and the chest is on, and you're underwater, grant water breathing
-		if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET) || 
-		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) && 
-		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT &&
+		if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET.get().asItem()) || 
+		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem())) && 
+		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem()) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT &&
 		   (chest.getDamageValue() < (chest.getMaxDamage() - 40))) 
 		{
 			if(chest.getDamageValue() < (chest.getMaxDamage() - 40))
@@ -183,7 +177,7 @@ public class SDiveGear extends ArmorItem
 		}
 		
 		// If boots are on, grant depth strider
-		if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS)) 
+		if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
 		{
 			if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
 			{
@@ -192,8 +186,8 @@ public class SDiveGear extends ArmorItem
 		}
 		
 		// If the boots and pants are on, grant easy movement through 'flying'
-		if(legs != null && legs.getItem().equals(SArmor.DIVE_LEGS) && 
-		   feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS))
+		if(legs != null && legs.getItem().equals(SArmor.DIVE_LEGS.get().asItem()) && 
+		   feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem()))
 		{
 			if(oldFlySpeed == -1f)
 			{
@@ -211,27 +205,27 @@ public class SDiveGear extends ArmorItem
 	
 	public void removeChanges(Level world, Player player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
 	{
-		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET)||
-		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) 
+		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET.get().asItem())||
+		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem())) 
 		{
 			removeEnchantments(head);
 		}
 				
-		if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST)) 
+		if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
 		{
 			removeEnchantments(chest);
 		}
 		
-		if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS)) 
+		if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
 		{
 			removeEnchantments(feet);
 		}
 		
-		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET) ||
-		   head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS) ||
-		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST) ||
-		   legs != null && legs.getItem().equals(SArmor.DIVE_LEGS) || 
-		   feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS))
+		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET.get().asItem()) ||
+		   head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem()) ||
+		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem()) ||
+		   legs != null && legs.getItem().equals(SArmor.DIVE_LEGS.get().asItem()) || 
+		   feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem()))
 		{
 			player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 0, false, false));
 			player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 2, 0, false, false));
@@ -250,7 +244,7 @@ public class SDiveGear extends ArmorItem
 	
 	public void repairTank(ItemStack chest, Player player) 
 	{
-		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST)) 
+		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
 		{
 			// By fdefault we refill with air twice as fast as it loses it 
 			// (E.G. If you get 1 full minute of air, it takes 30 full seconds to refill)
@@ -264,7 +258,7 @@ public class SDiveGear extends ArmorItem
 	
 	public void damageTank(ItemStack chest, Player player) 
 	{
-		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST)) 
+		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
 		{
 			// We don't want to break the item, so only lower if we still have room to lower
 			if(chest.getDamageValue() < (chest.getMaxDamage() - 21)) 
@@ -286,8 +280,8 @@ public class SDiveGear extends ArmorItem
 					  legs = armorSlots.get(1),
 					  feet = armorSlots.get(0);
 			
-			if(head != null && head.getItem().equals(SArmor.DIVE_HELMET) || 
-			   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS)) 
+			if(head != null && head.getItem().equals(SArmor.DIVE_HELMET.get().asItem()) || 
+			   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem())) 
 			{
 				if(head.isDamaged()) 
 				{
@@ -295,7 +289,7 @@ public class SDiveGear extends ArmorItem
 				}
 			}
 			
-			if(legs != null && legs.getItem().equals(SArmor.DIVE_LEGS)) 
+			if(legs != null && legs.getItem().equals(SArmor.DIVE_LEGS.get().asItem())) 
 			{
 				if(legs.isDamaged()) 
 				{
@@ -303,7 +297,7 @@ public class SDiveGear extends ArmorItem
 				}
 			}
 			
-			if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS)) 
+			if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
 			{
 				if(feet.isDamaged()) 
 				{
@@ -345,8 +339,8 @@ public class SDiveGear extends ArmorItem
 					  legs = armorSlots.get(1),
 					  feet = armorSlots.get(0);
 			
-			if(legs != null && !legs.getItem().equals(SArmor.DIVE_LEGS) ||
-			   feet != null && !feet.getItem().equals(SArmor.DIVE_BOOTS)) 
+			if(legs != null && !legs.getItem().equals(SArmor.DIVE_LEGS.get().asItem()) ||
+			   feet != null && !feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
 			{
 				if(world.isClientSide) 
 				{
@@ -425,7 +419,7 @@ public class SDiveGear extends ArmorItem
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn)
     {
-        if(stack.getItem() == SArmor.DIVE_CHEST) 
+        if(stack.getItem() == SArmor.DIVE_CHEST.get().asItem()) 
         {
         	long miliseconds = stack.getMaxDamage() - stack.getDamageValue();
         	
@@ -434,11 +428,11 @@ public class SDiveGear extends ArmorItem
             
         	if(minutes == 0 && seconds == 0 && stack.getDamageValue() == stack.getMaxDamage() - 20) 
         	{
-        		tooltip.add(new TextComponent("Air Tank Empty"));
+        		tooltip.add(Component.translatable("display.simpledivegear.airempty"));
         	}
         	else
         	{
-        		tooltip.add(new TextComponent("Air Left: " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
+        		tooltip.add(Component.translatable(I18n.get("display.simpledivegear.airleft") + ": " + minutes + ":" + (seconds == 0 ? "00" : seconds < 10 ? "0" + seconds : seconds)));
         	}
         }
     }
