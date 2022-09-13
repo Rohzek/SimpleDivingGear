@@ -5,11 +5,10 @@ import com.gmail.rohzek.dive.util.ConfigurationManager;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
@@ -21,11 +20,11 @@ public class AirCounter
 	private static String display = "";
 	
 	@SubscribeEvent
-	public static void render(RenderGameOverlayEvent.PreLayer event)
+	public static void render(RenderGuiOverlayEvent.Pre event)
 	{
 		if(ConfigurationManager.GENERAL.displayAirRemaining.get() && ConfigurationManager.GENERAL.consumeAir.get() && !mc.player.isCreative()) 
 		{
-			if (event.getOverlay() == ForgeIngameGui.AIR_LEVEL_ELEMENT) 
+			if (event.getOverlay().id().equals(new ResourceLocation("air_level"))) 
 			{
 				  ItemStack chest = mc.player.getInventory().armor.get(2); // 0 = feet, 1 = legs, 2 = chest, 3 = head
 			  
@@ -45,11 +44,11 @@ public class AirCounter
 	}
 	
 	@SubscribeEvent
-	public static void render(RenderGameOverlayEvent.Post event)
+	public static void render(RenderGuiOverlayEvent.Post event)
 	{
 		if(ConfigurationManager.GENERAL.displayAirRemaining.get() && ConfigurationManager.GENERAL.consumeAir.get() && !mc.player.isCreative()) 
 		{
-			if (event.getType() == ElementType.TEXT) 
+			if (event.getOverlay().id().equals(new ResourceLocation("debug_text"))) 
 			{	
 				ItemStack chest = mc.player.getInventory().armor.get(2); // 0 = feet, 1 = legs, 2 = chest, 3 = head
 				
