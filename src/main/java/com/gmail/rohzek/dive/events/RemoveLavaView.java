@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 public class RemoveLavaView 
 {
 	@SubscribeEvent
-	public static void removeLavaView(EntityViewRenderEvent.RenderFogEvent event) 
+	public static void removeLavaView(ViewportEvent.RenderFog event)
 	{
 		//Entity entity = event.getInfo().getEntity();
 		Entity entity = event.getRenderer().getMainCamera().getEntity();
