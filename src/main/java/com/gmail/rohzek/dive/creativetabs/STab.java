@@ -16,6 +16,7 @@ public class STab extends CreativeModeTab
 	public ItemStack makeIcon() 
 	{
 		return SArmor.DIVE_HELMET.get().getDefaultInstance();
-		//return new ItemStack(SArmor.DIVE_HELMET);
 	}
+	
+	
 }
