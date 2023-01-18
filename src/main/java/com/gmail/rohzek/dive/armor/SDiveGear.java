@@ -1,12 +1,10 @@
 package com.gmail.rohzek.dive.armor;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Nullable;
 
 import com.gmail.rohzek.dive.lib.Reference;
-import com.gmail.rohzek.dive.main.Main;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 
@@ -18,14 +16,14 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -39,7 +37,7 @@ public class SDiveGear extends ArmorItem
 	
 	public SDiveGear(ArmorMaterial mat, EquipmentSlot equipSlot) 
 	{
-		super(mat, equipSlot, new Item.Properties().tab(Main.DIVE_GEAR_TAB).stacksTo(1));
+		super(mat, equipSlot, new Item.Properties().stacksTo(1));
 	}
 		
 	@Override
@@ -107,32 +105,12 @@ public class SDiveGear extends ArmorItem
 			
 			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
-			ItemStack head = armorSlots.get(3),
-					  chest = armorSlots.get(2),
-					  feet = armorSlots.get(0);
+			ItemStack head = armorSlots.get(3);
 			
 			// If just headlamp helmet, add night vision
 			if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem()) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
 			{
 				player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2, 0, false, false));
-			}
-			
-			// If the chest is on, grant aqua affinity
-			if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
-			{
-				if(EnchantmentHelper.getEnchantments(chest).get(Enchantments.AQUA_AFFINITY) == null)
-				{
-					chest.enchant(Enchantments.AQUA_AFFINITY, 1);
-				}
-			}
-			
-			// If boots are on, grant depth strider
-			if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
-			{
-				if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
-				{
-					feet.enchant(Enchantments.DEPTH_STRIDER, 1);
-				}
 			}
 		}
 	}
@@ -146,24 +124,6 @@ public class SDiveGear extends ArmorItem
 			
 		}
 		
-		// If either helmet is on, grant respiration
-		if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET.get().asItem()) || head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem())))
-		{
-			if(EnchantmentHelper.getEnchantments(head).get(Enchantments.RESPIRATION) == null)
-			{
-				head.enchant(Enchantments.RESPIRATION, 1);
-			}
-		}
-		
-		// If the chest is on, grant aqua affinity
-		if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
-		{
-			if(EnchantmentHelper.getEnchantments(chest).get(Enchantments.AQUA_AFFINITY) == null)
-			{
-				chest.enchant(Enchantments.AQUA_AFFINITY, 1);
-			}
-		}
-		
 		// If either helmet, and the chest is on, and you're underwater, grant water breathing
 		if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET.get().asItem()) || 
 		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem())) && 
@@ -173,15 +133,6 @@ public class SDiveGear extends ArmorItem
 			if(chest.getDamageValue() < (chest.getMaxDamage() - 40))
 			{
 				player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 2, 0, false, false));
-			}
-		}
-		
-		// If boots are on, grant depth strider
-		if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
-		{
-			if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
-			{
-				feet.enchant(Enchantments.DEPTH_STRIDER, 1);
 			}
 		}
 		
@@ -204,23 +155,7 @@ public class SDiveGear extends ArmorItem
 	}
 	
 	public void removeChanges(Level world, Player player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
-	{
-		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET.get().asItem())||
-		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem())) 
-		{
-			removeEnchantments(head);
-		}
-				
-		if(chest != null && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
-		{
-			removeEnchantments(chest);
-		}
-		
-		if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
-		{
-			removeEnchantments(feet);
-		}
-		
+	{		
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET.get().asItem()) ||
 		   head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem()) ||
 		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem()) ||
@@ -246,7 +181,7 @@ public class SDiveGear extends ArmorItem
 	{
 		if(ConfigurationManager.GENERAL.consumeAir.get() && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
 		{
-			// By fdefault we refill with air twice as fast as it loses it 
+			// By default we refill with air twice as fast as it loses it 
 			// (E.G. If you get 1 full minute of air, it takes 30 full seconds to refill)
 			// But we allow up to 4 times faster
 			if(chest.getDamageValue() < chest.getMaxDamage()) 
@@ -308,13 +243,11 @@ public class SDiveGear extends ArmorItem
 	}
 	
 	// Was named onUpdate in previous versions, is now inventoryTick
-	@SuppressWarnings("unused")
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int itemSlot, boolean isSelected) 
 	{
 		Player player = (Player) entity;
 		Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
-		removeEnchantments(stack);
 		
 		repairArmor(player.getInventory().armor);
 		
@@ -334,9 +267,7 @@ public class SDiveGear extends ArmorItem
 		{
 			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
-			ItemStack head = armorSlots.get(3),
-					  chest = armorSlots.get(2),
-					  legs = armorSlots.get(1),
+			ItemStack legs = armorSlots.get(1),
 					  feet = armorSlots.get(0);
 			
 			if(legs != null && !legs.getItem().equals(SArmor.DIVE_LEGS.get().asItem()) ||
@@ -356,36 +287,27 @@ public class SDiveGear extends ArmorItem
 	}
 	
 	@Override
-	public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) 
+	public void onCraftedBy(ItemStack item, Level level, Player player) 
 	{
-		removeEnchantments(entity.getItem());
-		return false;
-	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void removeEnchantments(ItemStack stack) 
-	{
-		Map enchants = EnchantmentHelper.getEnchantments(stack);
-		
-		if(stack != null) 
+		// Add the enchantments here instead of only when armor is worn
+		if(item.getItem().equals(SArmor.DIVE_HELMET.get().asItem()) || item.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem())) 
 		{
-			if(enchants.get(Enchantments.RESPIRATION) != null)
-			{
-				enchants.remove(Enchantments.RESPIRATION);
-				EnchantmentHelper.setEnchantments(enchants, stack);
-			}
-			
-			if(enchants.get(Enchantments.AQUA_AFFINITY) != null)
-			{
-				enchants.remove(Enchantments.AQUA_AFFINITY);
-				EnchantmentHelper.setEnchantments(enchants, stack);
-			}
-			
-			if(enchants.get(Enchantments.DEPTH_STRIDER) != null)
-			{
-				enchants.remove(Enchantments.DEPTH_STRIDER);
-				EnchantmentHelper.setEnchantments(enchants, stack);
-			}
+			item.enchant(Enchantments.RESPIRATION, 1);
+		}
+		
+		if(item.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
+		{
+			item.enchant(Enchantments.AQUA_AFFINITY, 1);
+		}
+		
+		if(item.getItem().equals(SArmor.DIVE_LEGS.get().asItem())) 
+		{
+			item.enchant(Enchantments.SWIFT_SNEAK, 1);
+		}
+		
+		if(item.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
+		{
+			item.enchant(Enchantments.DEPTH_STRIDER, 1);
 		}
 	}
 	
@@ -409,9 +331,50 @@ public class SDiveGear extends ArmorItem
 	}
 	
 	@Override
+	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) 
+	{
+		ItemStack stack = new ItemStack(this);
+		
+		if(stack.getItem().equals(SArmor.DIVE_HELMET.get().asItem()) || stack.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem())) 
+		{
+			stack.enchant(Enchantments.RESPIRATION, 1);
+		}
+		
+		if(stack.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
+		{
+			stack.enchant(Enchantments.AQUA_AFFINITY, 1);
+		}
+		
+		if(stack.getItem().equals(SArmor.DIVE_LEGS.get().asItem())) 
+		{
+			stack.enchant(Enchantments.SWIFT_SNEAK, 1);
+		}
+		
+		if(stack.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
+		{
+			stack.enchant(Enchantments.DEPTH_STRIDER, 1);
+		}
+		
+		items.add(stack);
+
+		super.fillItemCategory(tab, items);
+	}
+	
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) 
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean isBookEnchantable(ItemStack stack, ItemStack book) 
+	{
+		return false;
+	}
+	
+	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) 
 	{
-		// Have to return the exact path to the armor, just passing standard resource location won't work
 		return Reference.RESOURCEID + "textures/models/armor/divegear" + (slot == EquipmentSlot.LEGS ? "_layer_2" : "_layer_1") + ".png";
 	}
 	

@@ -1,10 +1,8 @@
 package com.gmail.rohzek.dive.armor;
 
 import java.util.List;
-import java.util.Map;
 
 import com.gmail.rohzek.dive.lib.Reference;
-import com.gmail.rohzek.dive.main.Main;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 
@@ -16,14 +14,14 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -37,7 +35,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
 	public SNetherDiveGear(ArmorMaterial mat, EquipmentSlot equipSlot) 
 	{
-		super(mat, equipSlot, new Item.Properties().tab(Main.DIVE_GEAR_TAB).stacksTo(1));
+		super(mat, equipSlot, new Item.Properties().stacksTo(1));
 	}
 	
 	@Override
@@ -123,15 +121,6 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 			player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2, 0, false, false));
 		}
 		
-		// If boots are on, grant depth strider
-		if(feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
-		{
-			if(EnchantmentHelper.getEnchantments(feet).get(Enchantments.DEPTH_STRIDER) == null)
-			{
-				feet.enchant(Enchantments.DEPTH_STRIDER, 1);
-			}
-		}
-		
 		// If the boots and pants are on, grant easy movement through 'flying'
 		if(legs != null && legs.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem()) && 
 		   feet != null && feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem()))
@@ -163,11 +152,6 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
 	private void removeChanges(Level world, Player player, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) 
 	{
-		if(feet != null && feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
-		{
-			removeEnchantments(feet);
-		}
-		
 		if(head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET.get().asItem()) ||
 		   head != null && head.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem()) ||
 		   chest != null && chest.getItem().equals(SArmor.NETHER_DIVE_CHEST.get().asItem()) ||
@@ -251,13 +235,11 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	}
 	
 	// Was named onUpdate in previous versions, is now inventoryTick
-	@SuppressWarnings("unused")
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int itemSlot, boolean isSelected) 
 	{
 		Player player = (Player) entity;
 		Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
-		removeEnchantments(stack);
 		
 		repairArmor(player.getInventory().armor);
 		
@@ -277,9 +259,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		{
 			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
-			ItemStack head = armorSlots.get(3),
-					  chest = armorSlots.get(2),
-					  legs = armorSlots.get(1),
+			ItemStack legs = armorSlots.get(1),
 					  feet = armorSlots.get(0);
 			
 			if(legs != null && !legs.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem()) ||
@@ -299,28 +279,6 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	}
 	
 	@Override
-	public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) 
-	{
-		removeEnchantments(entity.getItem());
-		return false;
-	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void removeEnchantments(ItemStack stack) 
-	{
-		Map enchants = EnchantmentHelper.getEnchantments(stack);
-		
-		if(stack != null) 
-		{
-			if(enchants.get(Enchantments.DEPTH_STRIDER) != null)
-			{
-				enchants.remove(Enchantments.DEPTH_STRIDER);
-				EnchantmentHelper.setEnchantments(enchants, stack);
-			}
-		}
-	}
-	
-	@Override
 	public boolean isRepairable(ItemStack stack) 
 	{
 		return false;
@@ -333,6 +291,31 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	}
 	
 	@Override
+	public void onCraftedBy(ItemStack item, Level level, Player player) 
+	{
+		// Add the enchantments here instead of only when armor is worn
+		if(item.getItem().equals(SArmor.NETHER_DIVE_HELMET.get().asItem()) || item.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem())) 
+		{
+			item.enchant(Enchantments.FIRE_PROTECTION, 1);
+		}
+		
+		if(item.getItem().equals(SArmor.NETHER_DIVE_CHEST.get().asItem())) 
+		{
+			item.enchant(Enchantments.FIRE_PROTECTION, 1);
+		}
+		
+		if(item.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem())) 
+		{
+			item.enchant(Enchantments.FIRE_PROTECTION, 1);
+		}
+		
+		if(item.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
+		{
+			item.enchant(Enchantments.FIRE_PROTECTION, 1);
+		}
+	}
+	
+	@Override
 	@OnlyIn(Dist.CLIENT)
 	public boolean isFoil(ItemStack stack) 
 	{
@@ -340,9 +323,50 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	}
 	
 	@Override
+	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) 
+	{
+		ItemStack stack = new ItemStack(this);
+		
+		if(stack.getItem().equals(SArmor.NETHER_DIVE_HELMET.get().asItem()) || stack.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem())) 
+		{
+			stack.enchant(Enchantments.FIRE_PROTECTION, 1);
+		}
+		
+		if(stack.getItem().equals(SArmor.NETHER_DIVE_CHEST.get().asItem())) 
+		{
+			stack.enchant(Enchantments.FIRE_PROTECTION, 1);
+		}
+		
+		if(stack.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem())) 
+		{
+			stack.enchant(Enchantments.FIRE_PROTECTION, 1);
+		}
+		
+		if(stack.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
+		{
+			stack.enchant(Enchantments.FIRE_PROTECTION, 1);
+		}
+		
+		items.add(stack);
+
+		super.fillItemCategory(tab, items);
+	}
+	
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) 
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean isBookEnchantable(ItemStack stack, ItemStack book) 
+	{
+		return false;
+	}
+	
+	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) 
 	{
-		// Have to return the exact path to the armor, just passing standard resource location won't work
 		return Reference.RESOURCEID + "textures/models/armor/netherdivegear" + (slot == EquipmentSlot.LEGS ? "_layer_2" : "_layer_1") + ".png";
 	}
 	

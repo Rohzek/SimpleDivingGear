@@ -50,7 +50,7 @@ public class RemoveLavaView
 
 							// See if we can fine tune by going into the nether
 							RenderSystem.setShaderFogStart(0.0F);
-							RenderSystem.setShaderFogEnd(50F);
+							RenderSystem.setShaderFogEnd(80F);
 						}
 					}
 				}
