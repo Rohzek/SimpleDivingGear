@@ -3,6 +3,7 @@ package com.gmail.rohzek.dive.armor;
 import java.util.List;
 
 import com.gmail.rohzek.dive.lib.Reference;
+import com.gmail.rohzek.dive.main.Main;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 
@@ -325,31 +326,35 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	@Override
 	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) 
 	{
-		ItemStack stack = new ItemStack(this);
 		
-		if(stack.getItem().equals(SArmor.NETHER_DIVE_HELMET.get().asItem()) || stack.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem())) 
+		if(tab.getId() == Main.DIVE_GEAR_TAB.getId()) 
 		{
-			stack.enchant(Enchantments.FIRE_PROTECTION, 1);
-		}
-		
-		if(stack.getItem().equals(SArmor.NETHER_DIVE_CHEST.get().asItem())) 
-		{
-			stack.enchant(Enchantments.FIRE_PROTECTION, 1);
-		}
-		
-		if(stack.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem())) 
-		{
-			stack.enchant(Enchantments.FIRE_PROTECTION, 1);
-		}
-		
-		if(stack.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
-		{
-			stack.enchant(Enchantments.FIRE_PROTECTION, 1);
-		}
-		
-		items.add(stack);
+			ItemStack stack = new ItemStack(this);
+			
+			if(stack.getItem().equals(SArmor.NETHER_DIVE_HELMET.get().asItem()) || stack.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem())) 
+			{
+				stack.enchant(Enchantments.FIRE_PROTECTION, 1);
+			}
+			
+			if(stack.getItem().equals(SArmor.NETHER_DIVE_CHEST.get().asItem())) 
+			{
+				stack.enchant(Enchantments.FIRE_PROTECTION, 1);
+			}
+			
+			if(stack.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem())) 
+			{
+				stack.enchant(Enchantments.FIRE_PROTECTION, 1);
+			}
+			
+			if(stack.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
+			{
+				stack.enchant(Enchantments.FIRE_PROTECTION, 1);
+			}
+			
+			items.add(stack);
 
-		super.fillItemCategory(tab, items);
+			super.fillItemCategory(tab, items);
+		}
 	}
 	
 	@Override
