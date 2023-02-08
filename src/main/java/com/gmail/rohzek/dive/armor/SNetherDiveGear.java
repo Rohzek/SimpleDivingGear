@@ -253,27 +253,28 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		else if(player.isInLava() && above != Blocks.LAVA)
 		{
 			repairTank(stack, player);
-		}
-		
-		// Remove the ability to still fly, if the armor is removed underwater
-		if(!player.isCreative() && !player.isSpectator() && player.getAbilities().flying) 
-		{
-			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
-			ItemStack legs = armorSlots.get(1),
-					  feet = armorSlots.get(0);
-			
-			if(legs != null && !legs.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem()) ||
-			   feet != null && !feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
+			// Part of Issue #25 fixes
+			// Remove the ability to still fly, if the armor is removed under lava
+			if(!player.isCreative() && !player.isSpectator() && player.getAbilities().flying) 
 			{
-				if(world.isClientSide) 
-				{
-					player.getAbilities().setFlyingSpeed(oldFlySpeed);
-				}
+				NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 				
-				if(!player.isSpectator() && !player.isCreative()) 
+				ItemStack legs = armorSlots.get(1),
+						  feet = armorSlots.get(0);
+				
+				if(legs != null && !legs.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem()) ||
+				   feet != null && !feet.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
 				{
-					player.getAbilities().flying = false;
+					if(world.isClientSide) 
+					{
+						player.getAbilities().setFlyingSpeed(oldFlySpeed);
+					}
+					
+					if(!player.isSpectator() && !player.isCreative()) 
+					{
+						player.getAbilities().flying = false;
+					}
 				}
 			}
 		}

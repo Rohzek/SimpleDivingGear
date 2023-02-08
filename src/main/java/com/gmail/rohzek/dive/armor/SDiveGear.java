@@ -261,27 +261,28 @@ public class SDiveGear extends ArmorItem
 		else if(player.isInWater() && above != Blocks.WATER)
 		{
 			repairTank(stack, player);
-		}
-		
-		// Remove the ability to still fly, if the armor is removed underwater
-		if(!player.isCreative() && !player.isSpectator() && player.getAbilities().flying) 
-		{
-			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
-			ItemStack legs = armorSlots.get(1),
-					  feet = armorSlots.get(0);
-			
-			if(legs != null && !legs.getItem().equals(SArmor.DIVE_LEGS.get().asItem()) ||
-			   feet != null && !feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
+			// This should theoretically fix issue #25, at least outside of water
+			// Remove the ability to still fly, if the armor is removed underwater
+			if(!player.isCreative() && !player.isSpectator() && player.getAbilities().flying) 
 			{
-				if(world.isClientSide) 
-				{
-					player.getAbilities().setFlyingSpeed(oldFlySpeed);
-				}
+				NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 				
-				if(!player.isSpectator() && !player.isCreative()) 
+				ItemStack legs = armorSlots.get(1),
+						  feet = armorSlots.get(0);
+				
+				if(legs != null && !legs.getItem().equals(SArmor.DIVE_LEGS.get().asItem()) ||
+				   feet != null && !feet.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
 				{
-					player.getAbilities().flying = false;
+					if(world.isClientSide) 
+					{
+						player.getAbilities().setFlyingSpeed(oldFlySpeed);
+					}
+					
+					if(!player.isSpectator() && !player.isCreative()) 
+					{
+						player.getAbilities().flying = false;
+					}
 				}
 			}
 		}
