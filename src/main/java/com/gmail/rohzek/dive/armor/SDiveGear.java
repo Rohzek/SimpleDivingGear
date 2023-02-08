@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.gmail.rohzek.dive.lib.Reference;
-import com.gmail.rohzek.dive.main.Main;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 
@@ -20,7 +19,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -330,39 +328,6 @@ public class SDiveGear extends ArmorItem
 	public boolean isFoil(ItemStack stack) 
 	{
 		return false;
-	}
-	
-	@Override
-	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) 
-	{
-		if(tab.getId() == Main.DIVE_GEAR_TAB.getId()) 
-		{
-			ItemStack stack = new ItemStack(this);
-			
-			if(stack.getItem().equals(SArmor.DIVE_HELMET.get().asItem()) || stack.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem())) 
-			{
-				stack.enchant(Enchantments.RESPIRATION, 1);
-			}
-			
-			if(stack.getItem().equals(SArmor.DIVE_CHEST.get().asItem())) 
-			{
-				stack.enchant(Enchantments.AQUA_AFFINITY, 1);
-			}
-			
-			if(stack.getItem().equals(SArmor.DIVE_LEGS.get().asItem())) 
-			{
-				stack.enchant(Enchantments.SWIFT_SNEAK, 1);
-			}
-			
-			if(stack.getItem().equals(SArmor.DIVE_BOOTS.get().asItem())) 
-			{
-				stack.enchant(Enchantments.DEPTH_STRIDER, 1);
-			}
-			
-			items.add(stack);
-
-			super.fillItemCategory(tab, items);
-		}
 	}
 	
 	@Override

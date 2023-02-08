@@ -3,7 +3,6 @@ package com.gmail.rohzek.dive.armor;
 import java.util.List;
 
 import com.gmail.rohzek.dive.lib.Reference;
-import com.gmail.rohzek.dive.main.Main;
 import com.gmail.rohzek.dive.util.ConfigurationManager;
 import com.gmail.rohzek.dive.util.LogHelper;
 
@@ -18,7 +17,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -325,37 +323,9 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	}
 	
 	@Override
-	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) 
+	public boolean isFireResistant() 
 	{
-		
-		if(tab.getId() == Main.DIVE_GEAR_TAB.getId()) 
-		{
-			ItemStack stack = new ItemStack(this);
-			
-			if(stack.getItem().equals(SArmor.NETHER_DIVE_HELMET.get().asItem()) || stack.getItem().equals(SArmor.NETHER_DIVE_HELMET_LIGHTS.get().asItem())) 
-			{
-				stack.enchant(Enchantments.FIRE_PROTECTION, 1);
-			}
-			
-			if(stack.getItem().equals(SArmor.NETHER_DIVE_CHEST.get().asItem())) 
-			{
-				stack.enchant(Enchantments.FIRE_PROTECTION, 1);
-			}
-			
-			if(stack.getItem().equals(SArmor.NETHER_DIVE_LEGS.get().asItem())) 
-			{
-				stack.enchant(Enchantments.FIRE_PROTECTION, 1);
-			}
-			
-			if(stack.getItem().equals(SArmor.NETHER_DIVE_BOOTS.get().asItem())) 
-			{
-				stack.enchant(Enchantments.FIRE_PROTECTION, 1);
-			}
-			
-			items.add(stack);
-
-			super.fillItemCategory(tab, items);
-		}
+		return true;
 	}
 	
 	@Override

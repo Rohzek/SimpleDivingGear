@@ -1,11 +1,11 @@
 {
-	"itemGroup.diveGearTab": "Simple Dive Gear",
-	"item.simpledivegear.divehelmetcore": "Vitre de casque de plongée",
-	"item.simpledivegear.divehelmet": "Casque de plongée",
-	"item.simpledivegear.divehelmetlighted": "Casque de plongée (Lampe frontale)",
-	"item.simpledivegear.divechest": "Bouteille de plongée",
-	"item.simpledivegear.divelegs": "Pantalon de plongée",
+	"itemgroup.simpledivegear.divegeartab": "Simple Dive Gear",
+	"item.simpledivegear.divehelmetcore": "Vitre de casque de plongï¿½e",
+	"item.simpledivegear.divehelmet": "Casque de plongï¿½e",
+	"item.simpledivegear.divehelmetlighted": "Casque de plongï¿½e (Lampe frontale)",
+	"item.simpledivegear.divechest": "Bouteille de plongï¿½e",
+	"item.simpledivegear.divelegs": "Pantalon de plongï¿½e",
 	"item.simpledivegear.diveboots": "Palmes",
 	"display.simpledivegear.airleft": "Air restant",
-	"display.simpledivegear.airempty": "Bouteille de plongée vide"
+	"display.simpledivegear.airempty": "Bouteille de plongï¿½e vide"
 }
