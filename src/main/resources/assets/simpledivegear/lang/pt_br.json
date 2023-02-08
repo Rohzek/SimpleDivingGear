@@ -1,8 +1,8 @@
 {
-	"itemGroup.diveGearTab": "Simple Dive Gear",
+	"itemgroup.simpledivegear.divegeartab": "Simple Dive Gear",
 	"item.simpledivegear.divehelmet": "Capacete de mergulho",
 	"item.simpledivegear.divehelmetlighted": "Capacete de mergulho (farol)",
 	"item.simpledivegear.divechest": "Cilindro de mergulho",
-	"item.simpledivegear.divelegs": "Calças de mergulho",
-	"item.simpledivegear.diveboots": "Pés de pato"
+	"item.simpledivegear.divelegs": "Calï¿½as de mergulho",
+	"item.simpledivegear.diveboots": "Pï¿½s de pato"
 }

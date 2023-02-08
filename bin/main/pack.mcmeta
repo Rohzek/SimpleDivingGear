@@ -1,7 +1,6 @@
 {
     "pack": {
-        "description": "A simple mod for adding diving gear",
-        "pack_format": 4,
-        "_comment": "No comment."
+        "description": "A simple mod that adds simple diving gear",
+        "pack_format": 12
     }
 }

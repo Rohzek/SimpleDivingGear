@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
     "textures": {
-        "layer0": "simpledivegear:items/netherdivelegs"
+        "layer0": "simpledivegear:item/netherdivelegs"
     }
 }
