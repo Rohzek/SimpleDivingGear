@@ -2,7 +2,7 @@ package com.gmail.rohzek.dive.armor;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem.Type;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -34,20 +34,21 @@ public enum DiveArmorMaterial implements ArmorMaterial
 		this.maxDamageFactor = maxDamageFactor;
 		this.damageReductionAmountArray = damageReductionAmountArray;
 		this.enchantability = enchantability;
+		this.soundEvent = soundEvent; // This broke the entirety of the armor!
 		this.toughness = toughness;
 		this.repairMaterial = ingredient;
 	}
 	
 	@Override
-	public int getDurabilityForSlot(EquipmentSlot slotIn) 
+	public int getDurabilityForType(Type type) 
 	{
-		return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
+		return MAX_DAMAGE_ARRAY[type.getSlot().getIndex()] * this.maxDamageFactor;
 	}
-
+	
 	@Override
-	public int getDefenseForSlot(EquipmentSlot slotIn) 
+	public int getDefenseForType(Type type) 
 	{
-		return this.damageReductionAmountArray[slotIn.getIndex()];
+		return this.damageReductionAmountArray[type.getSlot().getIndex()];
 	}
 
 	@Override

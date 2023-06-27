@@ -34,7 +34,7 @@ public class SDiveGear extends ArmorItem
 {
 	float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
-	public SDiveGear(ArmorMaterial mat, EquipmentSlot equipSlot) 
+	public SDiveGear(ArmorMaterial mat, Type equipSlot) 
 	{
 		super(mat, equipSlot, new Item.Properties().stacksTo(1));
 	}
@@ -58,7 +58,7 @@ public class SDiveGear extends ArmorItem
 		
 		if(!player.isCreative() && !player.isSpectator()) 
 		{
-			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
+			Block above = world.getBlockState(new BlockPos((int)player.getX(), (int)player.getY() + 1, (int)player.getZ())).getBlock();
 			
 			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
@@ -73,7 +73,7 @@ public class SDiveGear extends ArmorItem
 				addChanges(world, player, head, chest, legs, feet, above);
 				
 				// Just standing in water shouldn't use air, only being underwater
-				if(above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT)
+				if(above != Blocks.AIR)
 				{
 					// Only damage the tank if we're consuming air, which we can only do with a helmet and the chest piece
 					if((head.getItem() == SArmor.DIVE_HELMET.get().asItem() || head.getItem() == SArmor.DIVE_HELMET_LIGHTS.get().asItem()) && chest.getItem() == SArmor.DIVE_CHEST.get().asItem()) 
@@ -97,17 +97,17 @@ public class SDiveGear extends ArmorItem
 			}
 		}
 		
-		else if (player.isCreative() || player.isSpectator() && player.isInWater())
+		else if ((player.isCreative() || player.isSpectator()) && player.isInWater())
 		{
 			// Even in Creative mode
-			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
+			Block above = world.getBlockState(new BlockPos((int)player.getX(), (int)player.getY() + 1, (int)player.getZ())).getBlock();
 			
 			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
 			ItemStack head = armorSlots.get(3);
 			
 			// If just headlamp helmet, add night vision
-			if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem()) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
+			if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem()) && above != Blocks.AIR) 
 			{
 				player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2, 0, false, false));
 			}
@@ -119,11 +119,12 @@ public class SDiveGear extends ArmorItem
 		// If just headlamp helmet, add night vision
 		if(head != null && head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem()) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT) 
 		{
+			//                                     Effect, Duration, Amplifier, Ambient, Visible
 			player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2, 0, false, false));
 			
 		}
 		
-		// If either helmet, and the chest is on, and you're underwater, grant water breathing
+		// If the helmet and the chest is on, and you're underwater, grant water breathing
 		if(head != null && (head.getItem().equals(SArmor.DIVE_HELMET.get().asItem()) || 
 		   head.getItem().equals(SArmor.DIVE_HELMET_LIGHTS.get().asItem())) && 
 		   chest != null && chest.getItem().equals(SArmor.DIVE_CHEST.get().asItem()) && above == Blocks.WATER || above == Blocks.SEAGRASS || above == Blocks.TALL_SEAGRASS || above == Blocks.KELP || above == Blocks.KELP_PLANT &&
@@ -246,7 +247,7 @@ public class SDiveGear extends ArmorItem
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int itemSlot, boolean isSelected) 
 	{
 		Player player = (Player) entity;
-		Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
+		Block above = world.getBlockState(new BlockPos((int)player.getX(), (int)player.getY() + 1, (int)player.getZ())).getBlock();
 		
 		repairArmor(player.getInventory().armor);
 		

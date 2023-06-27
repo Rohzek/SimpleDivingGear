@@ -33,8 +33,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(Reference.MODID)
 public class Main 
 {
-	//public static final CreativeModeTab DIVE_GEAR_TAB = new STab();
-	
 	public Main() 
 	{
 		// Register the mod
@@ -89,22 +87,21 @@ public class Main
 		// Set icon of creative tab
 		.icon(() -> new ItemStack(DiveGearItems.DIVE_HELMET_CORE.get()))
 		// Add default items to tab
-		.displayItems((enabledFlags, populator, hasPermissions) -> 
+		.displayItems((params, output) -> 
 		{
+			output.accept(DiveGearItems.DIVE_HELMET_CORE.get());
 			
-			populator.accept(DiveGearItems.DIVE_HELMET_CORE.get());
+			output.accept(diveHelmet);
+			output.accept(diveHelmetLight);
+			output.accept(diveChest);
+			output.accept(diveLegs);
+			output.accept(diveBoots);
 			
-			populator.accept(diveHelmet);
-			populator.accept(diveHelmetLight);
-			populator.accept(diveChest);
-			populator.accept(diveLegs);
-			populator.accept(diveBoots);
-			
-			populator.accept(diveHelmetNether);
-			populator.accept(diveHelmetLightNether);
-			populator.accept(diveChestNether);
-			populator.accept(diveLegsNether);
-			populator.accept(diveBootsNether);
+			output.accept(diveHelmetNether);
+			output.accept(diveHelmetLightNether);
+			output.accept(diveChestNether);
+			output.accept(diveLegsNether);
+			output.accept(diveBootsNether);
 		}));
 	}
 	
@@ -124,7 +121,7 @@ public class Main
 
 				if (player.isInLava()) 
 				{
-					Block above = player.level .getBlockState(new BlockPos(player.getX(), player.getY() + 2, player.getZ())).getBlock();
+					Block above = player.level .getBlockState(new BlockPos((int)player.getX(), (int)player.getY() + 2, (int)player.getZ())).getBlock();
 
 					if (above == Blocks.LAVA) 
 					{
