@@ -11,17 +11,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.client.event.ViewportEvent;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -33,8 +29,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(Reference.MODID)
 public class Main 
 {
-	//public static final CreativeModeTab DIVE_GEAR_TAB = new STab();
-	
 	public Main() 
 	{
 		// Register the mod
@@ -57,57 +51,6 @@ public class Main
 		LogHelper.log("Hello Minecraft, how are you? Did you know that Tony loves Amy? " + TimeOutput.getTimeTogether());
 	}
 	
-	// Registered on the MOD event bus
-	@SubscribeEvent
-	public void buildContents(CreativeModeTabEvent.Register event) 
-	{
-		ItemStack diveHelmet = new ItemStack(SArmor.DIVE_HELMET.get());
-		diveHelmet.enchant(Enchantments.RESPIRATION, 1);
-		ItemStack diveHelmetLight = new ItemStack(SArmor.DIVE_HELMET_LIGHTS.get());
-		diveHelmetLight.enchant(Enchantments.RESPIRATION, 1);
-		ItemStack diveChest = new ItemStack(SArmor.DIVE_CHEST.get());
-		diveChest.enchant(Enchantments.AQUA_AFFINITY, 1);
-		ItemStack diveLegs = new ItemStack(SArmor.DIVE_LEGS.get());
-		diveLegs.enchant(Enchantments.SWIFT_SNEAK, 1);
-		ItemStack diveBoots = new ItemStack(SArmor.DIVE_BOOTS.get());
-		diveBoots.enchant(Enchantments.DEPTH_STRIDER, 1);
-		
-		ItemStack diveHelmetNether = new ItemStack(SArmor.NETHER_DIVE_HELMET.get());
-		diveHelmetNether.enchant(Enchantments.FIRE_PROTECTION, 1);
-		ItemStack diveHelmetLightNether = new ItemStack(SArmor.NETHER_DIVE_HELMET_LIGHTS.get());
-		diveHelmetLightNether.enchant(Enchantments.FIRE_PROTECTION, 1);
-		ItemStack diveChestNether = new ItemStack(SArmor.NETHER_DIVE_CHEST.get());
-		diveChestNether.enchant(Enchantments.FIRE_PROTECTION, 1);
-		ItemStack diveLegsNether = new ItemStack(SArmor.NETHER_DIVE_LEGS.get());
-		diveLegsNether.enchant(Enchantments.FIRE_PROTECTION, 1);
-		ItemStack diveBootsNether = new ItemStack(SArmor.NETHER_DIVE_BOOTS.get());
-		diveBootsNether.enchant(Enchantments.FIRE_PROTECTION, 1);
-		
-		event.registerCreativeModeTab(new ResourceLocation(Reference.MODID, "divegeartab"), builder ->
-		// Set name of tab to display
-		builder.title(Component.translatable("itemgroup." + Reference.MODID + ".divegeartab"))
-		// Set icon of creative tab
-		.icon(() -> new ItemStack(DiveGearItems.DIVE_HELMET_CORE.get()))
-		// Add default items to tab
-		.displayItems((enabledFlags, populator, hasPermissions) -> 
-		{
-			
-			populator.accept(DiveGearItems.DIVE_HELMET_CORE.get());
-			
-			populator.accept(diveHelmet);
-			populator.accept(diveHelmetLight);
-			populator.accept(diveChest);
-			populator.accept(diveLegs);
-			populator.accept(diveBoots);
-			
-			populator.accept(diveHelmetNether);
-			populator.accept(diveHelmetLightNether);
-			populator.accept(diveChestNether);
-			populator.accept(diveLegsNether);
-			populator.accept(diveBootsNether);
-		}));
-	}
-	
 	@SubscribeEvent
 	public static void removeLavaView(ViewportEvent.RenderFog event)
 	{
@@ -124,7 +67,7 @@ public class Main
 
 				if (player.isInLava()) 
 				{
-					Block above = player.level .getBlockState(new BlockPos(player.getX(), player.getY() + 2, player.getZ())).getBlock();
+					Block above = player.level().getBlockState(new BlockPos((int)player.getX(), (int)player.getY() + 2, (int)player.getZ())).getBlock();
 
 					if (above == Blocks.LAVA) 
 					{

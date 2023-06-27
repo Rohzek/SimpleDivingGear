@@ -32,7 +32,7 @@ public class SNetherDiveGear extends ArmorItem
 {
 float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	
-	public SNetherDiveGear(ArmorMaterial mat, EquipmentSlot equipSlot) 
+	public SNetherDiveGear(ArmorMaterial mat, Type equipSlot) 
 	{
 		super(mat, equipSlot, new Item.Properties().stacksTo(1));
 	}
@@ -56,7 +56,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		
 		if(!player.isCreative() && !player.isSpectator()) 
 		{
-			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
+			Block above = world.getBlockState(new BlockPos((int)player.getX(), (int)player.getY() + 1, (int)player.getZ())).getBlock();
 			
 			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 			
@@ -100,7 +100,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 		else if(player.isCreative() || player.isSpectator() && player.isInLava())
 		{
 			// Even in Creative mode
-			Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();			
+			Block above = world.getBlockState(new BlockPos((int)player.getX(), (int)player.getY() + 1, (int)player.getZ())).getBlock();			
 			
 			NonNullList<ItemStack> armorSlots = player.getInventory().armor;
 						
@@ -238,7 +238,7 @@ float oldFlySpeed = -1f, newFlySpeed = 0.03f;
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int itemSlot, boolean isSelected) 
 	{
 		Player player = (Player) entity;
-		Block above = world.getBlockState(new BlockPos(player.getX(), player.getY() + 1, player.getZ())).getBlock();
+		Block above = world.getBlockState(new BlockPos((int)player.getX(), (int)player.getY() + 1, (int)player.getZ())).getBlock();
 		
 		repairArmor(player.getInventory().armor);
 		

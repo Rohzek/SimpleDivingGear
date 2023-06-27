@@ -1,8 +1,23 @@
 {
-	"itemgroup.simpledivegear.divegeartab": "Simple Dive Gear",
-	"item.simpledivegear.divehelmet": "Capacete de mergulho",
-	"item.simpledivegear.divehelmetlighted": "Capacete de mergulho (farol)",
-	"item.simpledivegear.divechest": "Cilindro de mergulho",
-	"item.simpledivegear.divelegs": "Cal�as de mergulho",
-	"item.simpledivegear.diveboots": "P�s de pato"
+	"itemgroup.simpledivegear.divegeartab": "Equipamento de Mergulho Simples",
+	
+	"item.simpledivegear.divehelmetcore": "Núcleo do Capacete de Mergulho",
+	"item.simpledivegear.divehelmet": "Capacete de Mergulho",
+	"item.simpledivegear.divehelmetlighted": "Capacete de Mergulho (com Lanterna)",
+	"item.simpledivegear.divechest": "Tanque de Ar",
+	"item.simpledivegear.divelegs": "Calças de Mergulho",
+	"item.simpledivegear.diveboots": "Pés de Pato",
+	
+	"item.simpledivegear.netherdivehelmet": "Capacete de Mergulho em Lava",
+	"item.simpledivegear.netherdivehelmetlighted": "Capacete de Mergulho em Lava (com Lanterna)",
+	"item.simpledivegear.netherdivechest": "Tanque Refrigerante para Lava",
+	"item.simpledivegear.netherdivelegs": "Calças de Mergulho em Lava",
+	"item.simpledivegear.netherdiveboots": "Pés de Pato para Lava",
+	
+	
+	"display.simpledivegear.airleft": "Ar Restante",
+	"display.simpledivegear.airempty": "Tanque de Ar Vazio",
+	
+	"display.simpledivegear.coolantleft": "Refrigerante Restante",
+	"display.simpledivegear.coolantempty": "Tanque Refrigerante Vazio"
 }
