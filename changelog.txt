@@ -1,4 +1,29 @@
 1.20.x Changelog
+47.0
+====
+ - 47.0.19 Another tweak to the early display. We start a timer process while we create the window, in case it hangs. Also add a skip version config, to try and help in cases where the driver is stupid. (#9595)
+ - 47.0.18 Auto generate names for modded loot pools. Fixes #9589 (#9591)
+ - 47.0.17 More tweaks to the mod loading callbacks to make loading bars work better (#9585)
+ - 47.0.16 Reimplement LootPool name patches and hooks (#9573)
+ - 47.0.15 Fix experimental lighting pipeline breaking vanilla's emissive rendering. Closes #9552 (#9582)
+ - 47.0.14 Update early loading default configs to match standard expectations. (#9577)
+           Also allow a global override env variable for darkmode always. "FML_EARLY_WINDOW_DARK"
+ - 47.0.13 Add proper duplicate mod error message that includes the mod id(s) and mod files. (#9474)
+ - 47.0.12 Add missing stack tooltip rendering hooks (#9533)
+           Fix automatic tooltip wrapping discarding empty lines used as spacers
+ - 47.0.11 Add piston push reaction overrides to Block class (#9538)
+ - 47.0.10 Fix missing calls to level-sensitive block SoundType getter (#9553)
+ - 47.0.9  Fix forge registries that have wrappers/support tags not being in the HolderLookup Provider that is provided to the GatherDataEvent (#9566)
+ - 47.0.8  Make IItemDecorator a functional interface again. Fixes #9563 (#9574)
+ - 47.0.7  Make 1.20.x the main TC branch.
+ - 47.0.6  Fix custom geometry in parent models not being resolved (#9572)
+ - 47.0.5  Make the scheduled thread factory setDaemon on it's threads. Should allow things to close properly if something deadly happens early on. (#9575)
+ - 47.0.4  This is an early display window system for forge. (#9558)
+ - 47.0.3  fix the JIJ break by bumping SJH. apologies.
+ - 47.0.2  update libs (#9565)
+ - 47.0.1  Update Armor Layer Implementation to Match Vanilla (#9547)
+ - 47.0.0  1.20.1 Update
+
 46.0
 ====
  - 46.0.14 Fix JAR compatibility checks for 1.20 (#9556)
