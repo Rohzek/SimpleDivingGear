@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "simpledivegear:divehelmetcore"
+    },
+    "X": {
+      "tag": "c:glass_blocks/tinted"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "XCX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpledivegear:divehelmet"
+  }
+}

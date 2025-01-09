@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "tag": "c:obsidians"
+    },
+    "D": {
+      "tag": "c:dyes/orange"
+    },
+    "X": {
+      "tag": "c:leathers"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "XBX",
+    "XDX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpledivegear:divelegs"
+  }
+}

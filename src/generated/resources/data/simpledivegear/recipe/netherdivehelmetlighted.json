@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": {
+      "tag": "c:dusts/glowstone"
+    },
+    "P": {
+      "tag": "c:dusts/redstone"
+    },
+    "X": {
+      "item": "simpledivegear:netherdivehelmet"
+    }
+  },
+  "pattern": [
+    "L",
+    "X",
+    "P"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpledivegear:netherdivehelmetlighted"
+  }
+}

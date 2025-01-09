@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "simpledivegear:divehelmetcore"
+    },
+    "X": {
+      "item": "minecraft:netherite_scrap"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "XCX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpledivegear:netherdivehelmet"
+  }
+}
