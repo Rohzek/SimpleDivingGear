@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "D": {
+      "tag": "c:dyes/red"
+    },
+    "X": {
+      "tag": "c:leathers"
+    }
+  },
+  "pattern": [
+    "XBX",
+    "XDX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpledivegear:netherdiveboots"
+  }
+}

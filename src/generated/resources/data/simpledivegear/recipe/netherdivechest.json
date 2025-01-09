@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "X": {
+      "tag": "c:ingots/iron"
+    }
+  },
+  "pattern": [
+    "XBX",
+    "B B",
+    "XBX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpledivegear:netherdivechest"
+  }
+}
