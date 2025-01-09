@@ -1,8 +1,0 @@
-{
-    "parent": "block/orientable",
-    "textures": {
-        "top": "simpledivegear:block/dark",
-        "front": "simpledivegear:block/clear",
-        "side": "simpledivegear:block/dark"
-    }
-}

@@ -1,21 +1,10 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "equipment",
-  "key": {
-    "L": {
-      "tag": "c:dusts/glowstone"
-    },
-    "P": {
-      "tag": "c:dusts/redstone"
-    },
-    "X": {
-      "item": "simpledivegear:divehelmet"
-    }
-  },
-  "pattern": [
-    "L",
-    "X",
-    "P"
+  "ingredients": [
+    "#c:dusts/glowstone",
+    "simpledivegear:divehelmet",
+    "#c:dusts/redstone"
   ],
   "result": {
     "count": 1,

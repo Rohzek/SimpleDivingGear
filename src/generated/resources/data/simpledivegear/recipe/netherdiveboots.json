@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": {
-      "item": "minecraft:netherite_scrap"
-    },
-    "D": {
-      "tag": "c:dyes/red"
-    },
-    "X": {
-      "tag": "c:leathers"
-    }
+    "B": "minecraft:netherite_scrap",
+    "D": "#c:dyes/red",
+    "X": "#c:leathers"
   },
   "pattern": [
     "XBX",

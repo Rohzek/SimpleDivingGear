@@ -1,6 +1,6 @@
 {
-    "parent": "item/handheld",
-    "textures": {
-        "layer0": "simpledivegear:item/diveboots"
-    }
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simpledivegear:item/diveboots"
+  }
 }

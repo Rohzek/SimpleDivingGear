@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": {
-      "item": "minecraft:netherite_scrap"
-    },
-    "X": {
-      "tag": "c:ingots/iron"
-    }
+    "B": "minecraft:netherite_scrap",
+    "X": "#c:ingots/iron"
   },
   "pattern": [
     "XBX",

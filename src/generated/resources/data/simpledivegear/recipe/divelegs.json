@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": {
-      "tag": "c:obsidians"
-    },
-    "D": {
-      "tag": "c:dyes/orange"
-    },
-    "X": {
-      "tag": "c:leathers"
-    }
+    "B": "#c:obsidians",
+    "D": "#c:dyes/orange",
+    "X": "#c:leathers"
   },
   "pattern": [
     "XXX",

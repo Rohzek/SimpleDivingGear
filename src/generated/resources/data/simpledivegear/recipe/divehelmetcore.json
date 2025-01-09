@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "P": {
-      "tag": "c:glass_panes"
-    }
+    "P": "#c:glass_panes"
   },
   "pattern": [
     "PPP",

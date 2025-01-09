@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 
 public class DiveGearItems 
 {
-    public static final DeferredItem<Item> DIVE_HELMET_CORE = DeferredRegistration.ITEMS.register("divehelmetcore", () -> new DiveItem());
+    public static final DeferredItem<Item> DIVE_HELMET_CORE = DeferredRegistration.ITEMS.register("divehelmetcore", () -> new DiveItem("divehelmetcore"));
     
     public static void register() {}
 }
